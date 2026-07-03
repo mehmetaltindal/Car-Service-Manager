@@ -33,4 +33,5 @@ Install frontend dependencies, run `npm --prefix frontend run build`, run Docker
 - Repository initialized locally.
 - Active branch: `feature-initial-car-service-manager`.
 - Initial implementation commit: `241bf48` (`feat: implement car service manager foundation`).
-- Push is blocked until a Git remote is configured.
+- Remote configured: `git@github.com:mehmetaltindal/Car-Service-Manager.git`.
+- Push is blocked by GitHub authentication: HTTPS could not read username in this terminal, and SSH returned `Permission denied (publickey)`.

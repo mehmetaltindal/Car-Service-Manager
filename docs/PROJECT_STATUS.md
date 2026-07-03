@@ -30,6 +30,7 @@ Install frontend dependencies, run `npm --prefix frontend run build`, run Docker
 
 ## Git Status
 
-- Repository was not initialized at the time of implementation.
-- Target branch name for this work: `feature-initial-car-service-manager`.
+- Repository initialized locally.
+- Active branch: `feature-initial-car-service-manager`.
+- Initial implementation commit: `241bf48` (`feat: implement car service manager foundation`).
 - Push is blocked until a Git remote is configured.

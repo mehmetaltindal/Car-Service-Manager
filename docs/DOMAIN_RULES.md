@@ -1,47 +1,47 @@
-# Domain Rules
+# Domain Kuralları
 
-## License Plate
+## Plaka
 
-Use:
+Kullanılacak regex:
 
 ```regex
 ^[A-Z0-9][A-Z0-9 -]{1,15}[A-Z0-9]$
 ```
 
-Accepted characters are uppercase letters, digits, spaces, and hyphens. The first and last character must be a letter or digit.
+Kabul edilen karakterler büyük harf, rakam, boşluk ve tiredir. İlk ve son karakter harf veya rakam olmalıdır.
 
-Duplicate plate returns `409 Conflict`.
+Duplicate plaka durumunda `409 Conflict` döner.
 
-## Service Status
+## Servis Durumu
 
-Allowed transitions:
+Geçerli geçişler:
 
 - `PENDING -> IN_PROGRESS`
 - `IN_PROGRESS -> DONE`
 
-Rejected transitions:
+Reddedilen geçişler:
 
 - `PENDING -> DONE`
 - `IN_PROGRESS -> PENDING`
 - `DONE -> IN_PROGRESS`
-- same-state updates as status transitions.
+- Aynı status değerine yapılan status transition girişimleri.
 
-The only place that owns this rule is `ServiceStatusTransitionPolicy`.
+Bu kuralın tek sahibi `ServiceStatusTransitionPolicy` sınıfıdır.
 
 ## finishedAt
 
-`finishedAt` is set only when status becomes `DONE`.
+`finishedAt` yalnızca status `DONE` olduğunda set edilir.
 
-For `PENDING` and `IN_PROGRESS`, `finishedAt` must be `null`.
+`PENDING` ve `IN_PROGRESS` durumlarında `finishedAt` `null` olmalıdır.
 
-## Owner And Technical Profile
+## Araç Sahibi ve Teknik Profil
 
-`CarOwner` is required on car creation.
+`CarOwner`, araç oluşturma sırasında zorunludur.
 
-`CarTechnicalProfile` is optional and contains technician context, not car identity.
+`CarTechnicalProfile` opsiyoneldir ve araç kimliği değil, teknisyen context bilgisidir.
 
-## Operation Log vs Audit Log
+## Operation Log ve Audit Log
 
-Operation logs record command outcomes inside the service that executed the command. They include success, validation errors, conflicts, and failures.
+Operation log, komutu çalıştıran servis içinde command sonucunu kaydeder. Başarı, validation error, conflict ve failure durumlarını içerir.
 
-Audit logs record successful domain events consumed by `audit-service`.
+Audit log, `audit-service` tarafından consume edilen başarılı domain event geçmişini kaydeder.

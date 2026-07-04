@@ -1,33 +1,34 @@
-# Next Actions
+# Sonraki Aksiyonlar
 
-## Immediate
+## Hemen Yapılacaklar
 
-1. Retry `npm --prefix frontend install --no-audit --no-fund` in an environment where npm can complete.
-2. Run `npm --prefix frontend run build`.
-3. Fix any frontend compile/build issues.
-4. Run `docker compose up --build`.
-5. Record smoke-test results in `docs/PROJECT_STATUS.md`.
+1. Remote push erişimini tamamla ve mevcut branch’i push et.
+2. Npm’in tamamlanabildiği bir ortamda `npm --prefix frontend install --no-audit --no-fund` komutunu tekrar dene.
+3. `npm --prefix frontend run build` çalıştır.
+4. Frontend compile/build hatası varsa düzelt.
+5. `docker compose up --build` çalıştır.
+6. Smoke test sonuçlarını `docs/PROJECT_STATUS.md` içine kaydet.
 
-## Required Test Expansion
+## Gerekli Test Genişletmeleri
 
-1. Add Testcontainers integration tests for `car-service`.
-2. Add Testcontainers integration tests for `service-service`.
-3. Add concurrency test for optimistic locking.
-4. Add concurrency test for max-2 `IN_PROGRESS`.
-5. Add audit consumer integration test.
-6. Add frontend component tests.
+1. `car-service` için Testcontainers integration testleri ekle.
+2. `service-service` için Testcontainers integration testleri ekle.
+3. Optimistic locking için concurrency test ekle.
+4. Max-2 `IN_PROGRESS` kuralı için concurrency test ekle.
+5. Audit consumer integration test ekle.
+6. Frontend component testleri ekle.
 
-## Git And Delivery
+## Git ve Teslimat
 
-1. Work only on branches named `feature-[development-description]`.
-2. Commit after each completed work item.
-3. Push after each commit when a remote is configured.
-4. Record commit hashes in `docs/PROJECT_STATUS.md`.
+1. Her zaman `feature-[development-description]` formatında branch kullan.
+2. Tamamlanan her iş parçasından sonra commit at.
+3. Remote çalışır durumdaysa her committen sonra push et.
+4. Commit hashlerini `docs/PROJECT_STATUS.md` içinde kaydet.
 
-## Product Improvements
+## Ürün İyileştirmeleri
 
-1. Add backend pagination.
-2. Add dedicated technical profile update endpoint.
-3. Add recent technician notes endpoint.
-4. Add CI pipeline.
-5. Add outbox and DLQ strategy when reliability requirements increase.
+1. Backend pagination ekle.
+2. Dedicated technical profile update endpoint ekle.
+3. Recent technician notes endpoint ekle.
+4. CI pipeline ekle.
+5. Reliability gereksinimleri artarsa outbox ve DLQ stratejisi ekle.

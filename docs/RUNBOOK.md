@@ -1,49 +1,49 @@
-# Runbook
+# Operasyon Rehberi
 
-## Local Startup
+## Lokal Başlatma
 
 ```bash
 docker compose up --build
 ```
 
-Open:
+Açılacak adresler:
 
 - Frontend: `http://localhost:3000`
 - RabbitMQ: `http://localhost:15672`
 
-Default RabbitMQ credentials are `guest` / `guest`.
+Varsayılan RabbitMQ kullanıcı bilgisi `guest` / `guest`.
 
-## Common Failures
+## Yaygın Hatalar
 
-### MySQL Is Not Healthy
+### MySQL Healthy Değil
 
-Check container logs:
+Container loglarını kontrol et:
 
 ```bash
 docker compose logs mysql
 ```
 
-Confirm no local MySQL is already using port `3306`, or override `MYSQL_PORT`.
+Lokal makinede `3306` portunu kullanan başka MySQL olmadığını doğrula veya `MYSQL_PORT` değerini override et.
 
-### RabbitMQ Is Not Healthy
+### RabbitMQ Healthy Değil
 
-Check:
+Kontrol et:
 
 ```bash
 docker compose logs rabbitmq
 ```
 
-Confirm ports `5672` and `15672` are free, or override the environment variables.
+`5672` ve `15672` portlarının boş olduğunu doğrula veya environment variable değerlerini override et.
 
-### Backend Cannot Connect To MySQL
+### Backend MySQL’e Bağlanamıyor
 
-Verify `SPRING_DATASOURCE_URL`, `SPRING_DATASOURCE_USERNAME`, and `SPRING_DATASOURCE_PASSWORD`.
+`SPRING_DATASOURCE_URL`, `SPRING_DATASOURCE_USERNAME` ve `SPRING_DATASOURCE_PASSWORD` değerlerini doğrula.
 
-### Frontend Cannot Reach APIs
+### Frontend API’lere Ulaşamıyor
 
-In Docker, nginx proxies `/api/cars` to `car-service:8081` and `/api/services` to `service-service:8082`.
+Docker içinde nginx `/api/cars` isteklerini `car-service:8081` adresine, `/api/services` isteklerini `service-service:8082` adresine proxy eder.
 
-In local Vite dev mode, `vite.config.ts` proxies to localhost ports `8081` and `8082`.
+Lokal Vite dev mode içinde `vite.config.ts`, localhost `8081` ve `8082` portlarına proxy eder.
 
 ## Reset
 
@@ -52,4 +52,4 @@ docker compose down -v
 docker compose up --build
 ```
 
-This removes MySQL data and recreates the system from scratch.
+Bu işlem MySQL datasını siler ve sistemi sıfırdan oluşturur.

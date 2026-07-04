@@ -1,65 +1,65 @@
-# Test Strategy
+# Test Stratejisi
 
-## Unit Tests
+## Unit Testler
 
-- License plate validator.
+- Plaka doğrulayıcı.
 - `ServiceStatusTransitionPolicy`.
-- DTO mappers.
-- Error handling.
-- `finishedAt` rule.
+- DTO mapper sınıfları.
+- Hata yönetimi.
+- `finishedAt` kuralı.
 
-## Integration Tests
+## Integration Testler
 
-Use Spring Boot integration tests with Testcontainers MySQL.
+Spring Boot integration testleri MySQL Testcontainers ile çalışmalıdır.
 
-Required scenarios:
+Zorunlu senaryolar:
 
-- Create car.
-- Duplicate license plate returns `409`.
-- Update car.
-- Create service action.
-- Filter service actions by `carId`.
-- Filter service actions by `status`.
-- Invalid status transition returns `400`.
-- Optimistic locking conflict returns `409`.
-- RabbitMQ consumer writes `audit_log`.
+- Araç oluşturma.
+- Duplicate plaka `409` döner.
+- Araç güncelleme.
+- Servis aksiyonu oluşturma.
+- Servis aksiyonlarını `carId` ile filtreleme.
+- Servis aksiyonlarını `status` ile filtreleme.
+- Geçersiz durum geçişi `400` döner.
+- Optimistic locking conflict `409` döner.
+- RabbitMQ consumer `audit_log` tablosuna yazar.
 
-## Concurrency Tests
+## Concurrency Testleri
 
 Optimistic locking:
 
-- Load the same `ServiceAction` in two sessions.
-- Update the first copy successfully.
-- Update the second stale copy.
-- Assert the second update returns `409`.
+- Aynı `ServiceAction` iki farklı session içinde yüklenir.
+- İlk kopya başarıyla güncellenir.
+- İkinci stale kopya güncellenmeye çalışılır.
+- İkinci update’in `409` döndüğü doğrulanır.
 
 Max-2 active rule:
 
-- Create one car reference.
-- Create multiple pending `ServiceAction` rows.
-- Run concurrent requests moving actions to `IN_PROGRESS`.
-- Assert the final `IN_PROGRESS` count never exceeds 2.
+- Tek bir car reference oluşturulur.
+- Birden fazla `PENDING` durumunda `ServiceAction` satırı oluşturulur.
+- Aksiyonları eş zamanlı olarak `IN_PROGRESS` durumuna taşıyan istekler çalıştırılır.
+- Final `IN_PROGRESS` sayısının hiçbir zaman 2’yi aşmadığı doğrulanır.
 
-## Frontend Tests
+## Frontend Testleri
 
-- Validation errors render.
-- Conflict message renders and row refresh is triggered.
-- Status dropdown only shows valid next states.
-- Service action list filters by car and status.
+- Validation error mesajları ekrana basılır.
+- Conflict mesajı ekrana basılır ve satır refresh tetiklenir.
+- Durum seçimi sadece geçerli sonraki durum seçeneklerini gösterir.
+- Servis aksiyonu listesi araç ve durum ile filtrelenir.
 
 ## Smoke Test
 
-Run:
+Çalıştır:
 
 ```bash
 docker compose up --build
 ```
 
-Then verify:
+Sonra doğrula:
 
-- backend actuator health endpoints are `UP`.
-- frontend loads.
-- create car works.
-- create service action works.
-- status update works.
-- audit row is persisted.
+- Backend actuator health endpointleri `UP` döner.
+- Frontend yüklenir.
+- Araç oluşturma çalışır.
+- Servis aksiyonu oluşturma çalışır.
+- Durum güncelleme akışı çalışır.
+- Audit satırı kalıcı hale gelir.

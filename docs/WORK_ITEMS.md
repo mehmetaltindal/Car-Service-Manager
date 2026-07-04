@@ -1,18 +1,18 @@
-# Work Items
+# İş Parçacıkları
 
-## WI-001: Monorepo Foundation
+## WI-001: Monorepo Temeli
 
-Status: Completed
+Durum: Tamamlandı
 
-Scope:
+Kapsam:
 
 - Root Maven parent.
-- Backend module folders.
-- Frontend folder.
-- Docker Compose baseline.
-- Core documentation folder.
+- Backend module klasörleri.
+- Frontend klasörü.
+- Docker Compose temeli.
+- Ana dokümantasyon klasörü.
 
-Completion evidence:
+Tamamlanma kanıtı:
 
 - `pom.xml`
 - `car-service/pom.xml`
@@ -22,18 +22,18 @@ Completion evidence:
 
 ## WI-002: car-service Core
 
-Status: Completed
+Durum: Tamamlandı
 
-Scope:
+Kapsam:
 
-- Car, owner, and technical profile domain model.
-- License plate validation.
-- Duplicate plate conflict handling.
-- DTO-based REST API.
+- Car, araç sahibi ve teknik profil domain modeli.
+- Plaka doğrulama.
+- Duplicate plaka conflict yönetimi.
+- DTO tabanlı REST API.
 - Operation log.
-- RabbitMQ domain events.
+- RabbitMQ domain eventleri.
 
-Completion evidence:
+Tamamlanma kanıtı:
 
 - `GET /api/cars`
 - `POST /api/cars`
@@ -42,20 +42,20 @@ Completion evidence:
 
 ## WI-003: service-service Core
 
-Status: Completed
+Durum: Tamamlandı
 
-Scope:
+Kapsam:
 
-- Service catalog.
-- ServiceAction model.
-- Status transition policy.
+- Service katalog.
+- ServiceAction modeli.
+- Durum geçiş policy’si.
 - Optimistic locking version contract.
 - Max-2 `IN_PROGRESS` transaction guard.
-- DTO-based `/api/services` API.
+- DTO tabanlı `/api/services` API.
 - Operation log.
-- RabbitMQ domain events.
+- RabbitMQ domain eventleri.
 
-Completion evidence:
+Tamamlanma kanıtı:
 
 - `GET /api/services`
 - `POST /api/services`
@@ -65,73 +65,89 @@ Completion evidence:
 
 ## WI-004: audit-service Core
 
-Status: Completed
+Durum: Tamamlandı
 
-Scope:
+Kapsam:
 
 - RabbitMQ queue binding.
 - Domain event consumer.
 - `audit_log` persistence.
-- Standardized application log.
+- Standart application log.
 
-Completion evidence:
+Tamamlanma kanıtı:
 
 - `AuditEventConsumer`
 - `audit_log` entity.
 
-## WI-005: Frontend Operations UI
+## WI-005: Frontend Operasyon UI
 
-Status: Completed
+Durum: Tamamlandı
 
-Scope:
+Kapsam:
 
-- Car creation form.
-- Car table.
-- Service action creation form.
-- Service action table.
-- Status filter.
-- Valid next-status dropdown.
-- Optimistic-lock conflict message and refresh behavior.
+- Araç oluşturma formu.
+- Araç tablosu.
+- Servis aksiyonu oluşturma formu.
+- Servis aksiyonu tablosu.
+- Durum filtresi.
+- Geçerli next-status dropdown.
+- Optimistic-lock conflict mesajı ve refresh davranışı.
 - Technician context panel.
 
-Completion evidence:
+Tamamlanma kanıtı:
 
 - `frontend/src/App.tsx`
 
-## WI-006: Workflow Documentation
+## WI-006: Workflow Dokümantasyonu
 
-Status: Completed
+Durum: Tamamlandı
 
-Scope:
+Kapsam:
 
 - README.
-- Architecture docs.
+- Mimari dokümanları.
 - API contract.
-- Domain rules.
-- Test strategy.
-- Runbook.
+- Domain kuralları.
+- Test stratejisi.
+- Operasyon rehberi.
 - Agent workflow.
-- Work item tracking.
-- Next action tracking.
-- Engineering rules.
+- İş parçacığı takibi.
+- Sonraki aksiyon takibi.
+- Mühendislik kuralları.
 
-Completion evidence:
+Tamamlanma kanıtı:
 
 - `docs/`
 
-## WI-007: Verification And Hardening
+## WI-007: Doğrulama ve Sertleştirme
 
-Status: In Progress
+Durum: Devam Ediyor
 
-Scope:
+Kapsam:
 
-- Run Maven tests. Completed with `mvn -pl car-service,service-service,audit-service test`.
-- Run frontend build. Blocked until npm dependency install completes.
-- Add Testcontainers integration tests.
-- Run Docker Compose smoke test.
-- Commit and push each completed work item when a remote exists.
+- Maven testlerini çalıştır. `mvn -pl car-service,service-service,audit-service test` ile tamamlandı.
+- Frontend build çalıştır. Npm dependency kurulumu tamamlanana kadar blokeli.
+- Testcontainers integration testlerini ekle.
+- Docker Compose smoke test çalıştır.
+- Remote erişimi çalışır hale geldiğinde tamamlanan her iş parçasını commit ve push et.
 
-Completion evidence:
+Tamamlanma kanıtı:
 
-- Passing test/build output.
-- Commit hashes recorded in `docs/PROJECT_STATUS.md`.
+- Passing test/build çıktısı.
+- Commit hashleri `docs/PROJECT_STATUS.md` içinde kayıtlı.
+
+## WI-008: Dokümantasyonu Türkçeleştirme
+
+Durum: Tamamlandı
+
+Kapsam:
+
+- Tüm Markdown dosyalarını Türkçeye çevir.
+- Kod isimleri, endpointler, enum değerleri ve komutları contract olarak koru.
+- Bariz İngilizce başlık ve takip etiketlerini Türkçeye çevir.
+
+Tamamlanma kanıtı:
+
+- `README.md`
+- `docs/*.md`
+- `git diff --check`

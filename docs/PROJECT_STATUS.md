@@ -1,37 +1,39 @@
-# Project Status
+# Proje Durumu
 
-## Current Phase
+## Mevcut Aşama
 
-Initial implementation scaffold.
+İlk implementasyon iskeleti tamamlandı.
 
-## Completed Work
+## Tamamlanan İşler
 
-- Monorepo structure created.
-- Spring Boot modules added for `car-service`, `service-service`, and `audit-service`.
-- React + Tailwind frontend added.
-- Docker Compose added for MySQL, RabbitMQ, backend services, and frontend.
-- Core domain rules implemented for license plate validation, status transition policy, optimistic locking, and operation/audit logging.
-- Agent workflow documentation added.
-- Work item, next action, and engineering rule tracking added.
-- Backend verification passed with `mvn -pl car-service,service-service,audit-service test`.
+- Monorepo yapısı oluşturuldu.
+- `car-service`, `service-service` ve `audit-service` için Spring Boot modülleri eklendi.
+- React + Tailwind frontend eklendi.
+- MySQL, RabbitMQ, backend servisleri ve frontend için Docker Compose eklendi.
+- Plaka doğrulama, status transition policy, optimistic locking ve operation/audit logging için temel domain kuralları implemente edildi.
+- Agent workflow dokümantasyonu eklendi.
+- İş parçacığı, sonraki aksiyon ve mühendislik kural takibi eklendi.
+- Backend doğrulaması `mvn -pl car-service,service-service,audit-service test` komutuyla başarılı geçti.
 
-## Active Task
+## Aktif İş
 
-Run full dependency restore and test/build verification in an environment with network access and Docker available.
+Npm dependency kurulumu, frontend build, Docker Compose smoke test ve genişletilmiş integration/concurrency testleri tamamlanmalı.
 
-## Blockers
+## Engeller
 
-- Frontend dependency installation with `npm --prefix frontend install` and `npm --prefix frontend install --no-audit --no-fund` did not complete in this environment and was interrupted after repeated no-output waits.
-- Testcontainers-based integration tests still need to be expanded beyond the initial unit coverage.
+- Frontend dependency kurulumu `npm --prefix frontend install` ve `npm --prefix frontend install --no-audit --no-fund` denemelerinde bu ortamda tamamlanmadı; iki deneme de uzun süre çıktı üretmediği için kesildi.
+- Testcontainers tabanlı integration test kapsamı henüz ilk unit testlerin ötesine genişletilmedi.
+- GitHub push, bu Codex shell’inde GitHub kimliği görünmediği için tamamlanamadı.
+- Markdown dokümantasyonu Türkçeye çevrildi; kod isimleri, endpointler ve enum değerleri teknik contract olarak korundu.
 
-## Next Recommended Task
+## Sonraki Önerilen İş
 
-Install frontend dependencies, run `npm --prefix frontend run build`, run Docker Compose smoke test, then add the required Testcontainers concurrency tests.
+Remote push erişimini tamamla, frontend dependency kurulumunu tamamla, `npm --prefix frontend run build` çalıştır, Docker Compose smoke test yap ve ardından zorunlu Testcontainers concurrency testlerini ekle.
 
-## Git Status
+## Git Durumu
 
-- Repository initialized locally.
-- Active branch: `feature-initial-car-service-manager`.
-- Initial implementation commit: `241bf48` (`feat: implement car service manager foundation`).
-- Remote configured: `git@github.com:mehmetaltindal/Car-Service-Manager.git`.
-- Push is blocked by GitHub authentication: HTTPS could not read username in this terminal, and SSH returned `Permission denied (publickey)`.
+- Repository lokal olarak başlatıldı.
+- Aktif branch: `feature-initial-car-service-manager`.
+- İlk implementasyon commit’i: `241bf48` (`feat: implement car service manager foundation`).
+- Remote: `git@github.com:mehmetaltindal/Car-Service-Manager.git`.
+- Push engeli: HTTPS bu terminalde username okuyamadı; SSH `Permission denied (publickey)` döndü; bulunan SSH agent socket’i yanıt beklediği için kullanıcı isteğiyle deneme durduruldu.

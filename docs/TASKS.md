@@ -1,38 +1,38 @@
-# Tasks
+# Görevler
 
 ## car-service
 
-- Add Testcontainers integration tests for car creation, duplicate plate `409`, and update.
-- Add pagination support to `GET /api/cars`.
-- Add dedicated technical profile update endpoint if UI needs partial updates.
+- Araç oluşturma, duplicate plaka `409` ve araç güncelleme için Testcontainers integration testleri ekle.
+- `GET /api/cars` için pagination desteği ekle.
+- UI partial update ihtiyacı duyarsa ayrı technical profile update endpoint’i ekle.
 
-Acceptance: API contract remains DTO-based and duplicate plates never create a second car.
+Kabul kriteri: API contract DTO tabanlı kalır ve duplicate plaka ikinci araç oluşturmaz.
 
 ## service-service
 
-- Add Testcontainers integration tests for service action creation, filters, invalid transitions, optimistic locking conflict, and max-2 concurrency.
-- Verify row-level locking behavior under MySQL with concurrent requests.
-- Add recent technician notes endpoint if frontend needs an unfiltered history query.
+- Servis aksiyonu oluşturma, filtreler, geçersiz transition, optimistic locking conflict ve max-2 concurrency için Testcontainers integration testleri ekle.
+- MySQL altında concurrent requestlerle row-level locking davranışını doğrula.
+- Frontend filtreden bağımsız geçmiş sorgusuna ihtiyaç duyarsa recent technician notes endpoint’i ekle.
 
-Acceptance: stale update returns `409`, invalid transition returns `400`, and `IN_PROGRESS` count never exceeds 2.
+Kabul kriteri: stale update `409`, invalid transition `400` döner ve `IN_PROGRESS` sayısı hiçbir zaman 2’yi aşmaz.
 
 ## audit-service
 
-- Add RabbitMQ integration test proving consumed events are persisted to `audit_log`.
-- Add idempotency strategy if duplicate event delivery becomes a requirement.
+- Consume edilen eventlerin `audit_log` tablosuna yazıldığını kanıtlayan RabbitMQ integration test’i ekle.
+- Duplicate event delivery requirement olursa idempotency stratejisi ekle.
 
-Acceptance: every consumed event creates one audit row and writes the standardized log message.
+Kabul kriteri: Her consume edilen event bir audit row oluşturur ve standart log mesajı yazılır.
 
 ## frontend
 
-- Add component tests for validation errors, conflict refresh behavior, valid next status options, and filters.
-- Add pagination controls after backend pagination is available.
+- Validation error, conflict refresh davranışı, valid next status seçenekleri ve filtreler için component testleri ekle.
+- Backend pagination hazır olduğunda pagination kontrollerini ekle.
 
-Acceptance: user-visible errors come from backend responses and conflict handling refreshes stale rows.
+Kabul kriteri: Kullanıcıya gösterilen hatalar backend response mesajlarından gelir ve conflict handling stale satırları refresh eder.
 
 ## DevOps
 
-- Run `docker compose up --build` smoke test.
-- Add CI workflow after repository hosting is selected.
+- `docker compose up --build` smoke testini çalıştır.
+- Repository hosting netleşince CI workflow ekle.
 
-Acceptance: all services become healthy and frontend can execute create car, create service action, status update, and audit verification flow.
+Kabul kriteri: Tüm servisler healthy olur; frontend create car, create service action, status update ve audit doğrulama akışını çalıştırır.

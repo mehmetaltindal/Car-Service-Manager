@@ -1,35 +1,35 @@
-# Architecture
+# Mimari
 
-## Service Boundaries
+## Servis Sınırları
 
-`car-service` owns vehicle identity and technical profile data. No other service writes car data.
+`car-service`, araç kimliği ve teknik profil verilerinin sahibidir. Başka hiçbir servis araç verisini yazmaz.
 
-`service-service` owns service catalog entries and applied service actions. It stores `carId` and optional `carLicensePlate` as references, not as owned car entities.
+`service-service`, servis katalog kayıtlarının ve araca uygulanmış servis aksiyonlarının sahibidir. `carId` ve opsiyonel `carLicensePlate` bilgisini referans olarak saklar; bunları sahip olduğu araç entityleri gibi modellemez.
 
-`audit-service` owns immutable audit event history.
+`audit-service`, değiştirilemez audit event geçmişinin sahibidir.
 
-## Domain Model
+## Domain Modeli
 
-- `CarOwner`: required owner information for a car.
-- `Car`: license plate, brand, model, and owner.
-- `CarTechnicalProfile`: optional long-lived technician context.
-- `Service`: catalog item such as Oil Change.
-- `ServiceAction`: real work performed on a car.
+- `CarOwner`: araç için zorunlu sahip bilgisi.
+- `Car`: plaka, marka, model ve sahip bilgisi.
+- `CarTechnicalProfile`: opsiyonel, uzun ömürlü teknisyen context bilgisi.
+- `Service`: Oil Change gibi katalog kalemi.
+- `ServiceAction`: araç üzerinde yapılan gerçek iş.
 - `ServiceStatus`: `PENDING`, `IN_PROGRESS`, `DONE`.
 
-## Event Flow
+## Event Akışı
 
-Command services publish domain events to `car-service-manager.events`.
+Command servisleri domain eventlerini `car-service-manager.events` exchange’ine publish eder.
 
-`audit-service` consumes all events from `audit-log.queue` and writes `audit_log`.
+`audit-service`, tüm eventleri `audit-log.queue` kuyruğundan tüketir ve `audit_log` tablosuna yazar.
 
-## Clean Architecture Rules
+## Clean Architecture Kuralları
 
-- `domain` contains entities, enums, policies, and domain exceptions.
-- `application` contains use cases, request orchestration, DTO mapping, and command-level rules.
-- `infrastructure` contains repositories, RabbitMQ configuration, persistence adapters, and seeders.
-- `interfaces` contains REST controllers and exception handlers.
+- `domain`: entity, enum, policy ve domain exception sınıflarını içerir.
+- `application`: use case, request orchestration, DTO mapping ve command seviyesi kuralları içerir.
+- `infrastructure`: repository, RabbitMQ configuration, persistence adapter ve seed sınıflarını içerir.
+- `interfaces`: REST controller ve exception handler sınıflarını içerir.
 
-## Dependency Direction
+## Dependency Yönü
 
-Controllers call application services. Application services coordinate domain objects and infrastructure ports. Domain classes do not depend on controllers or web DTOs.
+Controller katmanı application service çağırır. Application service sınıfları domain nesnelerini ve infrastructure portlarını koordine eder. Domain sınıfları controller veya web DTO’larına bağımlı olmaz.

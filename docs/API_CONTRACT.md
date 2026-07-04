@@ -4,13 +4,13 @@
 
 ### `GET /api/cars`
 
-Returns all cars.
+Tüm araçları döner.
 
 ### `POST /api/cars`
 
-Creates a car. `owner` is required. `technicalProfile` is optional.
+Araç oluşturur. `owner` alanı zorunludur. `technicalProfile` alanı opsiyoneldir.
 
-Duplicate license plate returns:
+Duplicate plaka durumunda şu response döner:
 
 ```json
 {
@@ -22,33 +22,33 @@ Duplicate license plate returns:
 
 ### `PUT /api/cars/{id}`
 
-Updates car identity, owner fields, and optional technical profile.
+Araç kimliği, sahip alanları ve opsiyonel teknik profil bilgisini günceller.
 
 ## Services
 
 ### `GET /api/services`
 
-Returns service actions. Optional filters:
+Servis aksiyonlarını döner. Opsiyonel filtreler:
 
 - `carId`
 - `status`
 
 ### `GET /api/services/catalog`
 
-Returns service catalog items for the create action form.
+Servis aksiyonu oluşturma formu için servis katalog kayıtlarını döner.
 
 ### `POST /api/services`
 
-Creates a `ServiceAction` in `PENDING` status.
+`PENDING` durumu ile yeni bir `ServiceAction` oluşturur.
 
 ### `PUT /api/services/{id}`
 
-Updates status and technician report. Request must include `version`.
+Durum ve teknisyen raporunu günceller. İstek içinde `version` zorunludur.
 
-Invalid transition returns `400`.
+Geçersiz durum geçişi `400` döner.
 
-Stale version or max-2 active violation returns `409`.
+Stale version veya max-2 active rule ihlali `409` döner.
 
-## DTO Policy
+## DTO Politikası
 
-JPA entities are never exposed directly. Controllers accept request DTOs and return response DTOs.
+JPA entityleri asla doğrudan dışarı açılmaz. Controller’lar istek DTO’su kabul eder ve response DTO döner.

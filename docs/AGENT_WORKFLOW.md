@@ -1,38 +1,38 @@
 # Agent Workflow
 
-Every implementation pass must follow this loop:
+Her implementasyon geçişi şu döngüyü takip etmelidir:
 
-1. Read `docs/PROJECT_STATUS.md`.
-2. Read `docs/WORK_ITEMS.md`, `docs/NEXT_ACTIONS.md`, and `docs/ENGINEERING_RULES.md`.
-3. Inspect relevant code before editing.
-4. State the intended change.
-5. Implement the smallest coherent slice.
-6. Run focused tests or record why tests could not run.
-7. Review changed files for duplication, domain leakage, and broken contracts.
-8. Update `docs/PROJECT_STATUS.md`, `docs/WORK_ITEMS.md`, and `docs/NEXT_ACTIONS.md`.
-9. Commit the completed work item on a `feature-[development-description]` branch and push when a remote exists.
+1. `docs/PROJECT_STATUS.md` dosyasını oku.
+2. `docs/WORK_ITEMS.md`, `docs/NEXT_ACTIONS.md` ve `docs/ENGINEERING_RULES.md` dosyalarını oku.
+3. İlgili kodu düzenlemeden önce incele.
+4. Yapılacak değişikliği açıkça belirt.
+5. En küçük tutarlı iş dilimini implemente et.
+6. Odaklı testleri çalıştır veya testlerin neden çalıştırılamadığını kaydet.
+7. Değişen dosyaları duplication, domain leakage ve kırılan contract açısından gözden geçir.
+8. `docs/PROJECT_STATUS.md`, `docs/WORK_ITEMS.md` ve `docs/NEXT_ACTIONS.md` dosyalarını güncelle.
+9. Tamamlanan iş parçasını `feature-[development-description]` branch’i üzerinde commit et ve remote varsa push et.
 
-## Completion Rule
+## Tamamlama Kuralı
 
-A task is not complete until one of these is true:
+Bir görev, aşağıdaki koşullardan biri sağlanmadan tamamlanmış sayılmaz:
 
-- Relevant tests pass.
-- A specific test limitation is recorded with the exact command that could not run.
+- İlgili testler geçmiştir.
+- Testin çalıştırılamama nedeni, çalıştırılamayan tam komutla birlikte kaydedilmiştir.
 
-## Code Quality Rule
+## Kod Kalitesi Kuralı
 
-- Keep domain rules in domain policies or entities.
-- Do not expose JPA entities from controllers.
-- Avoid repeated mapping and validation logic.
-- Prefer small application services over fat controllers.
-- Keep dependencies pointing inward: interfaces and infrastructure depend on application/domain, not the reverse.
+- Domain kurallarını domain policy veya entity içinde tut.
+- Controller’dan JPA entity döndürme.
+- Mapping, validation ve transition logic tekrarından kaçın.
+- Şişman controller yerine küçük application service sınıfları kullan.
+- Dependency yönünü içeri doğru koru: interfaces ve infrastructure, application/domain katmanlarına bağımlı olabilir; tersi olmamalıdır.
 
-## Review Loop
+## Review Döngüsü
 
-Before final response, verify:
+Final cevap öncesinde şunları doğrula:
 
-- API contract is still compatible.
-- Operation log and audit log responsibilities are not mixed.
-- `Service` catalog and `ServiceAction` applied work remain distinct.
-- Status transitions still go through `ServiceStatusTransitionPolicy`.
-- New docs reflect actual code.
+- API contract hâlâ uyumlu mu?
+- Operation log ve audit log sorumlulukları karışmış mı?
+- `Service` katalog modeli ile `ServiceAction` gerçek işlem modeli ayrı mı?
+- Durum geçişleri hâlâ `ServiceStatusTransitionPolicy` üzerinden mi ilerliyor?
+- Yeni dokümanlar gerçek kodla uyumlu mu?

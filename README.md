@@ -1,26 +1,26 @@
 # Car Service Manager
 
-Car Service Manager is a domain-driven microservice system for managing cars, owners, technical profiles, service catalog entries, and real service actions performed by technicians.
+Car Service Manager; araçları, araç sahiplerini, teknik profilleri, servis kataloglarını ve teknisyenlerin araçlara uyguladığı gerçek servis işlemlerini yönetmek için tasarlanmış domain odaklı bir microservice sistemidir.
 
-## Architecture
+## Mimari
 
-The system uses Spring Boot microservices, MySQL, RabbitMQ, React, Tailwind, and Docker Compose.
+Sistem Spring Boot microservice servisleri, MySQL, RabbitMQ, React, Tailwind ve Docker Compose kullanır.
 
-- `car-service` owns `Car`, `CarOwner`, and `CarTechnicalProfile`.
-- `service-service` owns `Service` catalog data and `ServiceAction` records.
-- `audit-service` consumes domain events and writes `audit_log`.
-- `frontend` exposes the operational UI.
-- RabbitMQ carries domain events through `car-service-manager.events`.
+- `car-service`, `Car`, `CarOwner` ve `CarTechnicalProfile` verilerinin sahibidir.
+- `service-service`, `Service` katalog verilerinin ve `ServiceAction` kayıtlarının sahibidir.
+- `audit-service`, domain eventlerini tüketir ve `audit_log` tablosuna yazar.
+- `frontend`, operasyonel kullanıcı arayüzünü sağlar.
+- RabbitMQ, domain eventlerini `car-service-manager.events` exchange’i üzerinden taşır.
 
-## Microservices
+## Microservice Servisleri
 
-`car-service` handles car CRUD, required owner data, optional technical profile data, license plate validation, duplicate plate conflicts, operation logs, and car events.
+`car-service`; araç CRUD işlemleri, zorunlu araç sahibi bilgisi, opsiyonel teknik profil, plaka doğrulama, duplicate plaka çakışmaları, operation log ve araç eventlerinden sorumludur.
 
-`service-service` handles service catalog reads, service action commands, status transitions, optimistic locking, max 2 `IN_PROGRESS` actions per car, operation logs, and service action events.
+`service-service`; servis katalog okumaları, servis aksiyonu komutları, status geçişleri, optimistic locking, araç başına en fazla 2 adet `IN_PROGRESS` aksiyon kuralı, operation log ve servis aksiyonu eventlerinden sorumludur.
 
-`audit-service` consumes all domain events from `audit-log.queue`, persists them, and writes standardized application logs.
+`audit-service`; `audit-log.queue` kuyruğundan tüm domain eventlerini tüketir, kalıcı hale getirir ve standart application log yazar.
 
-## How To Run
+## Çalıştırma
 
 ```bash
 docker compose up --build
@@ -28,18 +28,18 @@ docker compose up --build
 
 Frontend: `http://localhost:3000`
 
-RabbitMQ management: `http://localhost:15672`
+RabbitMQ yönetim ekranı: `http://localhost:15672`
 
-## How To Test
+## Test
 
 ```bash
 mvn test
 npm --prefix frontend run build
 ```
 
-Integration and concurrency tests should use MySQL Testcontainers so transaction and locking behavior matches runtime behavior.
+Integration ve concurrency testleri MySQL Testcontainers ile çalışmalıdır. Böylece transaction ve locking davranışı runtime ortamıyla aynı veritabanı ailesinde doğrulanır.
 
-## API Endpoints
+## API Endpointleri
 
 - `GET /api/cars`
 - `POST /api/cars`
@@ -49,40 +49,40 @@ Integration and concurrency tests should use MySQL Testcontainers so transaction
 - `PUT /api/services/{id}`
 - `GET /api/services/catalog`
 
-`/api/services` returns applied `ServiceAction` records. `/api/services/catalog` returns selectable service types.
+`/api/services`, araca uygulanmış `ServiceAction` kayıtlarını döner. `/api/services/catalog`, seçim yapılabilecek servis tiplerini döner.
 
-## Domain Model
+## Domain Modeli
 
-- `CarOwner` has many `Car` records.
-- `Car` has one optional `CarTechnicalProfile`.
-- `Service` is catalog data.
-- `ServiceAction` is real work performed on a car.
-- `ServiceStatus` values are `PENDING`, `IN_PROGRESS`, and `DONE`.
+- `CarOwner`, birden fazla `Car` kaydına sahip olabilir.
+- `Car`, opsiyonel bir `CarTechnicalProfile` kaydına sahiptir.
+- `Service`, katalog bilgisidir.
+- `ServiceAction`, araç üzerinde yapılan gerçek servis işidir.
+- `ServiceStatus` değerleri `PENDING`, `IN_PROGRESS` ve `DONE` şeklindedir.
 
-## Concurrency Strategy
+## Concurrency Stratejisi
 
-`ServiceAction` uses JPA `@Version`. Update requests must include `version`; stale updates return `409 Conflict`.
+`ServiceAction`, JPA `@Version` kullanır. Update requestleri `version` göndermek zorundadır; stale update durumunda `409 Conflict` döner.
 
-The max 2 `IN_PROGRESS` rule is enforced inside one transaction by locking service action rows for the same car before accepting a transition into `IN_PROGRESS`.
+Araç başına en fazla 2 adet `IN_PROGRESS` kuralı, aynı transaction içinde ilgili araçtaki servis aksiyonu satırları kilitlenerek uygulanır.
 
-## RabbitMQ Audit Flow
+## RabbitMQ Audit Akışı
 
-Domain events are published to `car-service-manager.events` with routing keys such as `car.created`, `service-action.updated`, and `service-action.status-changed`.
+Domain eventleri `car-service-manager.events` exchange’ine `car.created`, `service-action.updated`, `service-action.status-changed` gibi routing keylerle publish edilir.
 
-`audit-service` binds `audit-log.queue` to all routing keys and persists event metadata plus JSON payload.
+`audit-service`, `audit-log.queue` kuyruğunu tüm routing keylere bind eder ve event metadata bilgisiyle JSON payload’u kalıcı hale getirir.
 
-## Assumptions
+## Varsayımlar
 
-Authentication, authorization, API gateway, service discovery, distributed tracing, outbox, saga, CQRS, notifications, analytics, retry, and DLQ are intentionally out of scope for the first implementation.
+Authentication, authorization, API gateway, service discovery, distributed tracing, outbox, saga, CQRS, notification, analytics, retry ve DLQ ilk sürüm kapsamı dışındadır.
 
-## Trade-offs
+## Trade-off’lar
 
-The first version prioritizes clear domain rules, simple local orchestration, and testable concurrency. The event publisher writes directly to RabbitMQ, so guaranteed delivery through an outbox is a future improvement.
+İlk sürüm domain kurallarının netliğini, basit lokal orkestrasyonu ve test edilebilir concurrency davranışını önceliklendirir. Event publisher doğrudan RabbitMQ’ya yazar; outbox ile garantili teslimat sonraki iyileştirmedir.
 
-## Future Improvements
+## Gelecek İyileştirmeler
 
-- Add outbox pattern for reliable event publication.
-- Add retry and DLQ strategy for audit consumption.
-- Add API gateway and authentication.
-- Add OpenTelemetry tracing.
-- Split service database users and schemas more strictly in Compose.
+- Güvenilir event yayını için outbox pattern eklemek.
+- Audit tüketimi için retry ve DLQ stratejisi eklemek.
+- API gateway ve authentication eklemek.
+- OpenTelemetry tracing eklemek.
+- Compose içinde servis veritabanı kullanıcılarını ve schema yetkilerini daha sıkı ayırmak.

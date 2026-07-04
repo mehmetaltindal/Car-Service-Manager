@@ -14,11 +14,13 @@
 
 ## Sorumluluk Alanı
 
-- Docker Compose, MySQL, RabbitMQ ve service healthcheck akışı.
+- Servisler arası uçtan uca akış.
+- RabbitMQ event publish/consume doğrulaması.
+- Docker ve DB agentların hazırladığı ortam üzerinde smoke test.
 - Testcontainers integration testleri.
 - Optimistic locking ve max-2 `IN_PROGRESS` concurrency testleri.
 - RabbitMQ audit consumer doğrulaması.
-- Uçtan uca smoke test.
+- Uçtan uca smoke test sonucunun kaydı.
 
 ## Çalışma Kuralları
 
@@ -26,6 +28,7 @@
 - Docker veya dependency indirme sorunları tam komut ve hata çıktısıyla kaydedilmelidir.
 - Smoke test sonuçları `docs/PROJECT_STATUS.md` içinde tarih ve komutla tutulmalıdır.
 - Testleri hızlandırmak için domain kuralını zayıflatma veya production davranışından sapma yaratma.
+- Container wiring sorunu Docker agent’a, schema/data sorunu Database agent’a yönlendirilmelidir.
 
 ## Tamamlama Kriterleri
 

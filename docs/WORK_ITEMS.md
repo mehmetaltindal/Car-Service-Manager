@@ -126,7 +126,7 @@ Durum: Devam Ediyor
 Kapsam:
 
 - Maven testlerini çalıştır. `mvn -pl car-service,service-service,audit-service test` ile tamamlandı.
-- Frontend build çalıştır. Npm dependency kurulumu tamamlanana kadar blokeli.
+- Frontend build çalıştır. `npm --prefix frontend run build` ile tamamlandı.
 - Testcontainers integration testlerini ekle.
 - Docker Compose smoke test çalıştır.
 - Remote erişimi çalışır hale geldiğinde tamamlanan her iş parçasını commit ve push et.
@@ -188,3 +188,36 @@ Tamamlanma kanıtı:
 - `docs/ENGINEERING_RULES.md`
 - `docs/TEST_STRATEGY.md`
 - `docs/PROJECT_STATUS.md`
+
+## WI-011: Frontend Dependency ve Build Doğrulaması
+
+Durum: Tamamlandı
+
+Kapsam:
+
+- Frontend npm dependency kurulumunu tamamla.
+- `frontend/package-lock.json` üret.
+- Frontend production build komutunu çalıştır.
+
+Tamamlanma kanıtı:
+
+- `npm --prefix frontend install --no-audit --no-fund --loglevel=info`
+- `npm --prefix frontend run build`
+- `frontend/package-lock.json`
+
+## WI-012: Docker ve Database Agent Rehberleri
+
+Durum: Tamamlandı
+
+Kapsam:
+
+- Docker container işleri için ayrı agent rehberi oluştur.
+- Veritabanı işleri için ayrı agent rehberi oluştur.
+- Agent workflow içinde işleri doğru agent rehberine yönlendirme kuralını güncelle.
+
+Tamamlanma kanıtı:
+
+- `docs/DOCKER_AGENT.md`
+- `docs/DATABASE_AGENT.md`
+- `docs/AGENT_WORKFLOW.md`
+- `docs/NEXT_ACTIONS.md`

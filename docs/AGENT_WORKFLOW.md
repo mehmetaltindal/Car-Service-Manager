@@ -11,7 +11,7 @@ Her implementasyon geçişi şu döngüyü takip etmelidir:
 4. İlgili kodu düzenlemeden önce incele.
 5. Yapılacak değişikliği açıkça belirt.
 6. En küçük tutarlı iş dilimini implemente et.
-7. Odaklı testleri çalıştır veya testlerin neden çalıştırılamadığını kaydet.
+7. Unit testleri çalıştır; başarılı geçmeden görevi tamamlanmış sayma.
 8. Değişen dosyaları duplication, domain leakage ve kırılan contract açısından gözden geçir.
 9. `docs/PROJECT_STATUS.md`, `docs/WORK_ITEMS.md` ve `docs/NEXT_ACTIONS.md` dosyalarını güncelle.
 10. Tamamlanan iş parçasını `feature-[development-description]` branch’i üzerinde commit et, remote’a push et ve `main` branch’e merge et.
@@ -21,8 +21,9 @@ Her implementasyon geçişi şu döngüyü takip etmelidir:
 
 Bir görev, aşağıdaki koşullardan biri sağlanmadan tamamlanmış sayılmaz:
 
-- İlgili testler geçmiştir.
-- Testin çalıştırılamama nedeni, çalıştırılamayan tam komutla birlikte kaydedilmiştir.
+- Unit testler başarılı geçmiştir.
+- Başarısız unit testler skip edilmemiştir.
+- Unit test çalıştırılamıyorsa görev tamamlanmış sayılmaz; blokaj, çalıştırılamayan tam komutla birlikte `docs/PROJECT_STATUS.md` içine kaydedilir.
 - İlgili iş parçası commit edilmiştir.
 - Remote erişimi varsa feature branch push edilmiş ve `main` branch’e merge edilmiştir.
 - Remote veya merge yapılamıyorsa engel `docs/PROJECT_STATUS.md` içine kaydedilmiştir.

@@ -171,3 +171,20 @@ Tamamlanma kanıtı:
 - `docs/FRONTEND_AGENT.md`
 - `docs/BACKEND_AGENT.md`
 - `docs/INTEGRATION_AGENT.md`
+
+## WI-010: Unit Test Kabul Kuralı
+
+Durum: Tamamlandı
+
+Kapsam:
+
+- Hiçbir işin unit testler başarılı geçmeden tamamlanmış sayılmayacağını netleştir.
+- Kabul kriterini başarılı unit test sonucu olarak tanımla.
+- Başarısız unit testlerin skip edilmesini yasakla.
+
+Tamamlanma kanıtı:
+
+- `docs/AGENT_WORKFLOW.md`
+- `docs/ENGINEERING_RULES.md`
+- `docs/TEST_STRATEGY.md`
+- `docs/PROJECT_STATUS.md`

@@ -68,6 +68,10 @@ Feature geliştirme için `main`, `master`, `develop` veya rastgele branch isiml
 
 ## Test
 
+- Hiçbir iş unit testler başarılı geçmeden tamamlanmış kabul edilmez.
+- Kabul kriteri ilgili unit testlerin başarılı geçmesidir.
+- Başarısız unit testler skip edilmemelidir.
+- Test skip etmek yalnızca test kapsam dışıysa ve gerekçesi `docs/PROJECT_STATUS.md` içinde kayıtlıysa kabul edilir; başarısız testi gizlemek için skip yasaktır.
 - Her domain kuralı unit test gerektirir.
 - Her persistence veya concurrency kuralı MySQL’e karşı integration test gerektirir.
 - Başarısız doğrulama, tam komut ve gerekçesiyle kaydedilmelidir.

@@ -2,6 +2,10 @@
 
 ## Unit Testler
 
+Unit testler her iş için zorunlu kabul kriteridir. İlgili unit testler başarılı geçmeden görev tamamlanmış sayılmaz.
+
+Başarısız unit testler skip edilmemelidir. Skip yalnızca test ilgili işin kapsamı dışında kaldığında ve gerekçesi proje durumuna yazıldığında kullanılabilir.
+
 - Plaka doğrulayıcı.
 - `ServiceStatusTransitionPolicy`.
 - DTO mapper sınıfları.

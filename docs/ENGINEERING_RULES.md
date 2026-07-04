@@ -20,8 +20,19 @@ Feature geliştirme için `main`, `master`, `develop` veya rastgele branch isiml
 
 - İşleri `docs/WORK_ITEMS.md` içinde takip edilen mantıklı iş parçacıklarına böl.
 - Tamamlanan her iş parçasından sonra commit at.
-- Git remote varsa her committen sonra push et.
-- Push çalıştırılamazsa nedeni `docs/PROJECT_STATUS.md` içine kaydet.
+- Her iş parçası için `feature-[development-description]` formatında branch aç.
+- Commit sonrası feature branch’i remote’a push et.
+- Push başarılı olduktan sonra değişikliği `main` branch’e merge et.
+- Merge sonrası `main` branch’i remote’a push et.
+- Push veya merge çalıştırılamazsa nedeni `docs/PROJECT_STATUS.md` içine kaydet.
+- Başarılı commit, push ve merge bilgilerini commit hashleriyle birlikte `docs/PROJECT_STATUS.md` içinde kaydet.
+
+## İş Seçimi
+
+- Agent her işi tamamladıktan sonra en mantıklı yeni işi kendisi seçmelidir.
+- Yeni iş seçimi `docs/NEXT_ACTIONS.md` ve `docs/WORK_ITEMS.md` içindeki sıraya, blokajlara ve test/build riskine göre yapılmalıdır.
+- Blokeli işler atlanmalı; blokajın kalkması için gereken en küçük aksiyon seçilmelidir.
+- Seçilen yeni iş `docs/PROJECT_STATUS.md` içinde açıkça yazılmalıdır.
 
 ## Clean Code
 

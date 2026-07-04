@@ -151,3 +151,23 @@ Tamamlanma kanıtı:
 - `README.md`
 - `docs/*.md`
 - `git diff --check`
+
+## WI-009: Agent Koordinasyon Kuralları
+
+Durum: Tamamlandı
+
+Kapsam:
+
+- Her iş sonrası en mantıklı yeni işi seçme kuralını ekle.
+- Her iş sonrası feature branch, commit, push ve `main` merge kuralını netleştir.
+- Multi-agent okuma sırasını tanımla.
+- Frontend, backend ve integration agent rehberlerini oluştur.
+
+Tamamlanma kanıtı:
+
+- `docs/AGENT_WORKFLOW.md`
+- `docs/ENGINEERING_RULES.md`
+- `docs/NEXT_ACTIONS.md`
+- `docs/FRONTEND_AGENT.md`
+- `docs/BACKEND_AGENT.md`
+- `docs/INTEGRATION_AGENT.md`

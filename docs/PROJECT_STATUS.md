@@ -14,6 +14,8 @@
 - Agent workflow dokümantasyonu eklendi.
 - İş parçacığı, sonraki aksiyon ve mühendislik kural takibi eklendi.
 - Backend doğrulaması `mvn -pl car-service,service-service,audit-service test` komutuyla başarılı geçti.
+- Agent iş seçimi, feature branch, commit, push, main merge ve multi-agent okuma sırası kuralları eklendi.
+- Frontend, backend ve integration agent rehberleri oluşturuldu.
 
 ## Aktif İş
 
@@ -28,7 +30,7 @@ Npm dependency kurulumu, frontend build, Docker Compose smoke test ve genişleti
 
 ## Sonraki Önerilen İş
 
-Remote push erişimini tamamla, frontend dependency kurulumunu tamamla, `npm --prefix frontend run build` çalıştır, Docker Compose smoke test yap ve ardından zorunlu Testcontainers concurrency testlerini ekle.
+En mantıklı sonraki iş: remote push erişimini tamamla ve mevcut feature branch’i remote’a gönder. Sonrasında frontend dependency kurulumunu tamamla, `npm --prefix frontend run build` çalıştır, Docker Compose smoke test yap ve zorunlu Testcontainers concurrency testlerini ekle.
 
 ## Git Durumu
 

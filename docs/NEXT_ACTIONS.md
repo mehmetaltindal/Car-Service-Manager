@@ -22,8 +22,18 @@
 
 1. Her zaman `feature-[development-description]` formatında branch kullan.
 2. Tamamlanan her iş parçasından sonra commit at.
-3. Remote çalışır durumdaysa her committen sonra push et.
-4. Commit hashlerini `docs/PROJECT_STATUS.md` içinde kaydet.
+3. Her committen sonra feature branch’i remote’a push et.
+4. Feature branch remote’a çıktıktan sonra `main` branch’e merge et.
+5. Merge sonrası `main` branch’i remote’a push et.
+6. Commit, push ve merge hashlerini `docs/PROJECT_STATUS.md` içinde kaydet.
+7. Remote veya merge engeli varsa nedeni `docs/PROJECT_STATUS.md` içine yaz.
+
+## Agent Koordinasyonu
+
+1. Frontend işleri için `docs/FRONTEND_AGENT.md` rehberini kullan.
+2. Backend işleri için `docs/BACKEND_AGENT.md` rehberini kullan.
+3. Integration, Docker, RabbitMQ ve uçtan uca test işleri için `docs/INTEGRATION_AGENT.md` rehberini kullan.
+4. Bir iş bittikten sonra agent en mantıklı yeni işi seçip `docs/PROJECT_STATUS.md` içine kaydeder.
 
 ## Ürün İyileştirmeleri
 

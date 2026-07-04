@@ -7,7 +7,9 @@ Her implementasyon geçişi şu döngüyü takip etmelidir:
 3. İşin alanına göre gerekiyorsa ilgili agent rehberini oku:
    - Frontend işleri: `docs/FRONTEND_AGENT.md`
    - Backend işleri: `docs/BACKEND_AGENT.md`
-   - Integration, test, Docker, RabbitMQ veya uçtan uca işler: `docs/INTEGRATION_AGENT.md`
+   - Docker container işleri: `docs/DOCKER_AGENT.md`
+   - Veritabanı, schema, migration ve seed işleri: `docs/DATABASE_AGENT.md`
+   - Integration, test, RabbitMQ veya uçtan uca işler: `docs/INTEGRATION_AGENT.md`
 4. İlgili kodu düzenlemeden önce incele.
 5. Yapılacak değişikliği açıkça belirt.
 6. En küçük tutarlı iş dilimini implemente et.
@@ -62,7 +64,21 @@ Alan bazlı ek dosya:
 
 - Frontend agent: `docs/FRONTEND_AGENT.md`
 - Backend agent: `docs/BACKEND_AGENT.md`
+- Docker agent: `docs/DOCKER_AGENT.md`
+- Database agent: `docs/DATABASE_AGENT.md`
 - Integration agent: `docs/INTEGRATION_AGENT.md`
+
+## İş Yönlendirme Kuralı
+
+Her iş başlamadan önce işin ana sahibi seçilmelidir.
+
+- UI, form, tablo, frontend build ve kullanıcı etkileşimi işleri `FRONTEND_AGENT.md` rehberine yönlendirilir.
+- Spring Boot servisleri, domain modeli, API, RabbitMQ publisher/consumer kodu ve DTO işleri `BACKEND_AGENT.md` rehberine yönlendirilir.
+- Dockerfile, Docker Compose, container healthcheck, container network ve image build işleri `DOCKER_AGENT.md` rehberine yönlendirilir.
+- MySQL schema, seed, migration, Testcontainers database setup ve veri sahipliği işleri `DATABASE_AGENT.md` rehberine yönlendirilir.
+- Uçtan uca doğrulama, concurrency testleri, smoke test, servisler arası akış ve RabbitMQ audit doğrulaması `INTEGRATION_AGENT.md` rehberine yönlendirilir.
+
+Bir iş birden fazla alanı etkiliyorsa önce ana sahibi belirlenir, sonra ilgili diğer agent rehberleri destek dokümanı olarak okunur. Örneğin Docker Compose içindeki MySQL init değişikliği hem Docker hem Database alanıdır; ana sahip Docker ise `DOCKER_AGENT.md`, destek olarak `DATABASE_AGENT.md` okunmalıdır.
 
 ## Kod Kalitesi Kuralı
 

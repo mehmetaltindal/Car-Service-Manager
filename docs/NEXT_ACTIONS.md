@@ -2,12 +2,10 @@
 
 ## Hemen Yapılacaklar
 
-1. Remote push erişimini tamamla ve mevcut branch’i push et.
-2. Npm’in tamamlanabildiği bir ortamda `npm --prefix frontend install --no-audit --no-fund` komutunu tekrar dene.
-3. `npm --prefix frontend run build` çalıştır.
-4. Frontend compile/build hatası varsa düzelt.
-5. `docker compose up --build` çalıştır.
-6. Smoke test sonuçlarını `docs/PROJECT_STATUS.md` içine kaydet.
+1. Docker agent rehberine göre `docker compose up --build` smoke testini çalıştır.
+2. Smoke test sırasında DB veya container hatası çıkarsa işi doğru agent rehberine yönlendir.
+3. Smoke test sonuçlarını `docs/PROJECT_STATUS.md` içine kaydet.
+4. Zorunlu Testcontainers integration/concurrency testlerini ekle.
 
 ## Gerekli Test Genişletmeleri
 
@@ -32,8 +30,10 @@
 
 1. Frontend işleri için `docs/FRONTEND_AGENT.md` rehberini kullan.
 2. Backend işleri için `docs/BACKEND_AGENT.md` rehberini kullan.
-3. Integration, Docker, RabbitMQ ve uçtan uca test işleri için `docs/INTEGRATION_AGENT.md` rehberini kullan.
-4. Bir iş bittikten sonra agent en mantıklı yeni işi seçip `docs/PROJECT_STATUS.md` içine kaydeder.
+3. Docker container işleri için `docs/DOCKER_AGENT.md` rehberini kullan.
+4. Veritabanı işleri için `docs/DATABASE_AGENT.md` rehberini kullan.
+5. Integration, RabbitMQ ve uçtan uca test işleri için `docs/INTEGRATION_AGENT.md` rehberini kullan.
+6. Bir iş bittikten sonra agent en mantıklı yeni işi seçip `docs/PROJECT_STATUS.md` içine kaydeder.
 
 ## Ürün İyileştirmeleri
 

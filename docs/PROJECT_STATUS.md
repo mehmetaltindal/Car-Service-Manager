@@ -18,26 +18,30 @@
 - Frontend, backend ve integration agent rehberleri oluşturuldu.
 - Unit test başarılı geçmeden görevin tamamlanmış sayılmayacağı ve başarısız testlerin skip edilmeyeceği kuralı eklendi.
 - Bu kural değişikliği için `mvn -pl car-service,service-service,audit-service test` çalıştırıldı; 4 test geçti, 0 skipped.
+- Frontend dependency kurulumu tamamlandı ve `frontend/package-lock.json` üretildi.
+- `npm --prefix frontend run build` başarılı geçti.
+- Docker ve Database agent rehberleri eklendi; iş yönlendirme kuralları bu agentları kapsayacak şekilde güncellendi.
+- Bu iş için `mvn -pl car-service,service-service,audit-service test` çalıştırıldı; 4 test geçti, 0 skipped.
 
 ## Aktif İş
 
-Npm dependency kurulumu, frontend build, Docker Compose smoke test ve genişletilmiş integration/concurrency testleri tamamlanmalı.
+Docker Compose smoke test ve genişletilmiş integration/concurrency testleri tamamlanmalı.
 
 ## Engeller
 
-- Frontend dependency kurulumu `npm --prefix frontend install` ve `npm --prefix frontend install --no-audit --no-fund` denemelerinde bu ortamda tamamlanmadı; iki deneme de uzun süre çıktı üretmediği için kesildi.
+- Frontend dependency kurulumu sandbox içinde DNS `ENOTFOUND` aldı; dış ağ izniyle `npm --prefix frontend install --no-audit --no-fund --loglevel=info` başarılı tamamlandı.
 - Testcontainers tabanlı integration test kapsamı henüz ilk unit testlerin ötesine genişletilmedi.
 - Markdown dokümantasyonu Türkçeye çevrildi; kod isimleri, endpointler ve enum değerleri teknik contract olarak korundu.
 - Feature branch, system Git ve HTTPS/Keychain yolu kullanılarak remote’a push edildi.
 
 ## Sonraki Önerilen İş
 
-En mantıklı sonraki iş: unit test kabul kuralını koruyarak frontend dependency kurulumunu tamamla, `npm --prefix frontend run build` çalıştır, Docker Compose smoke test yap ve zorunlu Testcontainers concurrency testlerini ekle.
+En mantıklı sonraki iş: `docs/DOCKER_AGENT.md` rehberine göre `docker compose up --build` smoke testini çalıştır. DB hatası çıkarsa `docs/DATABASE_AGENT.md`, servisler arası akış hatası çıkarsa `docs/INTEGRATION_AGENT.md` rehberine yönlendir.
 
 ## Git Durumu
 
 - Repository lokal olarak başlatıldı.
-- Aktif branch: `feature-initial-car-service-manager`.
+- Aktif branch: `feature-frontend-build-verification`.
 - İlk implementasyon commit’i: `241bf48` (`feat: implement car service manager foundation`).
 - Dokümantasyon Türkçeleştirme commit’i: `32c9d11` (`docs: translate project documentation to Turkish`).
 - Agent koordinasyon kuralları commit’i: `b37eaac` (`docs: add agent coordination rules`).
@@ -45,5 +49,7 @@ En mantıklı sonraki iş: unit test kabul kuralını koruyarak frontend depende
 - Remote: `https://github.com/mehmetaltindal/Car-Service-Manager.git`.
 - Feature branch push başarılı: `feature-initial-car-service-manager -> origin/feature-initial-car-service-manager`.
 - Push durum güncellemesi için `mvn -pl car-service,service-service,audit-service test` tekrar çalıştırıldı; 4 test geçti, 0 skipped.
+- İlk feature branch `main` merge/push tamamlandı: `1b67a7f` (`merge: feature initial car service manager`).
+- Frontend build verification branch’i: `feature-frontend-build-verification`.
 - Push yöntemi: `/usr/bin/git` ve HTTPS/Keychain. Bundled Codex Git + SSH yolu bu ortamda çalışmadı.
-- `main` merge henüz yapılmadı; feature branch remote’da hazır.
+- Yeni branch henüz remote’a push edilmedi; commit sonrası feature push, `main` merge ve `main` push yapılacak.

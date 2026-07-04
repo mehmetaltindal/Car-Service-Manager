@@ -41,6 +41,8 @@ En mantıklı sonraki iş: remote push erişimini tamamla ve mevcut feature bran
 - İlk implementasyon commit’i: `241bf48` (`feat: implement car service manager foundation`).
 - Dokümantasyon Türkçeleştirme commit’i: `32c9d11` (`docs: translate project documentation to Turkish`).
 - Agent koordinasyon kuralları commit’i: `b37eaac` (`docs: add agent coordination rules`).
+- Unit test kabul kuralı commit’i: `c623364` (`docs: require passing unit tests for task completion`).
 - Remote: `git@github.com:mehmetaltindal/Car-Service-Manager.git`.
 - Push engeli: HTTPS bu terminalde username okuyamadı; SSH `Permission denied (publickey)` döndü; bulunan SSH agent socket’i yanıt beklediği için kullanıcı isteğiyle deneme durduruldu. `b37eaac` sonrası tekrar push denendi ve aynı `Permission denied (publickey)` hatası alındı.
+- `c623364` sonrası feature branch push tekrar denendi ve yine `Permission denied (publickey)` hatası alındı.
 - `main` merge ve remote push işlemleri GitHub authentication engeli kalkana kadar yapılamıyor.

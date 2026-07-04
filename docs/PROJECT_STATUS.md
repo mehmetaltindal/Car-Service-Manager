@@ -22,6 +22,8 @@
 - `npm --prefix frontend run build` başarılı geçti.
 - Docker ve Database agent rehberleri eklendi; iş yönlendirme kuralları bu agentları kapsayacak şekilde güncellendi.
 - Bu iş için `mvn -pl car-service,service-service,audit-service test` çalıştırıldı; 4 test geçti, 0 skipped.
+- Frontend build verification branch’i remote’a push edildi ve `main` branch’e merge edilip remote’a gönderildi.
+- Merge takip kaydı için `mvn -pl car-service,service-service,audit-service test` çalıştırıldı; 4 test geçti, 0 skipped.
 
 ## Aktif İş
 
@@ -41,7 +43,7 @@ En mantıklı sonraki iş: `docs/DOCKER_AGENT.md` rehberine göre `docker compos
 ## Git Durumu
 
 - Repository lokal olarak başlatıldı.
-- Aktif branch: `feature-frontend-build-verification`.
+- Aktif branch: `feature-record-frontend-build-merge`.
 - İlk implementasyon commit’i: `241bf48` (`feat: implement car service manager foundation`).
 - Dokümantasyon Türkçeleştirme commit’i: `32c9d11` (`docs: translate project documentation to Turkish`).
 - Agent koordinasyon kuralları commit’i: `b37eaac` (`docs: add agent coordination rules`).
@@ -50,6 +52,8 @@ En mantıklı sonraki iş: `docs/DOCKER_AGENT.md` rehberine göre `docker compos
 - Feature branch push başarılı: `feature-initial-car-service-manager -> origin/feature-initial-car-service-manager`.
 - Push durum güncellemesi için `mvn -pl car-service,service-service,audit-service test` tekrar çalıştırıldı; 4 test geçti, 0 skipped.
 - İlk feature branch `main` merge/push tamamlandı: `1b67a7f` (`merge: feature initial car service manager`).
-- Frontend build verification branch’i: `feature-frontend-build-verification`.
+- Frontend build verification commit’i: `4144efa` (`docs: add docker database agents and verify frontend build`).
+- Frontend build verification branch push başarılı: `feature-frontend-build-verification -> origin/feature-frontend-build-verification`.
+- Frontend build verification `main` merge/push tamamlandı: `197e0e0` (`merge: frontend build verification and agent routing`).
 - Push yöntemi: `/usr/bin/git` ve HTTPS/Keychain. Bundled Codex Git + SSH yolu bu ortamda çalışmadı.
-- Yeni branch henüz remote’a push edilmedi; commit sonrası feature push, `main` merge ve `main` push yapılacak.
+- Bu durum kaydı branch’i: `feature-record-frontend-build-merge`.

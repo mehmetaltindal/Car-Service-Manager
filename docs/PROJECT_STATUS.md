@@ -27,12 +27,12 @@ Npm dependency kurulumu, frontend build, Docker Compose smoke test ve genişleti
 
 - Frontend dependency kurulumu `npm --prefix frontend install` ve `npm --prefix frontend install --no-audit --no-fund` denemelerinde bu ortamda tamamlanmadı; iki deneme de uzun süre çıktı üretmediği için kesildi.
 - Testcontainers tabanlı integration test kapsamı henüz ilk unit testlerin ötesine genişletilmedi.
-- GitHub push, bu Codex shell’inde GitHub kimliği görünmediği için tamamlanamadı.
 - Markdown dokümantasyonu Türkçeye çevrildi; kod isimleri, endpointler ve enum değerleri teknik contract olarak korundu.
+- Feature branch, system Git ve HTTPS/Keychain yolu kullanılarak remote’a push edildi.
 
 ## Sonraki Önerilen İş
 
-En mantıklı sonraki iş: remote push erişimini tamamla ve mevcut feature branch’i remote’a gönder. Sonrasında unit test kabul kuralını koruyarak frontend dependency kurulumunu tamamla, `npm --prefix frontend run build` çalıştır, Docker Compose smoke test yap ve zorunlu Testcontainers concurrency testlerini ekle.
+En mantıklı sonraki iş: unit test kabul kuralını koruyarak frontend dependency kurulumunu tamamla, `npm --prefix frontend run build` çalıştır, Docker Compose smoke test yap ve zorunlu Testcontainers concurrency testlerini ekle.
 
 ## Git Durumu
 
@@ -42,7 +42,8 @@ En mantıklı sonraki iş: remote push erişimini tamamla ve mevcut feature bran
 - Dokümantasyon Türkçeleştirme commit’i: `32c9d11` (`docs: translate project documentation to Turkish`).
 - Agent koordinasyon kuralları commit’i: `b37eaac` (`docs: add agent coordination rules`).
 - Unit test kabul kuralı commit’i: `c623364` (`docs: require passing unit tests for task completion`).
-- Remote: `git@github.com:mehmetaltindal/Car-Service-Manager.git`.
-- Push engeli: HTTPS bu terminalde username okuyamadı; SSH `Permission denied (publickey)` döndü; bulunan SSH agent socket’i yanıt beklediği için kullanıcı isteğiyle deneme durduruldu. `b37eaac` sonrası tekrar push denendi ve aynı `Permission denied (publickey)` hatası alındı.
-- `c623364` sonrası feature branch push tekrar denendi ve yine `Permission denied (publickey)` hatası alındı.
-- `main` merge ve remote push işlemleri GitHub authentication engeli kalkana kadar yapılamıyor.
+- Remote: `https://github.com/mehmetaltindal/Car-Service-Manager.git`.
+- Feature branch push başarılı: `feature-initial-car-service-manager -> origin/feature-initial-car-service-manager`.
+- Push durum güncellemesi için `mvn -pl car-service,service-service,audit-service test` tekrar çalıştırıldı; 4 test geçti, 0 skipped.
+- Push yöntemi: `/usr/bin/git` ve HTTPS/Keychain. Bundled Codex Git + SSH yolu bu ortamda çalışmadı.
+- `main` merge henüz yapılmadı; feature branch remote’da hazır.

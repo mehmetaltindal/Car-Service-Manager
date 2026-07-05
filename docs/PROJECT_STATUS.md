@@ -2,7 +2,7 @@
 
 ## Mevcut Aşama
 
-`service-service` Testcontainers integration ve concurrency testleri tamamlandı; commit, feature branch push, `main` merge ve `main` push teslim akışı uygulanacak.
+`service-service` Testcontainers integration ve concurrency testleri tamamlandı, feature branch remote’a push edildi, `main` branch’e merge edilip remote’a gönderildi.
 
 ## Tamamlanan İşler
 
@@ -46,7 +46,7 @@
 
 ## Aktif İş
 
-`feature-service-service-integration-tests` branch’i commit, push, `main` merge ve `main` push akışıyla kapatılmalı.
+`audit-service` RabbitMQ consumer integration testleri için yeni feature branch açılmalı.
 
 ## Engeller
 
@@ -68,7 +68,7 @@ En mantıklı sonraki iş: `docs/INTEGRATION_AGENT.md` rehberine göre `audit-se
 ## Git Durumu
 
 - Repository lokal olarak başlatıldı.
-- Aktif branch: `feature-service-service-integration-tests`.
+- Aktif branch: `main`.
 - İlk implementasyon commit’i: `241bf48` (`feat: implement car service manager foundation`).
 - Dokümantasyon Türkçeleştirme commit’i: `32c9d11` (`docs: translate project documentation to Turkish`).
 - Agent koordinasyon kuralları commit’i: `b37eaac` (`docs: add agent coordination rules`).
@@ -92,3 +92,9 @@ En mantıklı sonraki iş: `docs/INTEGRATION_AGENT.md` rehberine göre `audit-se
 - Car-service integration test `main` merge commit’i: `c6f2147` (`merge: car service integration tests`).
 - Merge sonrası `main` üzerinde `mvn -pl car-service,service-service,audit-service test` çalıştırıldı; 4 test geçti, 0 skipped.
 - `main` push başarılı: `ae39146..c6f2147 main -> main`.
+- Service-service integration test branch’i: `feature-service-service-integration-tests`.
+- Service-service integration test commit’i: `f94e1c5` (`test: add service action integration tests`).
+- Service-service integration test branch push başarılı: `feature-service-service-integration-tests -> origin/feature-service-service-integration-tests`.
+- Service-service integration test `main` merge commit’i: `839102f` (`merge: service action integration tests`).
+- Merge sonrası `main` üzerinde `mvn -pl car-service,service-service,audit-service test` çalıştırıldı; 4 test geçti, 0 skipped.
+- `main` push başarılı: `408a883..839102f main -> main`.

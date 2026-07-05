@@ -2,7 +2,7 @@
 
 ## Mevcut Aşama
 
-`audit-service` RabbitMQ consumer integration testi tamamlandı, feature branch pushlandı ve `main` branch’e merge edilip pushlandı.
+Frontend component unit test altyapısı ve temel UI davranış testleri tamamlandı; commit/push/merge adımı sırada.
 
 ## Tamamlanan İşler
 
@@ -49,10 +49,17 @@
 - `GET /api/services` endpointinde runtime parameter name bağımlılığı kaldırıldı; `@RequestParam(name = "...")` açık kullanıldı.
 - Bu iş için `mvn -pl service-service clean verify` çalıştırıldı; service-service 2 unit test ve 6 integration/concurrency test başarılı geçti, 0 skipped.
 - Commit öncesi tüm backend unit test kapısı `mvn -pl car-service,service-service,audit-service test` ile çalıştırıldı; 4 test geçti, 0 skipped.
+- Frontend component test altyapısı Node test runner + Testing Library ile eklendi.
+- Validation error, optimistic-lock conflict refresh, valid next status dropdown ve `carId/status` filtre request testleri eklendi.
+- `lucide-react` barrel importu Vite/esbuild kilitlenmesini önlemek için ikon bazlı importlara daraltıldı.
+- Agent iletişim özetlerinin 144 karakteri aşmaması kuralı `docs/ENGINEERING_RULES.md` içine eklendi.
+- Bu iş için `npm --prefix frontend test` çalıştırıldı; 4 test geçti, 0 skipped.
+- Bu iş için `npm --prefix frontend run build` çalıştırıldı; build başarılı geçti.
+- Commit öncesi backend unit test kapısı `mvn -pl car-service,service-service,audit-service test` ile çalıştırıldı; 4 test geçti, 0 skipped.
 
 ## Aktif İş
 
-Frontend component testleri için yeni feature branch açılmalı.
+Frontend component testleri commitlenip feature branch remote’a pushlanmalı ve `main` branch’e merge edilmeli.
 
 ## Engeller
 
@@ -66,10 +73,11 @@ Frontend component testleri için yeni feature branch açılmalı.
 - Docker Desktop sandbox dışı erişim gerektirdi; Testcontainers doğrulaması Docker çalışır durumdayken başarıyla tamamlandı.
 - Docker Engine 29.6.1 minimum API sürümü eski Testcontainers core bağımlılığıyla uyumsuzdu; Testcontainers core `2.0.5` ve docker-java `3.7.1` olacak şekilde BOM sırası düzeltildi.
 - Java 26, Mockito/Byte Buddy inline mock kullanımını bozduğu için integration testte `@MockBean` yerine no-op `RabbitEventPublisher` test configuration kullanıldı.
+- `vitest` Node 26 ortamında worker başlatırken kilitlendi; frontend unit test kapısı Node test runner + `tsx` ile kuruldu.
 
 ## Sonraki Önerilen İş
 
-En mantıklı sonraki iş: frontend component testlerini eklemek. Öncelik validation error, conflict message, valid next status dropdown ve filter davranışları olmalı.
+En mantıklı sonraki iş: Docker Compose API smoke test kapsamını create car, create service action, status update ve audit doğrulamasıyla genişletmek.
 
 ## Git Durumu
 
@@ -110,3 +118,4 @@ En mantıklı sonraki iş: frontend component testlerini eklemek. Öncelik valid
 - Audit-service integration test `main` merge commit’i: `d4a587d` (`merge: audit event consumer integration test`).
 - Merge sonrası `main` üzerinde `mvn -pl car-service,service-service,audit-service test` çalıştırıldı; 4 test geçti, 0 skipped.
 - `main` push başarılı: `edc4ff0..d4a587d main -> main`.
+- Frontend component test branch’i: `feature-frontend-component-tests`.

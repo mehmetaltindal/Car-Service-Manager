@@ -2,16 +2,15 @@
 
 ## Hemen Yapılacaklar
 
-1. Frontend agent rehberine göre component test altyapısını ekle.
-2. Validation error, conflict message ve valid next status dropdown testlerini ekle.
-3. Service action list filter testlerini ekle.
+1. Docker Compose uçtan uca smoke test kapsamını API akışıyla genişlet.
+2. Create car, create service action ve status update adımlarını smoke akışına ekle.
+3. Audit log doğrulaması için RabbitMQ/MySQL tarafını smoke senaryosunda kontrol et.
 4. Her implementation pass sonunda `docs/PROJECT_STATUS.md` ve ilgili iş parçacığını güncelle.
 
 ## Gerekli Test Genişletmeleri
 
-1. Frontend component testleri ekle.
-2. Docker Compose uçtan uca smoke test kapsamını API akışıyla genişlet.
-3. CI pipeline ekle.
+1. Docker Compose uçtan uca smoke test kapsamını API akışıyla genişlet.
+2. CI pipeline ekle.
 
 ## Git ve Teslimat
 

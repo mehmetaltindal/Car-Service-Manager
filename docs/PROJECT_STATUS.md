@@ -2,7 +2,7 @@
 
 ## Mevcut Aşama
 
-`service-service` Testcontainers integration ve concurrency testleri tamamlandı, feature branch remote’a push edildi, `main` branch’e merge edilip remote’a gönderildi.
+`audit-service` RabbitMQ consumer integration testi tamamlandı; commit, push, main merge ve main push teslim akışı uygulanacak.
 
 ## Tamamlanan İşler
 
@@ -38,6 +38,12 @@
 - `PUT /api/cars/{id}` ve `PUT /api/services/{id}` endpointlerinde runtime parameter name bağımlılığı kaldırıldı; `@PathVariable("id")` açık kullanıldı.
 - Bu iş için `mvn -pl car-service clean verify` çalıştırıldı; car-service 2 unit test ve 3 integration test başarılı geçti, 0 skipped.
 - Commit öncesi tüm backend unit test kapısı `mvn -pl car-service,service-service,audit-service test` ile çalıştırıldı; 4 test geçti, 0 skipped.
+- `audit-service` için Testcontainers tabanlı MySQL ve RabbitMQ integration testi eklendi.
+- RabbitMQ üzerinden gelen domain eventin `audit_log` tablosuna yazıldığı doğrulandı.
+- Car, service ve audit Rabbit configlerine JSON message converter eklendi.
+- `audit_log` alanlarını test edebilmek için `AuditLog` getterları eklendi.
+- Bu iş için `mvn -pl audit-service clean verify` çalıştırıldı; 1 integration test başarılı geçti, 0 skipped.
+- Commit öncesi tüm backend unit test kapısı `mvn -pl car-service,service-service,audit-service test` ile çalıştırıldı; 4 test geçti, 0 skipped.
 - `service-service` için Testcontainers tabanlı create action, `carId/status` filtreleri, invalid transition, stale version conflict, `finishedAt` ve max-2 `IN_PROGRESS` concurrency testleri eklendi.
 - `service-service` update akışında optimistic locking version response/event değerinin güncel dönmesi için flush eklendi.
 - `GET /api/services` endpointinde runtime parameter name bağımlılığı kaldırıldı; `@RequestParam(name = "...")` açık kullanıldı.
@@ -46,7 +52,7 @@
 
 ## Aktif İş
 
-`audit-service` RabbitMQ consumer integration testleri için yeni feature branch açılmalı.
+`feature-audit-service-integration-tests` branch’i commit, push, `main` merge ve `main` push akışıyla kapatılmalı.
 
 ## Engeller
 
@@ -63,12 +69,12 @@
 
 ## Sonraki Önerilen İş
 
-En mantıklı sonraki iş: `docs/INTEGRATION_AGENT.md` rehberine göre `audit-service` RabbitMQ consumer integration testini eklemek. Öncelik event consume sonrası `audit_log` kaydını gerçek RabbitMQ/MySQL davranışıyla doğrulamak olmalı.
+En mantıklı sonraki iş: frontend component testlerini eklemek. Öncelik validation error, conflict message, valid next status dropdown ve filter davranışları olmalı.
 
 ## Git Durumu
 
 - Repository lokal olarak başlatıldı.
-- Aktif branch: `main`.
+- Aktif branch: `feature-audit-service-integration-tests`.
 - İlk implementasyon commit’i: `241bf48` (`feat: implement car service manager foundation`).
 - Dokümantasyon Türkçeleştirme commit’i: `32c9d11` (`docs: translate project documentation to Turkish`).
 - Agent koordinasyon kuralları commit’i: `b37eaac` (`docs: add agent coordination rules`).

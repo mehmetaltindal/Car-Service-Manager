@@ -27,4 +27,11 @@ public class AuditLog {
         this.timestamp = timestamp;
         this.payloadJson = payloadJson;
     }
+
+    public Long getId() { return id; }
+    public String getEventType() { return eventType; }
+    public String getEntityType() { return entityType; }
+    public Long getEntityId() { return entityId; }
+    public LocalDateTime getTimestamp() { return timestamp; }
+    public String getPayloadJson() { return payloadJson; }
 }

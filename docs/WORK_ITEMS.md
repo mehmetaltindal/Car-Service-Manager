@@ -280,3 +280,20 @@ Tamamlanma kanıtı:
 - `service-service/src/test/java/com/example/carmanager/service/ServiceActionIntegrationIT.java`
 - `mvn -pl service-service clean verify`: 2 unit test ve 6 integration/concurrency test başarılı, 0 skipped.
 - `mvn -pl car-service,service-service,audit-service test`: 4 unit test başarılı, 0 skipped.
+
+## WI-016: audit-service RabbitMQ Integration Testi
+
+Durum: Tamamlandı
+
+Kapsam:
+
+- `audit-service` için Testcontainers MySQL ve RabbitMQ integration test altyapısı.
+- RabbitMQ exchange/queue binding üzerinden domain event consume senaryosu.
+- `audit_log` persistence doğrulaması.
+- JSON message converter ile event payload aktarımı.
+
+Tamamlanma kanıtı:
+
+- `audit-service/src/test/java/com/example/carmanager/audit/AuditEventConsumerIntegrationIT.java`
+- `mvn -pl audit-service clean verify`: 1 integration test başarılı, 0 skipped.
+- `mvn -pl car-service,service-service,audit-service test`: 4 unit test başarılı, 0 skipped.

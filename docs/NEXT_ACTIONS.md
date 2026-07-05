@@ -2,16 +2,16 @@
 
 ## Hemen Yapılacaklar
 
-1. Integration agent rehberine göre `audit-service` RabbitMQ consumer integration testini ekle.
-2. RabbitMQ event consumption sonrası `audit_log` kaydını doğrula.
-3. Audit testinden sonra frontend component testlerini ekle.
+1. Frontend agent rehberine göre component test altyapısını ekle.
+2. Validation error, conflict message ve valid next status dropdown testlerini ekle.
+3. Service action list filter testlerini ekle.
 4. Her implementation pass sonunda `docs/PROJECT_STATUS.md` ve ilgili iş parçacığını güncelle.
 
 ## Gerekli Test Genişletmeleri
 
-1. `audit-service` RabbitMQ consumer integration testini ekle.
-2. Frontend component testleri ekle.
-3. Docker Compose uçtan uca smoke test kapsamını API akışıyla genişlet.
+1. Frontend component testleri ekle.
+2. Docker Compose uçtan uca smoke test kapsamını API akışıyla genişlet.
+3. CI pipeline ekle.
 
 ## Git ve Teslimat
 

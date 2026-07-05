@@ -45,6 +45,7 @@ Docker Compose smoke test ve agent okuma optimizasyonu kaydı commit/push/main m
 - Feature branch, system Git ve HTTPS/Keychain yolu kullanılarak remote’a push edildi.
 - Host üzerinden `curl` ile port doğrulama denemeleri sandbox içinde bağlantı reddi aldı; yükseltilmiş `curl` ve sonraki Docker yeniden uygulama denemeleri kullanım limiti nedeniyle reddedildi. Bu nedenle son doğrulama kanıtı Compose iç healthcheck sonucuyla sınırlı kaydedildi.
 - `feature-docker-compose-smoke-test` commit/push/main merge adımı Git index yazma yetkisi gerektirdi; yükseltilmiş `git add` komutu kullanım limiti nedeniyle reddedildi. Commit ve push işlemi 15:32 sonrası veya kullanıcı onayıyla devam etmeli.
+- 2026-07-05 tarihinde Git index engeli kalktı; `feature-docker-compose-smoke-test` commit, push ve `main` merge akışı tamamlandı.
 
 ## Sonraki Önerilen İş
 
@@ -67,3 +68,7 @@ En mantıklı sonraki iş: `docs/INTEGRATION_AGENT.md` rehberine göre Testconta
 - Frontend build verification `main` merge/push tamamlandı: `197e0e0` (`merge: frontend build verification and agent routing`).
 - Push yöntemi: `/usr/bin/git` ve HTTPS/Keychain. Bundled Codex Git + SSH yolu bu ortamda çalışmadı.
 - Bu durum kaydı branch’i: `feature-docker-compose-smoke-test`.
+- Docker Compose smoke test commit’i: `f72ce23` (`fix: stabilize docker compose smoke test`).
+- Docker Compose smoke test branch push başarılı: `feature-docker-compose-smoke-test -> origin/feature-docker-compose-smoke-test`.
+- Docker Compose smoke test `main` merge commit’i: `7340013` (`merge: docker compose smoke test`).
+- Merge sonrası `main` üzerinde `mvn -pl car-service,service-service,audit-service test` çalıştırıldı; 4 test geçti, 0 skipped.

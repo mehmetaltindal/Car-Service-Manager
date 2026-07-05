@@ -2,7 +2,7 @@
 
 ## Mevcut Aşama
 
-Backend paket ayrımı işi devam ediyor; API, DTO, entity, service ve controller klasörleri ayrıldı.
+Backend paket ayrımı tamamlandı, feature branch pushlandı ve `main` branch’e merge edildi.
 
 ## Tamamlanan İşler
 
@@ -63,7 +63,7 @@ Backend paket ayrımı işi devam ediyor; API, DTO, entity, service ve controlle
 
 ## Aktif İş
 
-Backend paket ayrımı commitlenip feature branch remote’a pushlanmalı ve `main` branch’e merge edilmeli.
+Docker Compose API smoke test kapsamını genişletmek için Docker/Integration agent sırası hazırlanmalı.
 
 ## Engeller
 
@@ -130,3 +130,7 @@ En mantıklı sonraki iş: Docker Compose API smoke test kapsamını create car,
 - Merge sonrası `main` üzerinde `npm --prefix frontend run build` çalıştırıldı; build başarılı geçti.
 - Merge sonrası `main` üzerinde `mvn -pl car-service,service-service,audit-service test` çalıştırıldı; 4 test geçti, 0 skipped.
 - Backend paket ayrımı branch’i: `feature-backend-package-structure`.
+- Backend paket ayrımı commit’i: `6715840` (`refactor: clarify backend package structure`).
+- Backend paket ayrımı branch push başarılı: `feature-backend-package-structure -> origin/feature-backend-package-structure`.
+- Backend paket ayrımı `main` merge commit’i: `4c70044` (`merge: backend package structure`).
+- Merge sonrası `main` üzerinde `mvn -pl car-service,service-service,audit-service test` çalıştırıldı; 4 test geçti, 0 skipped.

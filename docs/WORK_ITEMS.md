@@ -318,3 +318,22 @@ Tamamlanma kanıtı:
 - `npm --prefix frontend test`: 4 test başarılı, 0 skipped.
 - `npm --prefix frontend run build`: başarılı.
 - `mvn -pl car-service,service-service,audit-service test`: 4 unit test başarılı, 0 skipped.
+
+## WI-018: Backend Klasör ve Paket Ayrımı
+
+Durum: Tamamlandı
+
+Kapsam:
+
+- Public API katmanını `api/controller`, `api/dto`, `api/exception` altında görünür hale getir.
+- Application service, mapper ve exception sınıflarını ayrı alt paketlere taşı.
+- Domain entity, enum, event, policy ve exception sınıflarını ayrı alt paketlere taşı.
+- Persistence, messaging ve seed infrastructure kodlarını ayrı alt paketlere taşı.
+- Mühendislik ve backend agent kurallarını yeni klasör standardıyla güncelle.
+
+Tamamlanma kanıtı:
+
+- `car-service/src/main/java/com/example/carmanager/car/api/`
+- `service-service/src/main/java/com/example/carmanager/service/api/`
+- `audit-service/src/main/java/com/example/carmanager/audit/domain/entity/`
+- `mvn -pl car-service,service-service,audit-service test`: 4 unit test başarılı, 0 skipped.

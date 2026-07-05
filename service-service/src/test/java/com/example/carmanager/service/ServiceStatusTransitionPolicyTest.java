@@ -1,8 +1,8 @@
 package com.example.carmanager.service;
 
-import com.example.carmanager.service.domain.InvalidStatusTransitionException;
-import com.example.carmanager.service.domain.ServiceStatus;
-import com.example.carmanager.service.domain.ServiceStatusTransitionPolicy;
+import com.example.carmanager.service.domain.exception.InvalidStatusTransitionException;
+import com.example.carmanager.service.domain.enums.ServiceStatus;
+import com.example.carmanager.service.domain.policy.ServiceStatusTransitionPolicy;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThatCode;

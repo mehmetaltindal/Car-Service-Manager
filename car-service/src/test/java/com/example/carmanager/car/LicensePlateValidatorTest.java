@@ -1,6 +1,6 @@
 package com.example.carmanager.car;
 
-import com.example.carmanager.car.domain.LicensePlateValidator;
+import com.example.carmanager.car.domain.policy.LicensePlateValidator;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;

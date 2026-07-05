@@ -1,9 +1,9 @@
 package com.example.carmanager.audit;
 
-import com.example.carmanager.audit.application.DomainEvent;
-import com.example.carmanager.audit.domain.AuditLog;
-import com.example.carmanager.audit.infrastructure.AuditLogRepository;
-import com.example.carmanager.audit.infrastructure.RabbitConfig;
+import com.example.carmanager.audit.domain.event.DomainEvent;
+import com.example.carmanager.audit.domain.entity.AuditLog;
+import com.example.carmanager.audit.infrastructure.persistence.AuditLogRepository;
+import com.example.carmanager.audit.infrastructure.messaging.RabbitConfig;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;

@@ -25,11 +25,21 @@ Command servisleri domain eventlerini `car-service-manager.events` exchange’in
 
 ## Clean Architecture Kuralları
 
-- `domain`: entity, enum, policy ve domain exception sınıflarını içerir.
-- `application`: use case, request orchestration, DTO mapping ve command seviyesi kuralları içerir.
-- `infrastructure`: repository, RabbitMQ configuration, persistence adapter ve seed sınıflarını içerir.
-- `interfaces`: REST controller ve exception handler sınıflarını içerir.
+- `api/controller`: REST controller sınıflarını içerir.
+- `api/dto`: public request/response DTO contract sınıflarını içerir.
+- `api/exception`: REST exception handler sınıflarını içerir.
+- `application/service`: use case orchestration ve transaction boundary sınıflarını içerir.
+- `application/mapper`: DTO-domain dönüşüm sınıflarını içerir.
+- `application/exception`: command seviyesinde kullanılan application exception sınıflarını içerir.
+- `domain/entity`: JPA entity ve aggregate sınıflarını içerir.
+- `domain/enums`: domain enumlarını içerir.
+- `domain/event`: domain event contract sınıflarını içerir.
+- `domain/policy`: domain policy ve rule sınıflarını içerir.
+- `domain/exception`: domain exception sınıflarını içerir.
+- `infrastructure/persistence`: repository ve persistence adapter sınıflarını içerir.
+- `infrastructure/messaging`: RabbitMQ publisher, consumer config ve message converter sınıflarını içerir.
+- `infrastructure/seed`: seed ve bootstrap sınıflarını içerir.
 
 ## Dependency Yönü
 
-Controller katmanı application service çağırır. Application service sınıfları domain nesnelerini ve infrastructure portlarını koordine eder. Domain sınıfları controller veya web DTO’larına bağımlı olmaz.
+`api/controller` katmanı application service çağırır. Application service sınıfları domain nesnelerini ve infrastructure portlarını koordine eder. Domain sınıfları API DTO’larına, controller’a veya infrastructure detaylarına bağımlı olmaz.

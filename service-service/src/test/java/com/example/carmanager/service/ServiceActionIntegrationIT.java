@@ -1,14 +1,14 @@
 package com.example.carmanager.service;
 
-import com.example.carmanager.service.application.ConflictException;
-import com.example.carmanager.service.application.ServiceActionApplicationService;
-import com.example.carmanager.service.application.ServiceDtos.ServiceActionCreateRequest;
-import com.example.carmanager.service.application.ServiceDtos.ServiceActionResponse;
-import com.example.carmanager.service.application.ServiceDtos.ServiceActionUpdateRequest;
-import com.example.carmanager.service.domain.DomainEvent;
-import com.example.carmanager.service.domain.ServiceStatus;
-import com.example.carmanager.service.infrastructure.RabbitEventPublisher;
-import com.example.carmanager.service.infrastructure.ServiceActionRepository;
+import com.example.carmanager.service.application.exception.ConflictException;
+import com.example.carmanager.service.application.service.ServiceActionApplicationService;
+import com.example.carmanager.service.api.dto.ServiceDtos.ServiceActionCreateRequest;
+import com.example.carmanager.service.api.dto.ServiceDtos.ServiceActionResponse;
+import com.example.carmanager.service.api.dto.ServiceDtos.ServiceActionUpdateRequest;
+import com.example.carmanager.service.domain.event.DomainEvent;
+import com.example.carmanager.service.domain.enums.ServiceStatus;
+import com.example.carmanager.service.infrastructure.messaging.RabbitEventPublisher;
+import com.example.carmanager.service.infrastructure.persistence.ServiceActionRepository;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.AfterEach;

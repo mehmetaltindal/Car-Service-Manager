@@ -2,7 +2,7 @@
 
 ## Mevcut Aşama
 
-`car-service` Testcontainers integration testleri tamamlandı; commit, feature branch push, `main` merge ve `main` push teslim akışı uygulanacak.
+`car-service` Testcontainers integration testleri tamamlandı, feature branch remote’a push edildi, `main` branch’e merge edilip remote’a gönderildi.
 
 ## Tamamlanan İşler
 
@@ -41,7 +41,7 @@
 
 ## Aktif İş
 
-`feature-car-service-integration-tests` branch’i commit, push, `main` merge ve `main` push akışıyla kapatılmalı.
+`service-service` Testcontainers integration ve concurrency testleri için yeni feature branch açılmalı.
 
 ## Engeller
 
@@ -63,7 +63,7 @@ En mantıklı sonraki iş: `docs/INTEGRATION_AGENT.md` rehberine göre `service-
 ## Git Durumu
 
 - Repository lokal olarak başlatıldı.
-- Aktif branch: `feature-car-service-integration-tests`.
+- Aktif branch: `main`.
 - İlk implementasyon commit’i: `241bf48` (`feat: implement car service manager foundation`).
 - Dokümantasyon Türkçeleştirme commit’i: `32c9d11` (`docs: translate project documentation to Turkish`).
 - Agent koordinasyon kuralları commit’i: `b37eaac` (`docs: add agent coordination rules`).
@@ -82,4 +82,8 @@ En mantıklı sonraki iş: `docs/INTEGRATION_AGENT.md` rehberine göre `service-
 - Docker Compose smoke test `main` merge commit’i: `7340013` (`merge: docker compose smoke test`).
 - Merge sonrası `main` üzerinde `mvn -pl car-service,service-service,audit-service test` çalıştırıldı; 4 test geçti, 0 skipped.
 - Car-service integration test branch’i: `feature-car-service-integration-tests`.
-- Commit/push/main merge hashleri commit sonrası bu dosyada ayrıca kaydedilecek.
+- Car-service integration test commit’i: `b46b966` (`test: add car service integration tests`).
+- Car-service integration test branch push başarılı: `feature-car-service-integration-tests -> origin/feature-car-service-integration-tests`.
+- Car-service integration test `main` merge commit’i: `c6f2147` (`merge: car service integration tests`).
+- Merge sonrası `main` üzerinde `mvn -pl car-service,service-service,audit-service test` çalıştırıldı; 4 test geçti, 0 skipped.
+- `main` push başarılı: `ae39146..c6f2147 main -> main`.

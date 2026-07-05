@@ -2,10 +2,11 @@
 
 ## Hemen Yapılacaklar
 
-1. Docker agent rehberine göre `docker compose up --build` smoke testini çalıştır.
-2. Smoke test sırasında DB veya container hatası çıkarsa işi doğru agent rehberine yönlendir.
-3. Smoke test sonuçlarını `docs/PROJECT_STATUS.md` içine kaydet.
-4. Zorunlu Testcontainers integration/concurrency testlerini ekle.
+1. Integration agent rehberine göre Testcontainers integration testlerini ekle.
+2. Önce `car-service` create/update/duplicate plate integration testlerini tamamla.
+3. Ardından `service-service` optimistic locking ve max-2 `IN_PROGRESS` concurrency testlerini ekle.
+4. Audit consumer integration testini ekle.
+5. Her implementation pass sonunda `docs/PROJECT_STATUS.md` ve ilgili iş parçacığını güncelle.
 
 ## Gerekli Test Genişletmeleri
 
@@ -28,12 +29,14 @@
 
 ## Agent Koordinasyonu
 
-1. Frontend işleri için `docs/FRONTEND_AGENT.md` rehberini kullan.
-2. Backend işleri için `docs/BACKEND_AGENT.md` rehberini kullan.
-3. Docker container işleri için `docs/DOCKER_AGENT.md` rehberini kullan.
-4. Veritabanı işleri için `docs/DATABASE_AGENT.md` rehberini kullan.
-5. Integration, RabbitMQ ve uçtan uca test işleri için `docs/INTEGRATION_AGENT.md` rehberini kullan.
-6. Bir iş bittikten sonra agent en mantıklı yeni işi seçip `docs/PROJECT_STATUS.md` içine kaydeder.
+1. Her agent önce `docs/AGENT_WORKFLOW.md` içindeki token optimizasyonlu okuma sırasına uyar.
+2. Frontend işleri için sadece gerekli ortak bölümler ve `docs/FRONTEND_AGENT.md` rehberi kullanılır.
+3. Backend işleri için sadece gerekli ortak bölümler ve `docs/BACKEND_AGENT.md` rehberi kullanılır.
+4. Docker container işleri için sadece gerekli ortak bölümler ve `docs/DOCKER_AGENT.md` rehberi kullanılır.
+5. Veritabanı işleri için sadece gerekli ortak bölümler ve `docs/DATABASE_AGENT.md` rehberi kullanılır.
+6. Integration, RabbitMQ ve uçtan uca test işleri için sadece gerekli ortak bölümler ve `docs/INTEGRATION_AGENT.md` rehberi kullanılır.
+7. Destek dokümanları yalnızca işin kararı veya kabul kriteri için gerekiyorsa okunur.
+8. Bir iş bittikten sonra agent en mantıklı yeni işi seçip `docs/PROJECT_STATUS.md` içine kaydeder.
 
 ## Ürün İyileştirmeleri
 

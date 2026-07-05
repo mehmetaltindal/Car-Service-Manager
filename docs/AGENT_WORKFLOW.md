@@ -2,22 +2,24 @@
 
 Her implementasyon geçişi şu döngüyü takip etmelidir:
 
-1. `docs/PROJECT_STATUS.md` dosyasını oku.
-2. `docs/WORK_ITEMS.md`, `docs/NEXT_ACTIONS.md` ve `docs/ENGINEERING_RULES.md` dosyalarını oku.
-3. İşin alanına göre gerekiyorsa ilgili agent rehberini oku:
+1. `docs/PROJECT_STATUS.md` dosyasındaki sadece mevcut aşama, aktif iş, engeller ve sonraki önerilen iş alanlarını oku.
+2. `docs/NEXT_ACTIONS.md` dosyasındaki sadece işin kapsamına giren başlığı oku.
+3. `docs/ENGINEERING_RULES.md` dosyasındaki sadece branch, commit/push, test ve işin alanıyla ilgili kalite kurallarını oku.
+4. İşin alanına göre sadece ilgili agent rehberini oku:
    - Frontend işleri: `docs/FRONTEND_AGENT.md`
    - Backend işleri: `docs/BACKEND_AGENT.md`
    - Docker container işleri: `docs/DOCKER_AGENT.md`
    - Veritabanı, schema, migration ve seed işleri: `docs/DATABASE_AGENT.md`
    - Integration, test, RabbitMQ veya uçtan uca işler: `docs/INTEGRATION_AGENT.md`
-4. İlgili kodu düzenlemeden önce incele.
-5. Yapılacak değişikliği açıkça belirt.
-6. En küçük tutarlı iş dilimini implemente et.
-7. Unit testleri çalıştır; başarılı geçmeden görevi tamamlanmış sayma.
-8. Değişen dosyaları duplication, domain leakage ve kırılan contract açısından gözden geçir.
-9. `docs/PROJECT_STATUS.md`, `docs/WORK_ITEMS.md` ve `docs/NEXT_ACTIONS.md` dosyalarını güncelle.
-10. Tamamlanan iş parçasını `feature-[development-description]` branch’i üzerinde commit et, remote’a push et ve `main` branch’e merge et.
-11. İş tamamlandıktan sonra `docs/NEXT_ACTIONS.md` içinden en mantıklı yeni işi seç ve `docs/PROJECT_STATUS.md` içinde “Sonraki Önerilen İş” alanına kaydet.
+5. Destek dokümanı yalnızca karar vermek için gerçekten gerekliyse oku; örneğin API contract değişmiyorsa `docs/API_CONTRACT.md` okunmaz.
+6. İlgili kodu düzenlemeden önce incele.
+7. Yapılacak değişikliği açıkça belirt.
+8. En küçük tutarlı iş dilimini implemente et.
+9. Unit testleri çalıştır; başarılı geçmeden görevi tamamlanmış sayma.
+10. Değişen dosyaları duplication, domain leakage ve kırılan contract açısından gözden geçir.
+11. `docs/PROJECT_STATUS.md`, `docs/WORK_ITEMS.md` ve `docs/NEXT_ACTIONS.md` dosyalarında sadece değişen durumları güncelle.
+12. Tamamlanan iş parçasını `feature-[development-description]` branch’i üzerinde commit et, remote’a push et ve `main` branch’e merge et.
+13. İş tamamlandıktan sonra `docs/NEXT_ACTIONS.md` içinden en mantıklı yeni işi seç ve `docs/PROJECT_STATUS.md` içinde “Sonraki Önerilen İş” alanına kaydet.
 
 ## Tamamlama Kuralı
 
@@ -44,29 +46,39 @@ Her iş tamamlandığında agent durup kullanıcıdan yeni iş beklemez. `docs/N
 
 Seçilen yeni iş `docs/PROJECT_STATUS.md` içinde kayıt altına alınmalıdır.
 
-## Multi-Agent Okuma Sırası
+## Token Optimizasyonlu Multi-Agent Okuma Sırası
 
-Başka agentlar projeye dahil olduğunda önce ortak dosyaları, sonra alan dosyasını okumalıdır.
+Başka agentlar projeye dahil olduğunda her agent yalnızca kendi işi için gerekli Markdown dosyalarını okumalıdır. Amaç, token tüketimini azaltmak ve karar için gerekli olmayan dokümanları yüklememektir.
 
-Ortak okuma sırası:
+Zorunlu kısa okuma:
 
-1. `docs/PROJECT_STATUS.md`
-2. `docs/ENGINEERING_RULES.md`
-3. `docs/AGENT_WORKFLOW.md`
-4. `docs/WORK_ITEMS.md`
-5. `docs/NEXT_ACTIONS.md`
-6. `docs/ARCHITECTURE.md`
-7. `docs/API_CONTRACT.md`
-8. `docs/DOMAIN_RULES.md`
-9. `docs/TEST_STRATEGY.md`
+1. `docs/PROJECT_STATUS.md`: sadece mevcut aşama, aktif iş, engeller ve sonraki önerilen iş.
+2. `docs/NEXT_ACTIONS.md`: sadece ilgili iş grubu.
+3. `docs/ENGINEERING_RULES.md`: sadece branch, commit/push, test ve ilgili kalite kuralı.
+4. `docs/AGENT_WORKFLOW.md`: sadece bu okuma sırası, tamamlama kuralı ve iş yönlendirme kuralı.
 
-Alan bazlı ek dosya:
+Agent bazlı zorunlu tek ek dosya:
 
 - Frontend agent: `docs/FRONTEND_AGENT.md`
 - Backend agent: `docs/BACKEND_AGENT.md`
 - Docker agent: `docs/DOCKER_AGENT.md`
 - Database agent: `docs/DATABASE_AGENT.md`
 - Integration agent: `docs/INTEGRATION_AGENT.md`
+
+İhtiyaç halinde okunacak destek dosyaları:
+
+- API endpoint, request/response veya hata contract değişiyorsa `docs/API_CONTRACT.md`.
+- Domain kuralı, aggregate veya ubiquitous language değişiyorsa `docs/DOMAIN_RULES.md`.
+- Servis sınırı, veri sahipliği veya bağımlılık yönü değişiyorsa `docs/ARCHITECTURE.md`.
+- Test kapsamı, test türü veya kabul kriteri değişiyorsa `docs/TEST_STRATEGY.md`.
+- Yeni iş parçası açılıyor, kapanıyor veya kapsam ayrıştırılıyorsa `docs/WORK_ITEMS.md`.
+
+Okunmaması gerekenler:
+
+- Frontend agent, sadece UI işi yapıyorsa Docker veya Database rehberlerini okumaz.
+- Docker agent, sadece healthcheck veya Dockerfile düzenliyorsa API contract okumaz.
+- Database agent, sadece init/migration düzenliyorsa frontend rehberini okumaz.
+- Integration agent, sadece smoke sonucu kaydediyorsa domain dokümanını okumaz; domain davranışı test edilecekse okur.
 
 ## İş Yönlendirme Kuralı
 

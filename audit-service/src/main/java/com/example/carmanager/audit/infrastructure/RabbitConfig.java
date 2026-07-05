@@ -1,6 +1,8 @@
 package com.example.carmanager.audit.infrastructure;
 
 import org.springframework.amqp.core.*;
+import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
+import org.springframework.amqp.support.converter.MessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -22,5 +24,10 @@ public class RabbitConfig {
     @Bean
     Binding auditBinding(Queue auditQueue, TopicExchange domainEventsExchange) {
         return BindingBuilder.bind(auditQueue).to(domainEventsExchange).with("#");
+    }
+
+    @Bean
+    MessageConverter messageConverter() {
+        return new Jackson2JsonMessageConverter();
     }
 }

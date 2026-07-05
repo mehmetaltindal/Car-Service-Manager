@@ -34,7 +34,7 @@ public class ServiceActionController {
     }
 
     @PutMapping("/{id}")
-    public ServiceActionResponse update(@PathVariable Long id, @Valid @RequestBody ServiceActionUpdateRequest request) {
+    public ServiceActionResponse update(@PathVariable("id") Long id, @Valid @RequestBody ServiceActionUpdateRequest request) {
         return service.update(id, request);
     }
 }

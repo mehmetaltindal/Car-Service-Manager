@@ -3,19 +3,18 @@
 ## Hemen Yapılacaklar
 
 1. Integration agent rehberine göre Testcontainers integration testlerini ekle.
-2. Önce `car-service` create/update/duplicate plate integration testlerini tamamla.
-3. Ardından `service-service` optimistic locking ve max-2 `IN_PROGRESS` concurrency testlerini ekle.
+2. `service-service` için create action, `carId/status` filtreleri ve invalid transition integration testlerini ekle.
+3. `service-service` optimistic locking ve max-2 `IN_PROGRESS` concurrency testlerini ekle.
 4. Audit consumer integration testini ekle.
 5. Her implementation pass sonunda `docs/PROJECT_STATUS.md` ve ilgili iş parçacığını güncelle.
 
 ## Gerekli Test Genişletmeleri
 
-1. `car-service` için Testcontainers integration testleri ekle.
-2. `service-service` için Testcontainers integration testleri ekle.
-3. Optimistic locking için concurrency test ekle.
-4. Max-2 `IN_PROGRESS` kuralı için concurrency test ekle.
-5. Audit consumer integration test ekle.
-6. Frontend component testleri ekle.
+1. `service-service` için Testcontainers integration testleri ekle.
+2. Optimistic locking için concurrency test ekle.
+3. Max-2 `IN_PROGRESS` kuralı için concurrency test ekle.
+4. `audit-service` RabbitMQ consumer integration testini ekle.
+5. Frontend component testleri ekle.
 
 ## Git ve Teslimat
 

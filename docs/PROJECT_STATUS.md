@@ -2,7 +2,7 @@
 
 ## Mevcut Aşama
 
-Docker Compose smoke test sertleştirmesi tamamlanmak üzere; container build/runtime hataları giderildi.
+`car-service` Testcontainers integration testleri tamamlandı; commit, feature branch push, `main` merge ve `main` push teslim akışı uygulanacak.
 
 ## Tamamlanan İşler
 
@@ -32,10 +32,16 @@ Docker Compose smoke test sertleştirmesi tamamlanmak üzere; container build/ru
 - `docker compose up --build --detach` çalıştırıldı; MySQL, RabbitMQ, `car-service`, `service-service` ve `audit-service` Compose healthcheck ile healthy durumuna geçti, frontend container başladı.
 - Bu iş için `mvn -pl car-service,service-service,audit-service test` çalıştırıldı; 4 test geçti, 0 skipped.
 - Agent Markdown okuma sırası token tüketimini azaltacak şekilde güncellendi; her agent yalnızca kendi işi için gerekli ortak bölümleri ve kendi alan rehberini okuyacak.
+- `car-service` için Testcontainers tabanlı create, duplicate license plate conflict ve update public contract integration testleri eklendi.
+- Testcontainers BOM sürümü `2.0.5` olarak güncellendi ve Spring Boot BOM override sırası düzeltildi.
+- Testcontainers 2.0.5 ile `commons-compress` uyumu için `car-service` test scope `commons-lang3` sürümü sabitlendi.
+- `PUT /api/cars/{id}` ve `PUT /api/services/{id}` endpointlerinde runtime parameter name bağımlılığı kaldırıldı; `@PathVariable("id")` açık kullanıldı.
+- Bu iş için `mvn -pl car-service clean verify` çalıştırıldı; car-service 2 unit test ve 3 integration test başarılı geçti, 0 skipped.
+- Commit öncesi tüm backend unit test kapısı `mvn -pl car-service,service-service,audit-service test` ile çalıştırıldı; 4 test geçti, 0 skipped.
 
 ## Aktif İş
 
-Docker Compose smoke test ve agent okuma optimizasyonu kaydı commit/push/main merge akışıyla kapatılmalı.
+`feature-car-service-integration-tests` branch’i commit, push, `main` merge ve `main` push akışıyla kapatılmalı.
 
 ## Engeller
 
@@ -46,15 +52,18 @@ Docker Compose smoke test ve agent okuma optimizasyonu kaydı commit/push/main m
 - Host üzerinden `curl` ile port doğrulama denemeleri sandbox içinde bağlantı reddi aldı; yükseltilmiş `curl` ve sonraki Docker yeniden uygulama denemeleri kullanım limiti nedeniyle reddedildi. Bu nedenle son doğrulama kanıtı Compose iç healthcheck sonucuyla sınırlı kaydedildi.
 - `feature-docker-compose-smoke-test` commit/push/main merge adımı Git index yazma yetkisi gerektirdi; yükseltilmiş `git add` komutu kullanım limiti nedeniyle reddedildi. Commit ve push işlemi 15:32 sonrası veya kullanıcı onayıyla devam etmeli.
 - 2026-07-05 tarihinde Git index engeli kalktı; `feature-docker-compose-smoke-test` commit, push ve `main` merge akışı tamamlandı.
+- Docker Desktop sandbox dışı erişim gerektirdi; Testcontainers doğrulaması Docker çalışır durumdayken başarıyla tamamlandı.
+- Docker Engine 29.6.1 minimum API sürümü eski Testcontainers core bağımlılığıyla uyumsuzdu; Testcontainers core `2.0.5` ve docker-java `3.7.1` olacak şekilde BOM sırası düzeltildi.
+- Java 26, Mockito/Byte Buddy inline mock kullanımını bozduğu için integration testte `@MockBean` yerine no-op `RabbitEventPublisher` test configuration kullanıldı.
 
 ## Sonraki Önerilen İş
 
-En mantıklı sonraki iş: `docs/INTEGRATION_AGENT.md` rehberine göre Testcontainers integration testlerini eklemek. Öncelik sırası `car-service` create/update/duplicate plate, ardından `service-service` optimistic locking ve max-2 `IN_PROGRESS` concurrency testleri olmalı.
+En mantıklı sonraki iş: `docs/INTEGRATION_AGENT.md` rehberine göre `service-service` Testcontainers integration ve concurrency testlerini eklemek. Öncelik `create service action`, `carId/status` filtreleri, invalid transition `400`, optimistic locking `409` ve max-2 `IN_PROGRESS` concurrency kuralı olmalı.
 
 ## Git Durumu
 
 - Repository lokal olarak başlatıldı.
-- Aktif branch: `feature-record-frontend-build-merge`.
+- Aktif branch: `feature-car-service-integration-tests`.
 - İlk implementasyon commit’i: `241bf48` (`feat: implement car service manager foundation`).
 - Dokümantasyon Türkçeleştirme commit’i: `32c9d11` (`docs: translate project documentation to Turkish`).
 - Agent koordinasyon kuralları commit’i: `b37eaac` (`docs: add agent coordination rules`).
@@ -72,3 +81,5 @@ En mantıklı sonraki iş: `docs/INTEGRATION_AGENT.md` rehberine göre Testconta
 - Docker Compose smoke test branch push başarılı: `feature-docker-compose-smoke-test -> origin/feature-docker-compose-smoke-test`.
 - Docker Compose smoke test `main` merge commit’i: `7340013` (`merge: docker compose smoke test`).
 - Merge sonrası `main` üzerinde `mvn -pl car-service,service-service,audit-service test` çalıştırıldı; 4 test geçti, 0 skipped.
+- Car-service integration test branch’i: `feature-car-service-integration-tests`.
+- Commit/push/main merge hashleri commit sonrası bu dosyada ayrıca kaydedilecek.

@@ -260,3 +260,23 @@ Tamamlanma kanıtı:
 - `car-service/src/test/java/com/example/carmanager/car/CarIntegrationIT.java`
 - `mvn -pl car-service clean verify`: 2 unit test ve 3 integration test başarılı, 0 skipped.
 - `mvn -pl car-service,service-service,audit-service test`: 4 unit test başarılı, 0 skipped.
+
+## WI-015: service-service Integration ve Concurrency Testleri
+
+Durum: Tamamlandı
+
+Kapsam:
+
+- `service-service` için Testcontainers MySQL integration test altyapısı.
+- `POST /api/services` service action create senaryosu.
+- `GET /api/services?carId=...` ve `GET /api/services?status=...` filtre senaryoları.
+- Invalid status transition için `400 Bad Request` senaryosu.
+- Stale optimistic locking version için `409 Conflict` senaryosu.
+- `finishedAt` değerinin sadece `DONE` durumunda set edilmesi.
+- Concurrent `IN_PROGRESS` transition denemelerinde max-2 kuralının gerçek MySQL row-level locking ile korunması.
+
+Tamamlanma kanıtı:
+
+- `service-service/src/test/java/com/example/carmanager/service/ServiceActionIntegrationIT.java`
+- `mvn -pl service-service clean verify`: 2 unit test ve 6 integration/concurrency test başarılı, 0 skipped.
+- `mvn -pl car-service,service-service,audit-service test`: 4 unit test başarılı, 0 skipped.

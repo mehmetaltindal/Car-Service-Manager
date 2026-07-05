@@ -18,8 +18,8 @@ public class ServiceActionController {
     }
 
     @GetMapping
-    public List<ServiceActionResponse> list(@RequestParam(required = false) Long carId,
-                                            @RequestParam(required = false) ServiceStatus status) {
+    public List<ServiceActionResponse> list(@RequestParam(name = "carId", required = false) Long carId,
+                                            @RequestParam(name = "status", required = false) ServiceStatus status) {
         return service.list(carId, status);
     }
 

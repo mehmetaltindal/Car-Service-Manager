@@ -79,6 +79,7 @@ public class ServiceActionApplicationService {
             throw new ConflictException("Service action was updated by another user. Refresh the row and try again.");
         }
 
+        actions.flush();
         log("UPDATE_SERVICE_ACTION", "SERVICE_ACTION", action.getId(), OperationResult.SUCCESS, "Service action updated");
         publishUpdate(action);
         if (previousStatus != action.getStatus()) {

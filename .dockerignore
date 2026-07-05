@@ -1,0 +1,15 @@
+*
+
+!pom.xml
+!car-service/**
+!service-service/**
+!audit-service/**
+!frontend/**
+!docker/
+!docker/mysql/**
+
+**/target/
+**/node_modules/
+**/dist/
+**/.DS_Store
+**/*.log

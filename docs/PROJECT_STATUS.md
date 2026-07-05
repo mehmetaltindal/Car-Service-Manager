@@ -2,7 +2,7 @@
 
 ## Mevcut Aşama
 
-İlk implementasyon iskeleti tamamlandı.
+Docker Compose smoke test sertleştirmesi tamamlanmak üzere; container build/runtime hataları giderildi.
 
 ## Tamamlanan İşler
 
@@ -24,10 +24,18 @@
 - Bu iş için `mvn -pl car-service,service-service,audit-service test` çalıştırıldı; 4 test geçti, 0 skipped.
 - Frontend build verification branch’i remote’a push edildi ve `main` branch’e merge edilip remote’a gönderildi.
 - Merge takip kaydı için `mvn -pl car-service,service-service,audit-service test` çalıştırıldı; 4 test geçti, 0 skipped.
+- Docker agent kapsamında backend Dockerfile Maven reactor context hatası giderildi.
+- Database agent kapsamında MySQL init SQL bind mount hatası, init dosyasını özel MySQL image içine kopyalayarak giderildi.
+- Backend runtime kapsamında Spring Boot executable jar üretimi için `spring-boot-maven-plugin` `repackage` execution eklendi.
+- Docker build context performansı için kök `.dockerignore` eklendi.
+- Frontend healthcheck, statik HTML içinde metin aramak yerine HTTP varlık kontrolü yapacak şekilde düzeltildi.
+- `docker compose up --build --detach` çalıştırıldı; MySQL, RabbitMQ, `car-service`, `service-service` ve `audit-service` Compose healthcheck ile healthy durumuna geçti, frontend container başladı.
+- Bu iş için `mvn -pl car-service,service-service,audit-service test` çalıştırıldı; 4 test geçti, 0 skipped.
+- Agent Markdown okuma sırası token tüketimini azaltacak şekilde güncellendi; her agent yalnızca kendi işi için gerekli ortak bölümleri ve kendi alan rehberini okuyacak.
 
 ## Aktif İş
 
-Docker Compose smoke test ve genişletilmiş integration/concurrency testleri tamamlanmalı.
+Docker Compose smoke test ve agent okuma optimizasyonu kaydı commit/push/main merge akışıyla kapatılmalı.
 
 ## Engeller
 
@@ -35,10 +43,12 @@ Docker Compose smoke test ve genişletilmiş integration/concurrency testleri ta
 - Testcontainers tabanlı integration test kapsamı henüz ilk unit testlerin ötesine genişletilmedi.
 - Markdown dokümantasyonu Türkçeye çevrildi; kod isimleri, endpointler ve enum değerleri teknik contract olarak korundu.
 - Feature branch, system Git ve HTTPS/Keychain yolu kullanılarak remote’a push edildi.
+- Host üzerinden `curl` ile port doğrulama denemeleri sandbox içinde bağlantı reddi aldı; yükseltilmiş `curl` ve sonraki Docker yeniden uygulama denemeleri kullanım limiti nedeniyle reddedildi. Bu nedenle son doğrulama kanıtı Compose iç healthcheck sonucuyla sınırlı kaydedildi.
+- `feature-docker-compose-smoke-test` commit/push/main merge adımı Git index yazma yetkisi gerektirdi; yükseltilmiş `git add` komutu kullanım limiti nedeniyle reddedildi. Commit ve push işlemi 15:32 sonrası veya kullanıcı onayıyla devam etmeli.
 
 ## Sonraki Önerilen İş
 
-En mantıklı sonraki iş: `docs/DOCKER_AGENT.md` rehberine göre `docker compose up --build` smoke testini çalıştır. DB hatası çıkarsa `docs/DATABASE_AGENT.md`, servisler arası akış hatası çıkarsa `docs/INTEGRATION_AGENT.md` rehberine yönlendir.
+En mantıklı sonraki iş: `docs/INTEGRATION_AGENT.md` rehberine göre Testcontainers integration testlerini eklemek. Öncelik sırası `car-service` create/update/duplicate plate, ardından `service-service` optimistic locking ve max-2 `IN_PROGRESS` concurrency testleri olmalı.
 
 ## Git Durumu
 
@@ -56,4 +66,4 @@ En mantıklı sonraki iş: `docs/DOCKER_AGENT.md` rehberine göre `docker compos
 - Frontend build verification branch push başarılı: `feature-frontend-build-verification -> origin/feature-frontend-build-verification`.
 - Frontend build verification `main` merge/push tamamlandı: `197e0e0` (`merge: frontend build verification and agent routing`).
 - Push yöntemi: `/usr/bin/git` ve HTTPS/Keychain. Bundled Codex Git + SSH yolu bu ortamda çalışmadı.
-- Bu durum kaydı branch’i: `feature-record-frontend-build-merge`.
+- Bu durum kaydı branch’i: `feature-docker-compose-smoke-test`.

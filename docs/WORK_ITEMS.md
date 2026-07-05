@@ -136,6 +136,26 @@ Tamamlanma kanıtı:
 - Passing test/build çıktısı.
 - Commit hashleri `docs/PROJECT_STATUS.md` içinde kayıtlı.
 
+## WI-013: Docker Compose Smoke Test Sertleştirmesi
+
+Durum: Tamamlandı
+
+Kapsam:
+
+- Backend Dockerfile Maven reactor build context düzeltmesi.
+- Spring Boot executable jar üretimi.
+- MySQL init SQL dosyasını bind mount yerine özel MySQL image içine alma.
+- Docker build context için `.dockerignore`.
+- Backend healthcheck komutlarını runtime image ile uyumlu hale getirme.
+- Frontend healthcheck varlık kontrolü.
+
+Tamamlanma kanıtı:
+
+- `docker compose config` başarılı.
+- `docker compose up --build --detach` sonrası MySQL, RabbitMQ, `car-service`, `service-service` ve `audit-service` healthy oldu.
+- `mvn -pl car-service,service-service,audit-service test` başarılı: 4 test, 0 skipped.
+- Host `curl` doğrulaması kullanım limiti ve sandbox ağ kısıtı nedeniyle tamamlanamadı; kısıt `docs/PROJECT_STATUS.md` içinde kayıtlı.
+
 ## WI-008: Dokümantasyonu Türkçeleştirme
 
 Durum: Tamamlandı

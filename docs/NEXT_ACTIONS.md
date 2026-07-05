@@ -2,19 +2,16 @@
 
 ## Hemen Yapılacaklar
 
-1. Integration agent rehberine göre Testcontainers integration testlerini ekle.
-2. `service-service` için create action, `carId/status` filtreleri ve invalid transition integration testlerini ekle.
-3. `service-service` optimistic locking ve max-2 `IN_PROGRESS` concurrency testlerini ekle.
-4. Audit consumer integration testini ekle.
-5. Her implementation pass sonunda `docs/PROJECT_STATUS.md` ve ilgili iş parçacığını güncelle.
+1. Integration agent rehberine göre `audit-service` RabbitMQ consumer integration testini ekle.
+2. RabbitMQ event consumption sonrası `audit_log` kaydını doğrula.
+3. Audit testinden sonra frontend component testlerini ekle.
+4. Her implementation pass sonunda `docs/PROJECT_STATUS.md` ve ilgili iş parçacığını güncelle.
 
 ## Gerekli Test Genişletmeleri
 
-1. `service-service` için Testcontainers integration testleri ekle.
-2. Optimistic locking için concurrency test ekle.
-3. Max-2 `IN_PROGRESS` kuralı için concurrency test ekle.
-4. `audit-service` RabbitMQ consumer integration testini ekle.
-5. Frontend component testleri ekle.
+1. `audit-service` RabbitMQ consumer integration testini ekle.
+2. Frontend component testleri ekle.
+3. Docker Compose uçtan uca smoke test kapsamını API akışıyla genişlet.
 
 ## Git ve Teslimat
 

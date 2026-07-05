@@ -1,6 +1,6 @@
 package com.example.carmanager.car;
 
-import com.example.carmanager.car.infrastructure.RabbitEventPublisher;
+import com.example.carmanager.car.infrastructure.messaging.RabbitEventPublisher;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
@@ -172,7 +172,7 @@ class CarIntegrationIT {
         RabbitEventPublisher noRabbitEventPublisher() {
             return new RabbitEventPublisher(null) {
                 @Override
-                public void publish(String routingKey, com.example.carmanager.car.domain.DomainEvent event) {
+                public void publish(String routingKey, com.example.carmanager.car.domain.event.DomainEvent event) {
                     // Integration tests cover HTTP/JPA behavior; audit messaging is tested separately.
                 }
             };

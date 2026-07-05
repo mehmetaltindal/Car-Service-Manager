@@ -2,7 +2,7 @@
 
 ## Mevcut Aşama
 
-Frontend component unit testleri tamamlandı, feature branch pushlandı ve `main` branch’e merge edildi.
+Backend paket ayrımı işi devam ediyor; API, DTO, entity, service ve controller klasörleri ayrıldı.
 
 ## Tamamlanan İşler
 
@@ -56,10 +56,14 @@ Frontend component unit testleri tamamlandı, feature branch pushlandı ve `main
 - Bu iş için `npm --prefix frontend test` çalıştırıldı; 4 test geçti, 0 skipped.
 - Bu iş için `npm --prefix frontend run build` çalıştırıldı; build başarılı geçti.
 - Commit öncesi backend unit test kapısı `mvn -pl car-service,service-service,audit-service test` ile çalıştırıldı; 4 test geçti, 0 skipped.
+- Backend klasör standardı `api/controller`, `api/dto`, `api/exception`, `application/service`, `application/mapper`, `domain/entity`, `domain/enums`, `domain/event`, `domain/policy`, `infrastructure/persistence`, `infrastructure/messaging` ve `infrastructure/seed` olarak netleştirildi.
+- `car-service`, `service-service` ve `audit-service` paketleri bu standarda göre taşındı.
+- Mühendislik, mimari, backend agent ve iş parçacığı dokümanları yeni klasör standardıyla güncellendi.
+- Bu iş için `mvn -pl car-service,service-service,audit-service test` çalıştırıldı; 4 test geçti, 0 skipped.
 
 ## Aktif İş
 
-Docker Compose API smoke test kapsamını genişletmek için Docker/Integration agent sırası hazırlanmalı.
+Backend paket ayrımı commitlenip feature branch remote’a pushlanmalı ve `main` branch’e merge edilmeli.
 
 ## Engeller
 
@@ -125,3 +129,4 @@ En mantıklı sonraki iş: Docker Compose API smoke test kapsamını create car,
 - Merge sonrası `main` üzerinde `npm --prefix frontend test` çalıştırıldı; 4 test geçti, 0 skipped.
 - Merge sonrası `main` üzerinde `npm --prefix frontend run build` çalıştırıldı; build başarılı geçti.
 - Merge sonrası `main` üzerinde `mvn -pl car-service,service-service,audit-service test` çalıştırıldı; 4 test geçti, 0 skipped.
+- Backend paket ayrımı branch’i: `feature-backend-package-structure`.

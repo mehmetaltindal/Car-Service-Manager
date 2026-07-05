@@ -17,11 +17,14 @@
 - Domain entity, policy, application service, DTO, repository ve REST controller katmanları.
 - RabbitMQ event publish/consume akışı.
 - Operation log ve audit log ayrımı.
+- Backend klasör standardı: `api/controller`, `api/dto`, `api/exception`, `application/service`, `application/mapper`, `application/exception`, `domain/entity`, `domain/enums`, `domain/event`, `domain/policy`, `infrastructure/persistence`, `infrastructure/messaging`, `infrastructure/seed`.
 
 ## Çalışma Kuralları
 
 - JPA entityleri controller response olarak döndürme.
 - Domain kurallarını controller içine yazma.
+- DTO, entity, service ve controller sınıflarını aynı klasörde tutma.
+- API katmanı `api/` paketi altında görünür olmalıdır.
 - `Service` katalog modeli ile `ServiceAction` gerçek işlem modelini karıştırma.
 - Status geçişleri sadece `ServiceStatusTransitionPolicy` üzerinden ilerlemelidir.
 - Optimistic locking ve max-2 `IN_PROGRESS` kuralını transaction güvenliğiyle koru.

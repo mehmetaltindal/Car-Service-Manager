@@ -53,6 +53,12 @@ Feature geliştirme için `main`, `master`, `develop` veya rastgele branch isiml
 - Domain kuralları domain entity, value object veya policy sınıflarında durur.
 - Application service sınıfları use case ve transaction boundary yönetir.
 - Infrastructure kodu API DTO’larına sızmamalıdır.
+- Public REST katmanı görünür `api/` paketi altında tutulmalıdır.
+- Controller sınıfları `api/controller`, request/response DTO sınıfları `api/dto`, exception handler sınıfları `api/exception` altında olmalıdır.
+- Application use case sınıfları `application/service`, mapper sınıfları `application/mapper`, application exception sınıfları `application/exception` altında olmalıdır.
+- JPA entity sınıfları `domain/entity`, enumlar `domain/enums`, domain eventleri `domain/event`, policy sınıfları `domain/policy` altında olmalıdır.
+- Repository sınıfları `infrastructure/persistence`, RabbitMQ publisher/config sınıfları `infrastructure/messaging`, seed/bootstrap sınıfları `infrastructure/seed` altında olmalıdır.
+- Yeni backend dosyası eklenirken bu paket ayrımı korunmalı; DTO, entity, service ve controller aynı klasörde tutulmamalıdır.
 
 ## SOLID
 

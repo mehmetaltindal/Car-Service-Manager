@@ -2,7 +2,7 @@
 
 ## Mevcut Aşama
 
-Frontend component unit test altyapısı ve temel UI davranış testleri tamamlandı; commit/push/merge adımı sırada.
+Frontend component unit testleri tamamlandı, feature branch pushlandı ve `main` branch’e merge edildi.
 
 ## Tamamlanan İşler
 
@@ -59,7 +59,7 @@ Frontend component unit test altyapısı ve temel UI davranış testleri tamamla
 
 ## Aktif İş
 
-Frontend component testleri commitlenip feature branch remote’a pushlanmalı ve `main` branch’e merge edilmeli.
+Docker Compose API smoke test kapsamını genişletmek için Docker/Integration agent sırası hazırlanmalı.
 
 ## Engeller
 
@@ -119,3 +119,9 @@ En mantıklı sonraki iş: Docker Compose API smoke test kapsamını create car,
 - Merge sonrası `main` üzerinde `mvn -pl car-service,service-service,audit-service test` çalıştırıldı; 4 test geçti, 0 skipped.
 - `main` push başarılı: `edc4ff0..d4a587d main -> main`.
 - Frontend component test branch’i: `feature-frontend-component-tests`.
+- Frontend component test commit’i: `a0a2a11` (`test: add frontend component tests`).
+- Frontend component test branch push başarılı: `feature-frontend-component-tests -> origin/feature-frontend-component-tests`.
+- Frontend component test `main` merge commit’i: `a6d5b1d` (`merge: frontend component tests`).
+- Merge sonrası `main` üzerinde `npm --prefix frontend test` çalıştırıldı; 4 test geçti, 0 skipped.
+- Merge sonrası `main` üzerinde `npm --prefix frontend run build` çalıştırıldı; build başarılı geçti.
+- Merge sonrası `main` üzerinde `mvn -pl car-service,service-service,audit-service test` çalıştırıldı; 4 test geçti, 0 skipped.

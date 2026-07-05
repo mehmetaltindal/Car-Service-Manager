@@ -2,7 +2,7 @@
 
 ## Mevcut Aşama
 
-`audit-service` RabbitMQ consumer integration testi tamamlandı; commit, push, main merge ve main push teslim akışı uygulanacak.
+`audit-service` RabbitMQ consumer integration testi tamamlandı, feature branch pushlandı ve `main` branch’e merge edilip pushlandı.
 
 ## Tamamlanan İşler
 
@@ -52,7 +52,7 @@
 
 ## Aktif İş
 
-`feature-audit-service-integration-tests` branch’i commit, push, `main` merge ve `main` push akışıyla kapatılmalı.
+Frontend component testleri için yeni feature branch açılmalı.
 
 ## Engeller
 
@@ -74,7 +74,7 @@ En mantıklı sonraki iş: frontend component testlerini eklemek. Öncelik valid
 ## Git Durumu
 
 - Repository lokal olarak başlatıldı.
-- Aktif branch: `feature-audit-service-integration-tests`.
+- Aktif branch: `main`.
 - İlk implementasyon commit’i: `241bf48` (`feat: implement car service manager foundation`).
 - Dokümantasyon Türkçeleştirme commit’i: `32c9d11` (`docs: translate project documentation to Turkish`).
 - Agent koordinasyon kuralları commit’i: `b37eaac` (`docs: add agent coordination rules`).
@@ -104,3 +104,9 @@ En mantıklı sonraki iş: frontend component testlerini eklemek. Öncelik valid
 - Service-service integration test `main` merge commit’i: `839102f` (`merge: service action integration tests`).
 - Merge sonrası `main` üzerinde `mvn -pl car-service,service-service,audit-service test` çalıştırıldı; 4 test geçti, 0 skipped.
 - `main` push başarılı: `408a883..839102f main -> main`.
+- Audit-service integration test branch’i: `feature-audit-service-integration-tests`.
+- Audit-service integration test commit’i: `5eddfad` (`test: add audit event consumer integration test`).
+- Audit-service integration test branch push başarılı: `feature-audit-service-integration-tests -> origin/feature-audit-service-integration-tests`.
+- Audit-service integration test `main` merge commit’i: `d4a587d` (`merge: audit event consumer integration test`).
+- Merge sonrası `main` üzerinde `mvn -pl car-service,service-service,audit-service test` çalıştırıldı; 4 test geçti, 0 skipped.
+- `main` push başarılı: `edc4ff0..d4a587d main -> main`.

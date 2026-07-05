@@ -27,7 +27,7 @@ public class CarController {
     }
 
     @PutMapping("/{id}")
-    public CarResponse update(@PathVariable Long id, @Valid @RequestBody CarUpdateRequest request) {
+    public CarResponse update(@PathVariable("id") Long id, @Valid @RequestBody CarUpdateRequest request) {
         return service.update(id, request);
     }
 }

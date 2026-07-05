@@ -241,3 +241,22 @@ Tamamlanma kanıtı:
 - `docs/DATABASE_AGENT.md`
 - `docs/AGENT_WORKFLOW.md`
 - `docs/NEXT_ACTIONS.md`
+
+## WI-014: car-service Integration Testleri
+
+Durum: Tamamlandı
+
+Kapsam:
+
+- `car-service` için Testcontainers MySQL integration test altyapısı.
+- `POST /api/cars` başarılı create senaryosu.
+- Duplicate license plate için `409 Conflict` senaryosu.
+- `PUT /api/cars/{id}` public contract update senaryosu.
+- Testcontainers 2.0.5 ve Docker Engine 29 uyumluluğu.
+- Runtime parameter name bağımlılığını kaldıran açık `@PathVariable("id")` kullanımı.
+
+Tamamlanma kanıtı:
+
+- `car-service/src/test/java/com/example/carmanager/car/CarIntegrationIT.java`
+- `mvn -pl car-service clean verify`: 2 unit test ve 3 integration test başarılı, 0 skipped.
+- `mvn -pl car-service,service-service,audit-service test`: 4 unit test başarılı, 0 skipped.

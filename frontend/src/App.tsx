@@ -1,5 +1,7 @@
-import { FormEvent, useEffect, useMemo, useState } from 'react';
-import { RefreshCcw, Save, Wrench } from 'lucide-react';
+import React, { FormEvent, useEffect, useMemo, useState } from 'react';
+import RefreshCcwIcon from 'lucide-react/dist/esm/icons/refresh-ccw.js';
+import SaveIcon from 'lucide-react/dist/esm/icons/save.js';
+import WrenchIcon from 'lucide-react/dist/esm/icons/wrench.js';
 
 type Car = {
   id: number;
@@ -37,6 +39,16 @@ const nextStatuses: Record<ServiceStatus, ServiceStatus[]> = {
   IN_PROGRESS: ['DONE'],
   DONE: []
 };
+
+type IconComponent = React.ComponentType<{ size?: number }>;
+
+function normalizeIcon(icon: IconComponent | { default: IconComponent }): IconComponent {
+  return 'default' in icon ? icon.default : icon;
+}
+
+const RefreshCcw = normalizeIcon(RefreshCcwIcon);
+const Save = normalizeIcon(SaveIcon);
+const Wrench = normalizeIcon(WrenchIcon);
 
 async function api<T>(url: string, init?: RequestInit): Promise<T> {
   const response = await fetch(url, {
@@ -222,12 +234,12 @@ export function App() {
         </aside>
 
         <section className="space-y-5">
-          {message && <div className="rounded-md border border-warn bg-white px-4 py-3 text-sm text-warn">{message}</div>}
+          {message && <div role="alert" className="rounded-md border border-warn bg-white px-4 py-3 text-sm text-warn">{message}</div>}
 
           <div className="rounded-md border border-line bg-white">
             <div className="flex flex-wrap items-center justify-between gap-3 border-b border-line p-4">
               <h2 className="text-base font-semibold">Cars</h2>
-              <select className="rounded-md border border-line px-3 py-2 text-sm" value={selectedCarId} onChange={(e) => setSelectedCarId(e.target.value ? Number(e.target.value) : '')}>
+              <select aria-label="Car filter" className="rounded-md border border-line px-3 py-2 text-sm" value={selectedCarId} onChange={(e) => setSelectedCarId(e.target.value ? Number(e.target.value) : '')}>
                 <option value="">All cars</option>
                 {cars.map((car) => <option key={car.id} value={car.id}>{car.licensePlate}</option>)}
               </select>
@@ -251,7 +263,7 @@ export function App() {
           <div className="rounded-md border border-line bg-white">
             <div className="flex flex-wrap items-center justify-between gap-3 border-b border-line p-4">
               <h2 className="text-base font-semibold">Services</h2>
-              <select className="rounded-md border border-line px-3 py-2 text-sm" value={statusFilter} onChange={(e) => setStatusFilter(e.target.value as ServiceStatus | '')}>
+              <select aria-label="Status filter" className="rounded-md border border-line px-3 py-2 text-sm" value={statusFilter} onChange={(e) => setStatusFilter(e.target.value as ServiceStatus | '')}>
                 <option value="">All statuses</option>
                 <option value="PENDING">Pending</option>
                 <option value="IN_PROGRESS">In progress</option>
@@ -271,7 +283,7 @@ export function App() {
                         <td className="p-3 font-medium">{action.service.title}</td>
                         <td>{action.car.licensePlate ?? action.car.id}</td>
                         <td>
-                          <select className="rounded-md border border-line px-2 py-1" value={draft.status} disabled={nextStatuses[action.status].length === 0} onChange={(e) => setEditing({ ...editing, [action.id]: { ...draft, status: e.target.value as ServiceStatus } })}>
+                          <select aria-label={`Next status for ${action.service.title}`} className="rounded-md border border-line px-2 py-1" value={draft.status} disabled={nextStatuses[action.status].length === 0} onChange={(e) => setEditing({ ...editing, [action.id]: { ...draft, status: e.target.value as ServiceStatus } })}>
                             <option value="">{action.status}</option>
                             {nextStatuses[action.status].map((status) => <option key={status} value={status}>{status}</option>)}
                           </select>
@@ -280,7 +292,7 @@ export function App() {
                           <textarea className="min-h-20 w-full rounded-md border border-line px-2 py-1" value={draft.report} onChange={(e) => setEditing({ ...editing, [action.id]: { ...draft, report: e.target.value } })} />
                         </td>
                         <td>
-                          <button className="rounded-md border border-line px-3 py-2 text-sm" onClick={() => updateAction(action)}>Update</button>
+                          <button aria-label={`Update ${action.service.title}`} className="rounded-md border border-line px-3 py-2 text-sm" onClick={() => updateAction(action)}>Update</button>
                         </td>
                       </tr>
                     );

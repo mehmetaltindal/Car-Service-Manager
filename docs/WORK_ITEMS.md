@@ -297,3 +297,24 @@ Tamamlanma kanıtı:
 - `audit-service/src/test/java/com/example/carmanager/audit/AuditEventConsumerIntegrationIT.java`
 - `mvn -pl audit-service clean verify`: 1 integration test başarılı, 0 skipped.
 - `mvn -pl car-service,service-service,audit-service test`: 4 unit test başarılı, 0 skipped.
+
+## WI-017: Frontend Component Testleri
+
+Durum: Tamamlandı
+
+Kapsam:
+
+- Frontend unit test script’i.
+- Validation error render testi.
+- Optimistic-lock conflict mesajı ve refresh davranışı testi.
+- Geçerli next-status dropdown testi.
+- `carId` ve `status` filtre request testi.
+- Vite/esbuild build kilitlenmesini önleyen ikon import düzenlemesi.
+
+Tamamlanma kanıtı:
+
+- `frontend/src/App.test.tsx`
+- `frontend/src/test/register.ts`
+- `npm --prefix frontend test`: 4 test başarılı, 0 skipped.
+- `npm --prefix frontend run build`: başarılı.
+- `mvn -pl car-service,service-service,audit-service test`: 4 unit test başarılı, 0 skipped.

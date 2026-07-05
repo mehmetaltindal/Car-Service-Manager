@@ -34,6 +34,10 @@ Feature geliştirme için `main`, `master`, `develop` veya rastgele branch isiml
 - Blokeli işler atlanmalı; blokajın kalkması için gereken en küçük aksiyon seçilmelidir.
 - Seçilen yeni iş `docs/PROJECT_STATUS.md` içinde açıkça yazılmalıdır.
 
+## İletişim
+
+- Agent yaptığı işleri kullanıcıya 144 karakteri aşmayacak kısa özetlerle aktarmalıdır.
+
 ## Clean Code
 
 - Methodları küçük ve odaklı tut.

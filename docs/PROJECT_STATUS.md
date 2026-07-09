@@ -181,3 +181,9 @@ En mantıklı sonraki iş: MVP teslimi sonrası backend pagination veya dedicate
 - Pagination parametreleri `page` ve `size`; body liste formatında kalır, metadata `X-Total-Count`, `X-Page`, `X-Size` ve `X-Total-Pages` headerlarıyla döner.
 - Bu iş için `mvn -pl car-service clean verify` çalıştırıldı; car-service 2 unit ve 4 integration test geçti, 0 skipped.
 - Bu iş için `mvn -pl service-service clean verify` çalıştırıldı; service-service 2 unit ve 7 integration test geçti, 0 skipped.
+- Backend pagination branch’i: `feature-backend-pagination`.
+- Backend pagination commit’i: `da2ea31` (`feat: add backend pagination`).
+- Backend pagination branch push başarılı: `feature-backend-pagination -> origin/feature-backend-pagination`.
+- Backend pagination `main` merge commit’i: `3e5bf61` (`merge: backend pagination`).
+- Merge sonrası `main` üzerinde `mvn -pl car-service,service-service,audit-service test` çalıştırıldı; 4 test geçti, 0 skipped.
+- Merge sonrası `main` üzerinde `npm --prefix frontend test` çalıştırıldı; 4 test geçti, 0 skipped.

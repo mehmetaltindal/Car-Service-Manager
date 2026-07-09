@@ -143,4 +143,5 @@ En mantıklı sonraki iş: backend testleri, frontend test/build ve Docker Compo
 - Backend paket ayrımı branch push başarılı: `feature-backend-package-structure -> origin/feature-backend-package-structure`.
 - Backend paket ayrımı `main` merge commit’i: `4c70044` (`merge: backend package structure`).
 - Merge sonrası `main` üzerinde `mvn -pl car-service,service-service,audit-service test` çalıştırıldı; 4 test geçti, 0 skipped.
-- Docker Compose API smoke test genişletme işi henüz commitlenmedi; mevcut lokal değişiklikler `scripts/docker-compose-api-smoke.sh`, `docker-compose.yml`, `docs/PROJECT_STATUS.md`, `docs/WORK_ITEMS.md`, `docs/NEXT_ACTIONS.md` ve `docs/RUNBOOK.md` dosyalarındadır.
+- Docker Compose API smoke test genişletme branch’i: `feature-docker-compose-api-smoke-test`.
+- Docker Compose API smoke test genişletme commit’i: `b2b42f5` (`test: add docker compose api smoke test`).

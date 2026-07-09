@@ -145,3 +145,5 @@ En mantıklı sonraki iş: backend testleri, frontend test/build ve Docker Compo
 - Merge sonrası `main` üzerinde `mvn -pl car-service,service-service,audit-service test` çalıştırıldı; 4 test geçti, 0 skipped.
 - Docker Compose API smoke test genişletme branch’i: `feature-docker-compose-api-smoke-test`.
 - Docker Compose API smoke test genişletme commit’i: `b2b42f5` (`test: add docker compose api smoke test`).
+- Docker Compose API smoke test durum kaydı commit’i: `8a70474` (`docs: record docker compose api smoke test`).
+- Feature branch push denemesi başarısız oldu: `git push -u origin feature-docker-compose-api-smoke-test` komutu GitHub HTTPS kimlik bilgisi okuyamadı (`could not read Username for 'https://github.com': Device not configured`). Bu nedenle remote push, `main` merge ve `main` push adımları bekliyor.

@@ -170,3 +170,10 @@ En mantıklı sonraki iş: MVP teslimi sonrası backend pagination veya dedicate
 - Bu iş için `npm --prefix frontend test` çalıştırıldı; 4 test geçti, 0 skipped.
 - Bu iş için `npm --prefix frontend run build` çalıştırıldı; build başarılı geçti.
 - Lokal frontend container yeniden build edildi; `http://localhost:3000` Türkçe HTML title ve `lang="tr"` ile servis ediliyor.
+- Frontend Türkçeleştirme branch’i: `feature-frontend-turkish-localization`.
+- Frontend Türkçeleştirme commit’i: `f0e19b0` (`feat: localize frontend turkish labels`).
+- Frontend Türkçeleştirme branch push başarılı: `feature-frontend-turkish-localization -> origin/feature-frontend-turkish-localization`.
+- Frontend Türkçeleştirme `main` merge commit’i: `552c261` (`merge: frontend turkish localization`).
+- Merge sonrası `main` üzerinde `npm --prefix frontend test` çalıştırıldı; 4 test geçti, 0 skipped.
+- Merge sonrası `main` üzerinde `npm --prefix frontend run build` çalıştırıldı; build başarılı geçti.
+- Merge sonrası `main` üzerinde `mvn -pl car-service,service-service,audit-service test` çalıştırıldı; 4 test geçti, 0 skipped.

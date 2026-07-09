@@ -2,9 +2,8 @@
 
 ## Hemen Yapılacaklar
 
-1. Dedicated technical profile update endpoint ekle.
-2. Recent technician notes endpoint ekle.
-3. Her implementation pass sonunda `docs/PROJECT_STATUS.md` ve ilgili iş parçacığını güncelle.
+1. Recent technician notes endpoint ekle.
+2. Her implementation pass sonunda `docs/PROJECT_STATUS.md` ve ilgili iş parçacığını güncelle.
 
 ## Gerekli Test Genişletmeleri
 
@@ -34,6 +33,5 @@
 
 ## Ürün İyileştirmeleri
 
-1. Dedicated technical profile update endpoint ekle.
-2. Recent technician notes endpoint ekle.
-3. Reliability gereksinimleri artarsa outbox ve DLQ stratejisi ekle.
+1. Recent technician notes endpoint ekle.
+2. Reliability gereksinimleri artarsa outbox ve DLQ stratejisi ekle.

@@ -38,6 +38,10 @@ Duplicate plaka durumunda şu response döner:
 
 Araç kimliği, sahip alanları ve opsiyonel teknik profil bilgisini günceller.
 
+### `PUT /api/cars/{id}/technical-profile`
+
+Araç kimliği, model, marka ve sahip bilgilerini değiştirmeden yalnızca teknik profil bilgisini günceller.
+
 ## Services
 
 ### `GET /api/services`

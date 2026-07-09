@@ -77,6 +77,17 @@ public class CarApplicationService {
         return CarMapper.toResponse(car);
     }
 
+    @Transactional
+    public CarResponse updateTechnicalProfile(Long id, CarTechnicalProfileRequest request) {
+        var car = cars.findById(id).orElseThrow(() -> new EntityNotFoundException("Car not found: " + id));
+        car.updateTechnicalProfile(CarMapper.toProfile(request));
+        log("UPDATE_TECHNICAL_PROFILE", "CAR", car.getId(), OperationResult.SUCCESS, "Car technical profile updated");
+        events.publish("car.technical-profile-updated",
+                new DomainEvent("CAR_TECHNICAL_PROFILE_UPDATED", "CAR", car.getId(), LocalDateTime.now(),
+                        Map.of("licensePlate", car.getLicensePlate())));
+        return CarMapper.toResponse(car);
+    }
+
     private void validatePlate(String plate, String operation, Long entityId) {
         if (!LicensePlateValidator.isValid(plate)) {
             log(operation, "CAR", entityId, OperationResult.VALIDATION_ERROR, "Invalid license plate: " + plate);

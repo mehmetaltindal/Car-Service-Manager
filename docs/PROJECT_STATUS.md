@@ -187,3 +187,8 @@ En mantıklı sonraki iş: MVP teslimi sonrası backend pagination veya dedicate
 - Backend pagination `main` merge commit’i: `3e5bf61` (`merge: backend pagination`).
 - Merge sonrası `main` üzerinde `mvn -pl car-service,service-service,audit-service test` çalıştırıldı; 4 test geçti, 0 skipped.
 - Merge sonrası `main` üzerinde `npm --prefix frontend test` çalıştırıldı; 4 test geçti, 0 skipped.
+- Dedicated technical profile update endpoint’i `PUT /api/cars/{id}/technical-profile` olarak eklendi.
+- Endpoint araç kimliği, model, marka ve sahip bilgisini değiştirmeden yalnızca teknik profili günceller.
+- Teknik profil güncelleme akışı operation log ve `car.technical-profile-updated` domain event üretir.
+- Bu iş için `mvn -pl car-service clean verify` çalıştırıldı; car-service 2 unit ve 5 integration test geçti, 0 skipped.
+- Bu iş için `mvn -pl car-service,service-service,audit-service test` çalıştırıldı; 4 test geçti, 0 skipped.

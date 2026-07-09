@@ -157,3 +157,5 @@ En mantıklı sonraki iş: MVP teslimi sonrası backend pagination veya dedicate
 - Docker Compose API smoke test durum kaydı commit’i: `8a70474` (`docs: record docker compose api smoke test`).
 - Bundled Git ile push denemesi GitHub HTTPS kimlik bilgisi okuyamadı; sistem Git ve Keychain ile `/usr/bin/git push -u origin feature-docker-compose-api-smoke-test` başarılı oldu.
 - Docker Compose API smoke test branch push başarılı: `feature-docker-compose-api-smoke-test -> origin/feature-docker-compose-api-smoke-test`.
+- CI pipeline commit’i: `9ea5f24` (`ci: add verification workflow`).
+- CI pipeline commit push başarılı: `9a4041d..9ea5f24 feature-docker-compose-api-smoke-test -> feature-docker-compose-api-smoke-test`.

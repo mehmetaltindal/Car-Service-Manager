@@ -130,6 +130,8 @@ export function App() {
     engineOilType: '',
     tireBrand: '',
     tireSize: '',
+    batteryType: '',
+    transmissionOilType: '',
     brakeFluidType: ''
   });
   const [serviceForm, setServiceForm] = useState({ carId: '', serviceId: '' });
@@ -161,12 +163,14 @@ export function App() {
   async function createCar(event: FormEvent) {
     event.preventDefault();
     setMessage('');
-    const technicalProfile = carForm.engineOilType || carForm.tireBrand || carForm.tireSize || carForm.brakeFluidType
+    const technicalProfile = carForm.engineOilType || carForm.tireBrand || carForm.tireSize || carForm.batteryType || carForm.brakeFluidType || carForm.transmissionOilType
       ? {
           engineOilType: carForm.engineOilType,
           tireBrand: carForm.tireBrand,
           tireSize: carForm.tireSize,
-          brakeFluidType: carForm.brakeFluidType
+          batteryType: carForm.batteryType,
+          brakeFluidType: carForm.brakeFluidType,
+          transmissionOilType: carForm.transmissionOilType
         }
       : null;
     try {
@@ -180,7 +184,7 @@ export function App() {
           technicalProfile
         })
       });
-      setCarForm({ licensePlate: '', brand: '', model: '', ownerName: '', phoneNumber: '', email: '', engineOilType: '', tireBrand: '', tireSize: '', brakeFluidType: '' });
+      setCarForm({ licensePlate: '', brand: '', model: '', ownerName: '', phoneNumber: '', email: '', engineOilType: '', tireBrand: '', tireSize: '', batteryType: '', brakeFluidType: '', transmissionOilType: '' });
       await refresh();
     } catch (error) {
       setMessage((error as Error).message);
@@ -258,7 +262,9 @@ export function App() {
                 <input className="rounded-md border border-line px-3 py-2" placeholder="Motor yağı" value={carForm.engineOilType} onChange={(e) => setCarForm({ ...carForm, engineOilType: e.target.value })} />
                 <input className="rounded-md border border-line px-3 py-2" placeholder="Lastik markası" value={carForm.tireBrand} onChange={(e) => setCarForm({ ...carForm, tireBrand: e.target.value })} />
                 <input className="rounded-md border border-line px-3 py-2" placeholder="Lastik ölçüsü" value={carForm.tireSize} onChange={(e) => setCarForm({ ...carForm, tireSize: e.target.value })} />
+                <input className="rounded-md border border-line px-3 py-2" placeholder="Akü tipi" value={carForm.batteryType} onChange={(e) => setCarForm({ ...carForm, batteryType: e.target.value })} />
                 <input className="rounded-md border border-line px-3 py-2" placeholder="Fren hidroliği" value={carForm.brakeFluidType} onChange={(e) => setCarForm({ ...carForm, brakeFluidType: e.target.value })} />
+                <input className="rounded-md border border-line px-3 py-2" placeholder="Şanzıman yağı" value={carForm.transmissionOilType} onChange={(e) => setCarForm({ ...carForm, transmissionOilType: e.target.value })} />
               </div>
               <button className="inline-flex items-center justify-center gap-2 rounded-md bg-accent px-3 py-2 text-sm font-medium text-white">
                 <Save size={16} /> Aracı kaydet
@@ -296,19 +302,67 @@ export function App() {
               </select>
             </div>
             <div className="overflow-x-auto">
-              <table className="w-full min-w-[720px] text-left text-sm">
+              <table className="w-full min-w-[760px] text-left text-sm">
                 <thead className="bg-panel text-steel">
-                  <tr><th className="p-3">Plaka</th><th>Marka</th><th>Model</th><th>Sahip</th></tr>
+                  <tr><th className="p-3">Plaka</th><th>Marka</th><th>Model</th><th>Sahip</th><th>Detay</th></tr>
                 </thead>
                 <tbody>
                   {cars.map((car) => (
                     <tr key={car.id} className="border-t border-line">
                       <td className="p-3 font-medium">{car.licensePlate}</td><td>{car.brand}</td><td>{car.model}</td><td>{car.owner.fullName}</td>
+                      <td>
+                        <button className="rounded-md border border-line px-3 py-2 text-sm" onClick={() => setSelectedCarId(car.id)}>
+                          Detay
+                        </button>
+                      </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
             </div>
+          </div>
+
+          <div className="rounded-md border border-line bg-white p-4">
+            <h2 className="mb-3 text-base font-semibold">Araç detayı</h2>
+            {selectedCar ? (
+              <div className="grid gap-4">
+                <div className="grid gap-3 md:grid-cols-3">
+                  {[
+                    ['Plaka', selectedCar.licensePlate],
+                    ['Marka', selectedCar.brand],
+                    ['Model', selectedCar.model],
+                    ['Araç sahibi', selectedCar.owner.fullName],
+                    ['Telefon', selectedCar.owner.phoneNumber],
+                    ['E-posta', selectedCar.owner.email]
+                  ].map(([label, value]) => (
+                    <div key={label} className="rounded-md border border-line bg-panel p-3">
+                      <div className="text-xs uppercase text-steel">{label}</div>
+                      <div className="font-medium">{value || 'Kayıt yok'}</div>
+                    </div>
+                  ))}
+                </div>
+                <div>
+                  <h3 className="mb-2 text-sm font-semibold">Teknik profil</h3>
+                  <div className="grid gap-3 md:grid-cols-3">
+                    {[
+                      ['Motor yağı tipi', selectedCar.technicalProfile?.engineOilType],
+                      ['Lastik markası', selectedCar.technicalProfile?.tireBrand],
+                      ['Lastik ölçüsü', selectedCar.technicalProfile?.tireSize],
+                      ['Akü tipi', selectedCar.technicalProfile?.batteryType],
+                      ['Fren hidroliği', selectedCar.technicalProfile?.brakeFluidType],
+                      ['Şanzıman yağı', selectedCar.technicalProfile?.transmissionOilType]
+                    ].map(([label, value]) => (
+                      <div key={label} className="rounded-md border border-line bg-panel p-3">
+                        <div className="text-xs uppercase text-steel">{label}</div>
+                        <div className="font-medium">{value || 'Kayıt yok'}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <p className="text-sm text-steel">Detayları görüntülemek için araç listesinden bir kayıt seçin.</p>
+            )}
           </div>
 
           <div className="rounded-md border border-line bg-white">
@@ -361,6 +415,8 @@ export function App() {
                   ['Motor yağı tipi', selectedCar.technicalProfile?.engineOilType],
                   ['Lastik markası', selectedCar.technicalProfile?.tireBrand],
                   ['Lastik ölçüsü', selectedCar.technicalProfile?.tireSize],
+                  ['Akü tipi', selectedCar.technicalProfile?.batteryType],
+                  ['Şanzıman yağı', selectedCar.technicalProfile?.transmissionOilType],
                   ['Fren hidroliği', selectedCar.technicalProfile?.brakeFluidType]
                 ].map(([label, value]) => (
                   <div key={label} className="rounded-md border border-line bg-panel p-3">

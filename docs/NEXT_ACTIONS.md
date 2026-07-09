@@ -2,15 +2,17 @@
 
 ## Hemen Yapılacaklar
 
-1. Docker Compose uçtan uca smoke test kapsamını API akışıyla genişlet.
-2. Create car, create service action ve status update adımlarını smoke akışına ekle.
-3. Audit log doğrulaması için RabbitMQ/MySQL tarafını smoke senaryosunda kontrol et.
-4. Her implementation pass sonunda `docs/PROJECT_STATUS.md` ve ilgili iş parçacığını güncelle.
+1. CI pipeline ekle.
+2. CI içinde backend unit testlerini çalıştır.
+3. CI içinde frontend test ve production build komutlarını çalıştır.
+4. CI içinde Docker Compose config doğrulamasını çalıştır.
+5. Docker runner erişimi varsa `scripts/docker-compose-api-smoke.sh` komutunu CI smoke kapısına ekle.
+6. Her implementation pass sonunda `docs/PROJECT_STATUS.md` ve ilgili iş parçacığını güncelle.
 
 ## Gerekli Test Genişletmeleri
 
-1. Docker Compose uçtan uca smoke test kapsamını API akışıyla genişlet.
-2. CI pipeline ekle.
+1. CI pipeline ekle.
+2. CI ortamında Docker daemon mevcutsa Docker Compose API smoke testini otomatik çalıştır.
 
 ## Git ve Teslimat
 

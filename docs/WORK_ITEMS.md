@@ -128,7 +128,7 @@ Kapsam:
 - Maven testlerini çalıştır. `mvn -pl car-service,service-service,audit-service test` ile tamamlandı.
 - Frontend build çalıştır. `npm --prefix frontend run build` ile tamamlandı.
 - Testcontainers integration testlerini ekle.
-- Docker Compose smoke test çalıştır.
+- Docker Compose smoke test çalıştır. `scripts/docker-compose-api-smoke.sh` ile API ve audit akışı doğrulandı.
 - Remote erişimi çalışır hale geldiğinde tamamlanan her iş parçasını commit ve push et.
 
 Tamamlanma kanıtı:
@@ -148,6 +148,7 @@ Kapsam:
 - Docker build context için `.dockerignore`.
 - Backend healthcheck komutlarını runtime image ile uyumlu hale getirme.
 - Frontend healthcheck varlık kontrolü.
+- Frontend healthcheck adresini container içinde `127.0.0.1` olarak sabitleme.
 
 Tamamlanma kanıtı:
 
@@ -155,6 +156,26 @@ Tamamlanma kanıtı:
 - `docker compose up --build --detach` sonrası MySQL, RabbitMQ, `car-service`, `service-service` ve `audit-service` healthy oldu.
 - `mvn -pl car-service,service-service,audit-service test` başarılı: 4 test, 0 skipped.
 - Host `curl` doğrulaması kullanım limiti ve sandbox ağ kısıtı nedeniyle tamamlanamadı; kısıt `docs/PROJECT_STATUS.md` içinde kayıtlı.
+
+## WI-019: Docker Compose API Smoke Test Genişletmesi
+
+Durum: Tamamlandı
+
+Kapsam:
+
+- Docker Compose ortamı üzerinde uçtan uca API smoke scripti.
+- `POST /api/cars` ile araç oluşturma.
+- `GET /api/services/catalog` ile katalog doğrulama.
+- `POST /api/services` ile servis aksiyonu oluşturma.
+- `PUT /api/services/{id}` ile `IN_PROGRESS` status update doğrulama.
+- `GET /api/services?carId=...&status=IN_PROGRESS` filtre doğrulama.
+- MySQL içindeki `audit_log` tablosunda car ve service action eventlerinin kalıcılaştığını doğrulama.
+
+Tamamlanma kanıtı:
+
+- `scripts/docker-compose-api-smoke.sh`
+- `docker compose up --build --detach`
+- `scripts/docker-compose-api-smoke.sh`: `Smoke test passed: car=2, serviceAction=2, auditEvents=3`
 
 ## WI-008: Dokümantasyonu Türkçeleştirme
 

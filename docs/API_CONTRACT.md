@@ -6,6 +6,20 @@
 
 Tüm araçları döner.
 
+Opsiyonel pagination parametreleri:
+
+- `page`: 0 tabanlı sayfa numarası. Varsayılan `0`.
+- `size`: sayfa boyutu. Varsayılan `20`, maksimum `100`.
+
+`page` veya `size` verilmezse eski davranış korunur ve tüm araç listesi döner.
+
+Pagination kullanıldığında response body yine liste formatındadır. Metadata header olarak döner:
+
+- `X-Total-Count`
+- `X-Page`
+- `X-Size`
+- `X-Total-Pages`
+
 ### `POST /api/cars`
 
 Araç oluşturur. `owner` alanı zorunludur. `technicalProfile` alanı opsiyoneldir.
@@ -32,6 +46,17 @@ Servis aksiyonlarını döner. Opsiyonel filtreler:
 
 - `carId`
 - `status`
+- `page`: 0 tabanlı sayfa numarası. Varsayılan `0`.
+- `size`: sayfa boyutu. Varsayılan `20`, maksimum `100`.
+
+`page` veya `size` verilmezse eski davranış korunur ve filtreye uyan tüm servis aksiyonu listesi döner.
+
+Pagination kullanıldığında response body yine liste formatındadır. Metadata header olarak döner:
+
+- `X-Total-Count`
+- `X-Page`
+- `X-Size`
+- `X-Total-Pages`
 
 ### `GET /api/services/catalog`
 

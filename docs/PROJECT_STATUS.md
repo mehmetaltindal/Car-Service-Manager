@@ -164,3 +164,4 @@ En mantıklı sonraki iş: MVP teslimi sonrası backend pagination veya dedicate
 - Merge sonrası `main` üzerinde `npm --prefix frontend test` çalıştırıldı; 4 test geçti, 0 skipped.
 - Merge sonrası `main` üzerinde `npm --prefix frontend run build` çalıştırıldı; build başarılı geçti.
 - Merge sonrası `main` üzerinde `docker compose config` çalıştırıldı; config başarılı doğrulandı.
+- `main` push başarılı: `c10fd0c..26d21a9 main -> main`.

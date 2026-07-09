@@ -233,6 +233,24 @@ Tamamlanma kanıtı:
 - `mvn -pl car-service clean verify`
 - `mvn -pl service-service clean verify`
 
+## WI-023: Dedicated Technical Profile Update Endpoint
+
+Durum: Tamamlandı
+
+Kapsam:
+
+- `PUT /api/cars/{id}/technical-profile` endpoint’i.
+- Araç kimliği, model, marka ve sahip bilgisini değiştirmeden teknik profil güncelleme.
+- Teknik profil güncelleme için operation log ve domain event üretimi.
+- Integration test ile endpoint contract doğrulaması.
+
+Tamamlanma kanıtı:
+
+- `car-service/src/main/java/com/example/carmanager/car/api/controller/CarController.java`
+- `car-service/src/main/java/com/example/carmanager/car/application/service/CarApplicationService.java`
+- `car-service/src/test/java/com/example/carmanager/car/CarIntegrationIT.java`
+- `mvn -pl car-service clean verify`
+
 ## WI-008: Dokümantasyonu Türkçeleştirme
 
 Durum: Tamamlandı

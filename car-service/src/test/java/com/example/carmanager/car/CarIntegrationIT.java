@@ -140,6 +140,42 @@ class CarIntegrationIT {
     }
 
     @Test
+    void updatesTechnicalProfileWithoutChangingCarIdentity() throws Exception {
+        long id = createCar("34 TPF 001", "Octavia", "Skoda", "Technical Owner");
+
+        var response = mockMvc.perform(put("/api/cars/{id}/technical-profile", id)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("""
+                                {
+                                  "engineOilType": "5W-40",
+                                  "tireBrand": "Continental",
+                                  "tireSize": "225/45 R17",
+                                  "batteryType": "AGM",
+                                  "brakeFluidType": "DOT4",
+                                  "transmissionOilType": "DSG"
+                                }
+                                """))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(id))
+                .andExpect(jsonPath("$.licensePlate").value("34 TPF 001"))
+                .andExpect(jsonPath("$.model").value("Octavia"))
+                .andExpect(jsonPath("$.brand").value("Skoda"))
+                .andExpect(jsonPath("$.owner.fullName").value("Technical Owner"))
+                .andExpect(jsonPath("$.technicalProfile.engineOilType").value("5W-40"))
+                .andExpect(jsonPath("$.technicalProfile.transmissionOilType").value("DSG"))
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+
+        JsonNode updated = objectMapper.readTree(response);
+        assertThat(updated.path("technicalProfile").path("updatedAt").asText()).isNotBlank();
+
+        mockMvc.perform(get("/api/cars").param("page", "0").param("size", "100"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$[?(@.id == %s)].technicalProfile.engineOilType", id).value("5W-40"));
+    }
+
+    @Test
     void paginatesCarsWithoutChangingListContract() throws Exception {
         int existingCount = objectMapper.readTree(mockMvc.perform(get("/api/cars"))
                         .andExpect(status().isOk())

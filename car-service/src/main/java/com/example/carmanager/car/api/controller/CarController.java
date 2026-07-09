@@ -45,6 +45,12 @@ public class CarController {
         return service.update(id, request);
     }
 
+    @PutMapping("/{id}/technical-profile")
+    public CarResponse updateTechnicalProfile(@PathVariable("id") Long id,
+                                              @Valid @RequestBody CarTechnicalProfileRequest request) {
+        return service.updateTechnicalProfile(id, request);
+    }
+
     private PageRequest pageRequest(Integer page, Integer size) {
         int resolvedPage = page == null ? 0 : page;
         int resolvedSize = size == null ? 20 : size;

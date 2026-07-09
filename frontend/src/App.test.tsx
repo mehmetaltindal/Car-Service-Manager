@@ -77,7 +77,7 @@ function installFetchMock() {
     if (url === '/api/cars') return jsonResponse(cars);
     if (url === '/api/services/catalog') return jsonResponse(catalog);
     if (url.startsWith('/api/services')) return jsonResponse(actions);
-    return jsonResponse({ message: 'Unexpected request' }, 500);
+    return jsonResponse({ message: 'Beklenmeyen istek' }, 500);
   };
 
   globalThis.fetch = fetchMock as typeof fetch;
@@ -99,8 +99,8 @@ describe('App', () => {
     render(<App />);
 
     await screen.findAllByText('34 ABC 123');
-    await user.type(screen.getByPlaceholderText('License plate'), 'BAD!');
-    await user.click(screen.getByRole('button', { name: /save car/i }));
+    await user.type(screen.getByPlaceholderText('Plaka'), 'BAD!');
+    await user.click(screen.getByRole('button', { name: /aracı kaydet/i }));
 
     assert.match((await screen.findByRole('alert')).textContent ?? '', /Plaka formati gecersiz/);
   });
@@ -110,9 +110,9 @@ describe('App', () => {
     const fetchMock = installFetchMock();
     render(<App />);
 
-    await screen.findAllByText('Oil Change');
-    await user.selectOptions(screen.getByLabelText('Next status for Oil Change'), 'IN_PROGRESS');
-    await user.click(screen.getByRole('button', { name: 'Update Oil Change' }));
+    await screen.findAllByText('Yağ değişimi');
+    await user.selectOptions(screen.getByLabelText('Yağ değişimi için sonraki durum'), 'IN_PROGRESS');
+    await user.click(screen.getByRole('button', { name: 'Yağ değişimi güncelle' }));
 
     assert.match((await screen.findByRole('alert')).textContent ?? '', /Kayit guncel degil/);
     await waitFor(() => {
@@ -123,12 +123,12 @@ describe('App', () => {
   it('shows only valid next statuses for each service action', async () => {
     render(<App />);
 
-    const pendingStatus = await screen.findByLabelText('Next status for Oil Change');
-    assert.ok(within(pendingStatus).getByRole('option', { name: 'PENDING' }));
-    assert.ok(within(pendingStatus).getByRole('option', { name: 'IN_PROGRESS' }));
-    assert.equal(within(pendingStatus).queryByRole('option', { name: 'DONE' }), null);
+    const pendingStatus = await screen.findByLabelText('Yağ değişimi için sonraki durum');
+    assert.ok(within(pendingStatus).getByRole('option', { name: 'Beklemede' }));
+    assert.ok(within(pendingStatus).getByRole('option', { name: 'Devam ediyor' }));
+    assert.equal(within(pendingStatus).queryByRole('option', { name: 'Tamamlandı' }), null);
 
-    const doneStatus = screen.getByLabelText('Next status for Brake Check') as HTMLSelectElement;
+    const doneStatus = screen.getByLabelText('Fren kontrolü için sonraki durum') as HTMLSelectElement;
     assert.equal(doneStatus.disabled, true);
   });
 
@@ -137,9 +137,9 @@ describe('App', () => {
     const fetchMock = installFetchMock();
     render(<App />);
 
-    await screen.findAllByText('Oil Change');
-    await user.selectOptions(screen.getByLabelText('Car filter'), '1');
-    await user.selectOptions(screen.getByLabelText('Status filter'), 'PENDING');
+    await screen.findAllByText('Yağ değişimi');
+    await user.selectOptions(screen.getByLabelText('Araç filtresi'), '1');
+    await user.selectOptions(screen.getByLabelText('Durum filtresi'), 'PENDING');
 
     await waitFor(() => {
       assert.ok(fetchMock.calls.some(([url]) => String(url) === '/api/services?carId=1&status=PENDING'));

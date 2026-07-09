@@ -165,3 +165,8 @@ En mantıklı sonraki iş: MVP teslimi sonrası backend pagination veya dedicate
 - Merge sonrası `main` üzerinde `npm --prefix frontend run build` çalıştırıldı; build başarılı geçti.
 - Merge sonrası `main` üzerinde `docker compose config` çalıştırıldı; config başarılı doğrulandı.
 - `main` push başarılı: `c10fd0c..26d21a9 main -> main`.
+- Frontend görünen label, placeholder, buton, tablo başlığı, status etiketi ve hata mesajları Türkçeleştirildi.
+- Frontend katalog servis adları ekranda Türkçe gösterilecek şekilde map edildi; API contract değerleri değişmedi.
+- Bu iş için `npm --prefix frontend test` çalıştırıldı; 4 test geçti, 0 skipped.
+- Bu iş için `npm --prefix frontend run build` çalıştırıldı; build başarılı geçti.
+- Lokal frontend container yeniden build edildi; `http://localhost:3000` Türkçe HTML title ve `lang="tr"` ile servis ediliyor.

@@ -40,6 +40,37 @@ const nextStatuses: Record<ServiceStatus, ServiceStatus[]> = {
   DONE: []
 };
 
+const statusLabels: Record<ServiceStatus, string> = {
+  PENDING: 'Beklemede',
+  IN_PROGRESS: 'Devam ediyor',
+  DONE: 'Tamamlandı'
+};
+
+const serviceTitleLabels: Record<string, string> = {
+  'Oil Change': 'Yağ değişimi',
+  Inspection: 'Genel kontrol',
+  'Tire Change': 'Lastik değişimi',
+  'Brake Check': 'Fren kontrolü'
+};
+
+const errorMessageLabels: Record<string, string> = {
+  'License plate already exists': 'Bu plaka zaten kayıtlı',
+  'Invalid license plate': 'Plaka formatı geçersiz',
+  'Service action was updated by another user. Refresh the row and try again.':
+    'Servis işlemi başka bir kullanıcı tarafından güncellendi. Satırı yenileyip tekrar deneyin.',
+  'A car can have at most 2 IN_PROGRESS service actions.':
+    'Bir araçta aynı anda en fazla 2 servis işlemi devam ediyor olabilir.',
+  'Service action not found': 'Servis işlemi bulunamadı',
+  'Service catalog entry not found': 'Servis katalog kaydı bulunamadı',
+  'Car not found': 'Araç bulunamadı',
+  'Bad Request': 'Geçersiz istek',
+  Unauthorized: 'Yetkisiz işlem',
+  Forbidden: 'Erişim reddedildi',
+  'Not Found': 'Kayıt bulunamadı',
+  Conflict: 'Çakışma oluştu',
+  'Internal Server Error': 'Sunucu hatası'
+};
+
 type IconComponent = React.ComponentType<{ size?: number }>;
 
 function normalizeIcon(icon: IconComponent | { default: IconComponent }): IconComponent {
@@ -50,6 +81,26 @@ const RefreshCcw = normalizeIcon(RefreshCcwIcon);
 const Save = normalizeIcon(SaveIcon);
 const Wrench = normalizeIcon(WrenchIcon);
 
+function formatStatus(status: ServiceStatus) {
+  return statusLabels[status];
+}
+
+function formatServiceTitle(title: string) {
+  return serviceTitleLabels[title] ?? title;
+}
+
+function formatErrorMessage(message: string) {
+  const exact = errorMessageLabels[message];
+  if (exact) return exact;
+
+  const partialMatch = Object.entries(errorMessageLabels).find(([source]) => message.startsWith(source));
+  if (partialMatch) {
+    return message.replace(partialMatch[0], partialMatch[1]);
+  }
+
+  return message;
+}
+
 async function api<T>(url: string, init?: RequestInit): Promise<T> {
   const response = await fetch(url, {
     ...init,
@@ -57,7 +108,7 @@ async function api<T>(url: string, init?: RequestInit): Promise<T> {
   });
   if (!response.ok) {
     const error = await response.json().catch(() => ({ message: response.statusText }));
-    throw new Error(error.message ?? response.statusText);
+    throw new Error(formatErrorMessage(error.message ?? response.statusText));
   }
   return response.json();
 }
@@ -179,11 +230,11 @@ export function App() {
       <header className="border-b border-line bg-white">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
           <div>
-            <h1 className="text-2xl font-semibold tracking-normal">Car Service Manager</h1>
-            <p className="text-sm text-steel">Service operations, technician context, and audit-ready workflows.</p>
+            <h1 className="text-2xl font-semibold tracking-normal">Araç Servis Yönetimi</h1>
+            <p className="text-sm text-steel">Servis operasyonları, teknisyen bağlamı ve audit uyumlu iş akışları.</p>
           </div>
           <button className="inline-flex items-center gap-2 rounded-md border border-line px-3 py-2 text-sm" onClick={() => refresh()}>
-            <RefreshCcw size={16} /> Refresh
+            <RefreshCcw size={16} /> Yenile
           </button>
         </div>
       </header>
@@ -191,43 +242,43 @@ export function App() {
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-5 px-6 py-6 lg:grid-cols-[380px_1fr]">
         <aside className="space-y-5">
           <section className="rounded-md border border-line bg-white p-4">
-            <h2 className="mb-3 text-base font-semibold">Create car</h2>
+            <h2 className="mb-3 text-base font-semibold">Araç oluştur</h2>
             <form className="grid gap-3" onSubmit={createCar}>
-              <input className="rounded-md border border-line px-3 py-2" placeholder="License plate" value={carForm.licensePlate} onChange={(e) => setCarForm({ ...carForm, licensePlate: e.target.value })} />
+              <input className="rounded-md border border-line px-3 py-2" placeholder="Plaka" value={carForm.licensePlate} onChange={(e) => setCarForm({ ...carForm, licensePlate: e.target.value })} />
               <div className="grid grid-cols-2 gap-3">
-                <input className="rounded-md border border-line px-3 py-2" placeholder="Brand" value={carForm.brand} onChange={(e) => setCarForm({ ...carForm, brand: e.target.value })} />
+                <input className="rounded-md border border-line px-3 py-2" placeholder="Marka" value={carForm.brand} onChange={(e) => setCarForm({ ...carForm, brand: e.target.value })} />
                 <input className="rounded-md border border-line px-3 py-2" placeholder="Model" value={carForm.model} onChange={(e) => setCarForm({ ...carForm, model: e.target.value })} />
               </div>
-              <input className="rounded-md border border-line px-3 py-2" placeholder="Owner full name" value={carForm.ownerName} onChange={(e) => setCarForm({ ...carForm, ownerName: e.target.value })} />
+              <input className="rounded-md border border-line px-3 py-2" placeholder="Araç sahibi adı soyadı" value={carForm.ownerName} onChange={(e) => setCarForm({ ...carForm, ownerName: e.target.value })} />
               <div className="grid grid-cols-2 gap-3">
-                <input className="rounded-md border border-line px-3 py-2" placeholder="Phone" value={carForm.phoneNumber} onChange={(e) => setCarForm({ ...carForm, phoneNumber: e.target.value })} />
-                <input className="rounded-md border border-line px-3 py-2" placeholder="Email" value={carForm.email} onChange={(e) => setCarForm({ ...carForm, email: e.target.value })} />
+                <input className="rounded-md border border-line px-3 py-2" placeholder="Telefon" value={carForm.phoneNumber} onChange={(e) => setCarForm({ ...carForm, phoneNumber: e.target.value })} />
+                <input className="rounded-md border border-line px-3 py-2" placeholder="E-posta" value={carForm.email} onChange={(e) => setCarForm({ ...carForm, email: e.target.value })} />
               </div>
               <div className="grid grid-cols-2 gap-3">
-                <input className="rounded-md border border-line px-3 py-2" placeholder="Engine oil" value={carForm.engineOilType} onChange={(e) => setCarForm({ ...carForm, engineOilType: e.target.value })} />
-                <input className="rounded-md border border-line px-3 py-2" placeholder="Tire brand" value={carForm.tireBrand} onChange={(e) => setCarForm({ ...carForm, tireBrand: e.target.value })} />
-                <input className="rounded-md border border-line px-3 py-2" placeholder="Tire size" value={carForm.tireSize} onChange={(e) => setCarForm({ ...carForm, tireSize: e.target.value })} />
-                <input className="rounded-md border border-line px-3 py-2" placeholder="Brake fluid" value={carForm.brakeFluidType} onChange={(e) => setCarForm({ ...carForm, brakeFluidType: e.target.value })} />
+                <input className="rounded-md border border-line px-3 py-2" placeholder="Motor yağı" value={carForm.engineOilType} onChange={(e) => setCarForm({ ...carForm, engineOilType: e.target.value })} />
+                <input className="rounded-md border border-line px-3 py-2" placeholder="Lastik markası" value={carForm.tireBrand} onChange={(e) => setCarForm({ ...carForm, tireBrand: e.target.value })} />
+                <input className="rounded-md border border-line px-3 py-2" placeholder="Lastik ölçüsü" value={carForm.tireSize} onChange={(e) => setCarForm({ ...carForm, tireSize: e.target.value })} />
+                <input className="rounded-md border border-line px-3 py-2" placeholder="Fren hidroliği" value={carForm.brakeFluidType} onChange={(e) => setCarForm({ ...carForm, brakeFluidType: e.target.value })} />
               </div>
               <button className="inline-flex items-center justify-center gap-2 rounded-md bg-accent px-3 py-2 text-sm font-medium text-white">
-                <Save size={16} /> Save car
+                <Save size={16} /> Aracı kaydet
               </button>
             </form>
           </section>
 
           <section className="rounded-md border border-line bg-white p-4">
-            <h2 className="mb-3 text-base font-semibold">Create service action</h2>
+            <h2 className="mb-3 text-base font-semibold">Servis işlemi oluştur</h2>
             <form className="grid gap-3" onSubmit={createServiceAction}>
               <select className="rounded-md border border-line px-3 py-2" value={serviceForm.carId} onChange={(e) => setServiceForm({ ...serviceForm, carId: e.target.value })}>
-                <option value="">Select car</option>
+                <option value="">Araç seç</option>
                 {cars.map((car) => <option key={car.id} value={car.id}>{car.licensePlate} - {car.brand} {car.model}</option>)}
               </select>
               <select className="rounded-md border border-line px-3 py-2" value={serviceForm.serviceId} onChange={(e) => setServiceForm({ ...serviceForm, serviceId: e.target.value })}>
-                <option value="">Select service</option>
-                {catalog.map((service) => <option key={service.id} value={service.id}>{service.title}</option>)}
+                <option value="">Servis seç</option>
+                {catalog.map((service) => <option key={service.id} value={service.id}>{formatServiceTitle(service.title)}</option>)}
               </select>
               <button className="inline-flex items-center justify-center gap-2 rounded-md bg-ink px-3 py-2 text-sm font-medium text-white">
-                <Wrench size={16} /> Create action
+                <Wrench size={16} /> İşlem oluştur
               </button>
             </form>
           </section>
@@ -238,16 +289,16 @@ export function App() {
 
           <div className="rounded-md border border-line bg-white">
             <div className="flex flex-wrap items-center justify-between gap-3 border-b border-line p-4">
-              <h2 className="text-base font-semibold">Cars</h2>
-              <select aria-label="Car filter" className="rounded-md border border-line px-3 py-2 text-sm" value={selectedCarId} onChange={(e) => setSelectedCarId(e.target.value ? Number(e.target.value) : '')}>
-                <option value="">All cars</option>
+              <h2 className="text-base font-semibold">Araçlar</h2>
+              <select aria-label="Araç filtresi" className="rounded-md border border-line px-3 py-2 text-sm" value={selectedCarId} onChange={(e) => setSelectedCarId(e.target.value ? Number(e.target.value) : '')}>
+                <option value="">Tüm araçlar</option>
                 {cars.map((car) => <option key={car.id} value={car.id}>{car.licensePlate}</option>)}
               </select>
             </div>
             <div className="overflow-x-auto">
               <table className="w-full min-w-[720px] text-left text-sm">
                 <thead className="bg-panel text-steel">
-                  <tr><th className="p-3">License Plate</th><th>Brand</th><th>Model</th><th>Owner</th></tr>
+                  <tr><th className="p-3">Plaka</th><th>Marka</th><th>Model</th><th>Sahip</th></tr>
                 </thead>
                 <tbody>
                   {cars.map((car) => (
@@ -262,37 +313,37 @@ export function App() {
 
           <div className="rounded-md border border-line bg-white">
             <div className="flex flex-wrap items-center justify-between gap-3 border-b border-line p-4">
-              <h2 className="text-base font-semibold">Services</h2>
-              <select aria-label="Status filter" className="rounded-md border border-line px-3 py-2 text-sm" value={statusFilter} onChange={(e) => setStatusFilter(e.target.value as ServiceStatus | '')}>
-                <option value="">All statuses</option>
-                <option value="PENDING">Pending</option>
-                <option value="IN_PROGRESS">In progress</option>
-                <option value="DONE">Done</option>
+              <h2 className="text-base font-semibold">Servis işlemleri</h2>
+              <select aria-label="Durum filtresi" className="rounded-md border border-line px-3 py-2 text-sm" value={statusFilter} onChange={(e) => setStatusFilter(e.target.value as ServiceStatus | '')}>
+                <option value="">Tüm durumlar</option>
+                <option value="PENDING">{formatStatus('PENDING')}</option>
+                <option value="IN_PROGRESS">{formatStatus('IN_PROGRESS')}</option>
+                <option value="DONE">{formatStatus('DONE')}</option>
               </select>
             </div>
             <div className="overflow-x-auto">
               <table className="w-full min-w-[900px] text-left text-sm">
                 <thead className="bg-panel text-steel">
-                  <tr><th className="p-3">Title</th><th>Car</th><th>Status</th><th>Report</th><th>Actions</th></tr>
+                  <tr><th className="p-3">Servis</th><th>Araç</th><th>Durum</th><th>Rapor</th><th>İşlemler</th></tr>
                 </thead>
                 <tbody>
                   {actions.map((action) => {
                     const draft = editing[action.id] ?? { status: '', report: action.technicianReport ?? '' };
                     return (
                       <tr key={action.id} className="border-t border-line align-top">
-                        <td className="p-3 font-medium">{action.service.title}</td>
+                        <td className="p-3 font-medium">{formatServiceTitle(action.service.title)}</td>
                         <td>{action.car.licensePlate ?? action.car.id}</td>
                         <td>
-                          <select aria-label={`Next status for ${action.service.title}`} className="rounded-md border border-line px-2 py-1" value={draft.status} disabled={nextStatuses[action.status].length === 0} onChange={(e) => setEditing({ ...editing, [action.id]: { ...draft, status: e.target.value as ServiceStatus } })}>
-                            <option value="">{action.status}</option>
-                            {nextStatuses[action.status].map((status) => <option key={status} value={status}>{status}</option>)}
+                          <select aria-label={`${formatServiceTitle(action.service.title)} için sonraki durum`} className="rounded-md border border-line px-2 py-1" value={draft.status} disabled={nextStatuses[action.status].length === 0} onChange={(e) => setEditing({ ...editing, [action.id]: { ...draft, status: e.target.value as ServiceStatus } })}>
+                            <option value="">{formatStatus(action.status)}</option>
+                            {nextStatuses[action.status].map((status) => <option key={status} value={status}>{formatStatus(status)}</option>)}
                           </select>
                         </td>
                         <td>
                           <textarea className="min-h-20 w-full rounded-md border border-line px-2 py-1" value={draft.report} onChange={(e) => setEditing({ ...editing, [action.id]: { ...draft, report: e.target.value } })} />
                         </td>
                         <td>
-                          <button aria-label={`Update ${action.service.title}`} className="rounded-md border border-line px-3 py-2 text-sm" onClick={() => updateAction(action)}>Update</button>
+                          <button aria-label={`${formatServiceTitle(action.service.title)} güncelle`} className="rounded-md border border-line px-3 py-2 text-sm" onClick={() => updateAction(action)}>Güncelle</button>
                         </td>
                       </tr>
                     );
@@ -303,27 +354,27 @@ export function App() {
           </div>
 
           <div className="rounded-md border border-line bg-white p-4">
-            <h2 className="mb-3 text-base font-semibold">Technician context</h2>
+            <h2 className="mb-3 text-base font-semibold">Teknisyen bağlamı</h2>
             {selectedCar ? (
               <div className="grid gap-3 md:grid-cols-2">
                 {[
-                  ['Engine Oil Type', selectedCar.technicalProfile?.engineOilType],
-                  ['Tire Brand', selectedCar.technicalProfile?.tireBrand],
-                  ['Tire Size', selectedCar.technicalProfile?.tireSize],
-                  ['Brake Fluid', selectedCar.technicalProfile?.brakeFluidType]
+                  ['Motor yağı tipi', selectedCar.technicalProfile?.engineOilType],
+                  ['Lastik markası', selectedCar.technicalProfile?.tireBrand],
+                  ['Lastik ölçüsü', selectedCar.technicalProfile?.tireSize],
+                  ['Fren hidroliği', selectedCar.technicalProfile?.brakeFluidType]
                 ].map(([label, value]) => (
                   <div key={label} className="rounded-md border border-line bg-panel p-3">
                     <div className="text-xs uppercase text-steel">{label}</div>
-                    <div className="font-medium">{value || 'Not recorded'}</div>
+                    <div className="font-medium">{value || 'Kayıt yok'}</div>
                   </div>
                 ))}
                 <div className="md:col-span-2">
-                  <div className="text-xs uppercase text-steel">Recent technician notes</div>
-                  <p className="mt-1 text-sm">{actions.find((item) => item.status === 'DONE' && item.technicianReport)?.technicianReport ?? 'No completed report for the selected filters.'}</p>
+                  <div className="text-xs uppercase text-steel">Son teknisyen notları</div>
+                  <p className="mt-1 text-sm">{actions.find((item) => item.status === 'DONE' && item.technicianReport)?.technicianReport ?? 'Seçili filtreler için tamamlanmış rapor yok.'}</p>
                 </div>
               </div>
             ) : (
-              <p className="text-sm text-steel">Select a car to inspect technical profile and recent notes.</p>
+              <p className="text-sm text-steel">Teknik profili ve son notları incelemek için bir araç seçin.</p>
             )}
           </div>
         </section>

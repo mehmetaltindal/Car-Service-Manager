@@ -2,7 +2,7 @@
 
 ## Mevcut Aşama
 
-Docker Compose API smoke test kapsamı API akışı ve audit doğrulamasıyla genişletildi.
+MVP doğrulama hattı tamamlandı; frontend Türkçeleştirme, backend pagination ve teknik profil güncelleme endpoint’i main branch’e alındı.
 
 ## Tamamlanan İşler
 
@@ -81,7 +81,7 @@ Docker Compose API smoke test kapsamı API akışı ve audit doğrulamasıyla ge
 
 ## Aktif İş
 
-MVP doğrulama hattı tamamlandı; ürün iyileştirme seçimi yapılmalı.
+MVP doğrulama hattı tamamlandı; sıradaki ürün iyileştirmesi recent technician notes endpoint’i.
 
 ## Engeller
 
@@ -99,7 +99,7 @@ MVP doğrulama hattı tamamlandı; ürün iyileştirme seçimi yapılmalı.
 
 ## Sonraki Önerilen İş
 
-En mantıklı sonraki iş: MVP teslimi sonrası backend pagination veya dedicated technical profile update endpointlerinden birini seçmek.
+En mantıklı sonraki iş: recent technician notes endpoint’i eklemek.
 
 ## Git Durumu
 
@@ -192,3 +192,12 @@ En mantıklı sonraki iş: MVP teslimi sonrası backend pagination veya dedicate
 - Teknik profil güncelleme akışı operation log ve `car.technical-profile-updated` domain event üretir.
 - Bu iş için `mvn -pl car-service clean verify` çalıştırıldı; car-service 2 unit ve 5 integration test geçti, 0 skipped.
 - Bu iş için `mvn -pl car-service,service-service,audit-service test` çalıştırıldı; 4 test geçti, 0 skipped.
+- Dedicated technical profile update endpoint branch’i: `feature-technical-profile-update-endpoint`.
+- Dedicated technical profile update endpoint commit’i: `35db8bb` (`feat: add technical profile update endpoint`).
+- Dedicated technical profile update endpoint branch push başarılı: `feature-technical-profile-update-endpoint -> origin/feature-technical-profile-update-endpoint`.
+- Dedicated technical profile update endpoint `main` merge commit’i: `3fcdcfb` (`merge: technical profile update endpoint`).
+- Merge sonrası `main` üzerinde `mvn -pl car-service,service-service,audit-service test` çalıştırıldı; 4 test geçti, 0 skipped.
+- Docker Compose temiz clone taşınabilirliği kontrol edildi; compose dosyasında kullanıcı makinesine özel absolute path veya dış bind mount bulunmuyor.
+- Frontend Docker build deterministik dependency kurulumu için `package-lock.json` kullanan `npm ci` akışına geçirildi.
+- Bu iş için `docker compose config` çalıştırıldı; config başarılı doğrulandı.
+- Bu iş için `docker compose build frontend` çalıştırıldı; frontend image başarılı build edildi. Npm audit çıktısında 1 moderate ve 1 high vulnerability uyarısı var; build’i engellemedi.

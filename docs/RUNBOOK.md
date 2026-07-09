@@ -2,6 +2,12 @@
 
 ## Lokal Başlatma
 
+Temiz bir clone sonrası ön koşullar:
+
+- Docker Desktop veya Docker Engine + Compose plugin çalışır durumda olmalı.
+- Makine internetten base image ve npm/Maven bağımlılıklarını çekebilmeli veya ilgili Docker layer cache hazır olmalı.
+- Varsayılan `3000`, `3306`, `5672`, `15672`, `8081`, `8082` ve `8083` portları boş olmalı.
+
 ```bash
 docker compose up --build
 ```
@@ -12,6 +18,12 @@ Açılacak adresler:
 - RabbitMQ: `http://localhost:15672`
 
 Varsayılan RabbitMQ kullanıcı bilgisi `guest` / `guest`.
+
+Port çakışması varsa örnek override:
+
+```bash
+FRONTEND_PORT=3001 MYSQL_PORT=3307 docker compose up --build
+```
 
 ## Yaygın Hatalar
 

@@ -22,6 +22,8 @@ Sistem Spring Boot microservice servisleri, MySQL, RabbitMQ, React, Tailwind ve 
 
 ## Çalıştırma
 
+Temiz bir clone sonrası Docker Desktop veya Docker Engine + Compose plugin çalışır durumdayken:
+
 ```bash
 docker compose up --build
 ```
@@ -29,6 +31,8 @@ docker compose up --build
 Frontend: `http://localhost:3000`
 
 RabbitMQ yönetim ekranı: `http://localhost:15672`
+
+Varsayılan portlar `3000`, `3306`, `5672`, `15672`, `8081`, `8082` ve `8083` şeklindedir. Port çakışması varsa ilgili `*_PORT` environment variable değerleriyle override edilebilir.
 
 ## Test
 
@@ -44,6 +48,7 @@ Integration ve concurrency testleri MySQL Testcontainers ile çalışmalıdır. 
 - `GET /api/cars`
 - `POST /api/cars`
 - `PUT /api/cars/{id}`
+- `PUT /api/cars/{id}/technical-profile`
 - `GET /api/services`
 - `POST /api/services`
 - `PUT /api/services/{id}`

@@ -2,15 +2,15 @@
 
 ## Hemen Yapılacaklar
 
-1. Docker Compose uçtan uca smoke test kapsamını API akışıyla genişlet.
-2. Create car, create service action ve status update adımlarını smoke akışına ekle.
-3. Audit log doğrulaması için RabbitMQ/MySQL tarafını smoke senaryosunda kontrol et.
+1. Backend pagination ekle.
+2. Dedicated technical profile update endpoint ekle.
+3. Recent technician notes endpoint ekle.
 4. Her implementation pass sonunda `docs/PROJECT_STATUS.md` ve ilgili iş parçacığını güncelle.
 
 ## Gerekli Test Genişletmeleri
 
-1. Docker Compose uçtan uca smoke test kapsamını API akışıyla genişlet.
-2. CI pipeline ekle.
+1. CI manuel Docker Compose smoke job’unun ilk GitHub Actions çalışmasını kontrol et.
+2. Reliability gereksinimleri artarsa outbox ve DLQ testlerini ekle.
 
 ## Git ve Teslimat
 
@@ -38,5 +38,4 @@
 1. Backend pagination ekle.
 2. Dedicated technical profile update endpoint ekle.
 3. Recent technician notes endpoint ekle.
-4. CI pipeline ekle.
-5. Reliability gereksinimleri artarsa outbox ve DLQ stratejisi ekle.
+4. Reliability gereksinimleri artarsa outbox ve DLQ stratejisi ekle.

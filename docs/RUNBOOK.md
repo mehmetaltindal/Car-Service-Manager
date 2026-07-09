@@ -45,6 +45,16 @@ Docker içinde nginx `/api/cars` isteklerini `car-service:8081` adresine, `/api/
 
 Lokal Vite dev mode içinde `vite.config.ts`, localhost `8081` ve `8082` portlarına proxy eder.
 
+## API Smoke Test
+
+Compose ortamı ayaktayken uçtan uca API ve audit doğrulamasını çalıştır:
+
+```bash
+scripts/docker-compose-api-smoke.sh
+```
+
+Bu script araç oluşturur, servis katalog kaydını kullanarak servis aksiyonu oluşturur, status değerini `IN_PROGRESS` yapar, `carId/status` filtresini doğrular ve `audit_service.audit_log` içinde ilgili eventlerin kalıcılaştığını kontrol eder.
+
 ## Reset
 
 ```bash

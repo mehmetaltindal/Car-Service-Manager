@@ -194,6 +194,26 @@ Tamamlanma kanıtı:
 
 - `.github/workflows/ci.yml`
 
+## WI-021: Frontend Türkçeleştirme
+
+Durum: Tamamlandı
+
+Kapsam:
+
+- Ekranda görünen frontend label, başlık, placeholder, buton ve tablo başlıkları.
+- Servis durumlarının Türkçe gösterimi.
+- Backend hata mesajlarının kullanıcıya Türkçe gösterimi.
+- Katalog servis adlarının ekranda Türkçe gösterimi.
+- HTML `lang` ve sayfa başlığı.
+
+Tamamlanma kanıtı:
+
+- `frontend/src/App.tsx`
+- `frontend/src/App.test.tsx`
+- `frontend/index.html`
+- `npm --prefix frontend test`
+- `npm --prefix frontend run build`
+
 ## WI-008: Dokümantasyonu Türkçeleştirme
 
 Durum: Tamamlandı

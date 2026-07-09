@@ -159,3 +159,8 @@ En mantıklı sonraki iş: MVP teslimi sonrası backend pagination veya dedicate
 - Docker Compose API smoke test branch push başarılı: `feature-docker-compose-api-smoke-test -> origin/feature-docker-compose-api-smoke-test`.
 - CI pipeline commit’i: `9ea5f24` (`ci: add verification workflow`).
 - CI pipeline commit push başarılı: `9a4041d..9ea5f24 feature-docker-compose-api-smoke-test -> feature-docker-compose-api-smoke-test`.
+- Docker Compose API smoke ve CI pipeline `main` merge commit’i: `e4596c6` (`merge: docker compose api smoke and ci`).
+- Merge sonrası `main` üzerinde `mvn -pl car-service,service-service,audit-service test` çalıştırıldı; 4 test geçti, 0 skipped.
+- Merge sonrası `main` üzerinde `npm --prefix frontend test` çalıştırıldı; 4 test geçti, 0 skipped.
+- Merge sonrası `main` üzerinde `npm --prefix frontend run build` çalıştırıldı; build başarılı geçti.
+- Merge sonrası `main` üzerinde `docker compose config` çalıştırıldı; config başarılı doğrulandı.

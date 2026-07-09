@@ -11,8 +11,15 @@ const cars = [
     licensePlate: '34 ABC 123',
     brand: 'Toyota',
     model: 'Corolla',
-    owner: { fullName: 'Mehmet Altindal' },
-    technicalProfile: { engineOilType: '5W-30', tireBrand: 'Michelin' }
+    owner: { fullName: 'Mehmet Altindal', phoneNumber: '+905551112233', email: 'mehmet@example.com' },
+    technicalProfile: {
+      engineOilType: '5W-30',
+      tireBrand: 'Michelin',
+      tireSize: '205/55 R16',
+      batteryType: 'AGM',
+      brakeFluidType: 'DOT4',
+      transmissionOilType: 'ATF'
+    }
   },
   {
     id: 2,
@@ -144,5 +151,22 @@ describe('App', () => {
     await waitFor(() => {
       assert.ok(fetchMock.calls.some(([url]) => String(url) === '/api/services?carId=1&status=PENDING'));
     });
+  });
+
+  it('shows saved car owner and technical profile details', async () => {
+    const user = userEvent.setup({ document });
+    render(<App />);
+
+    await screen.findAllByText('34 ABC 123');
+    await user.click(screen.getAllByRole('button', { name: 'Detay' })[0]);
+
+    assert.ok(await screen.findByText('+905551112233'));
+    assert.ok(screen.getByText('mehmet@example.com'));
+    assert.ok(screen.getAllByText('5W-30').length > 0);
+    assert.ok(screen.getAllByText('Michelin').length > 0);
+    assert.ok(screen.getAllByText('205/55 R16').length > 0);
+    assert.ok(screen.getAllByText('AGM').length > 0);
+    assert.ok(screen.getAllByText('DOT4').length > 0);
+    assert.ok(screen.getAllByText('ATF').length > 0);
   });
 });

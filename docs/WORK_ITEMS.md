@@ -177,6 +177,23 @@ Tamamlanma kanıtı:
 - `docker compose up --build --detach`
 - `scripts/docker-compose-api-smoke.sh`: `Smoke test passed: car=2, serviceAction=2, auditEvents=3`
 
+## WI-020: CI Pipeline
+
+Durum: Tamamlandı
+
+Kapsam:
+
+- GitHub Actions workflow.
+- Push ve pull request için backend unit test.
+- Push ve pull request için frontend component testleri.
+- Push ve pull request için frontend production build.
+- Push ve pull request için Docker Compose config doğrulaması.
+- Manuel çalıştırılan Docker Compose API smoke job’u.
+
+Tamamlanma kanıtı:
+
+- `.github/workflows/ci.yml`
+
 ## WI-008: Dokümantasyonu Türkçeleştirme
 
 Durum: Tamamlandı

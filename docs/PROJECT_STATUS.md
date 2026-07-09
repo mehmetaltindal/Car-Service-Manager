@@ -69,10 +69,19 @@ Docker Compose API smoke test kapsamı API akışı ve audit doğrulamasıyla ge
 - Bu iş için `mvn -pl car-service,service-service,audit-service test` çalıştırıldı; 4 test geçti, 0 skipped.
 - Bu iş için `npm --prefix frontend test` çalıştırıldı; 4 test geçti, 0 skipped.
 - Bu iş için `npm --prefix frontend run build` çalıştırıldı; build başarılı geçti.
+- GitHub Actions CI pipeline eklendi: `.github/workflows/ci.yml`.
+- CI pipeline push ve pull request için backend unit test, frontend test, frontend production build ve `docker compose config` doğrulaması çalıştırır.
+- Manuel `workflow_dispatch` ile çalışan Docker Compose smoke job’u eklendi; stack’i ayağa kaldırır, `scripts/docker-compose-api-smoke.sh` çalıştırır ve `docker compose down -v` ile temizler.
+- Bu iş için `mvn -pl car-service,service-service,audit-service test` çalıştırıldı; 4 test geçti, 0 skipped.
+- Bu iş için `npm --prefix frontend test` çalıştırıldı; 4 test geçti, 0 skipped.
+- Bu iş için `npm --prefix frontend run build` çalıştırıldı; build başarılı geçti.
+- Bu iş için `docker compose config` çalıştırıldı; config başarılı doğrulandı.
+- Bu iş için `bash -n scripts/docker-compose-api-smoke.sh` çalıştırıldı; syntax başarılı doğrulandı.
+- Site erişimi `curl -fsS -I http://localhost:3000` ile doğrulandı; HTTP `200 OK` döndü.
 
 ## Aktif İş
 
-CI pipeline eklenmeli.
+MVP doğrulama hattı tamamlandı; ürün iyileştirme seçimi yapılmalı.
 
 ## Engeller
 
@@ -90,7 +99,7 @@ CI pipeline eklenmeli.
 
 ## Sonraki Önerilen İş
 
-En mantıklı sonraki iş: backend testleri, frontend test/build ve Docker Compose smoke scriptini çalıştıran CI pipeline eklemek.
+En mantıklı sonraki iş: MVP teslimi sonrası backend pagination veya dedicated technical profile update endpointlerinden birini seçmek.
 
 ## Git Durumu
 

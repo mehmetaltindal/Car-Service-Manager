@@ -2,17 +2,15 @@
 
 ## Hemen Yapılacaklar
 
-1. CI pipeline ekle.
-2. CI içinde backend unit testlerini çalıştır.
-3. CI içinde frontend test ve production build komutlarını çalıştır.
-4. CI içinde Docker Compose config doğrulamasını çalıştır.
-5. Docker runner erişimi varsa `scripts/docker-compose-api-smoke.sh` komutunu CI smoke kapısına ekle.
-6. Her implementation pass sonunda `docs/PROJECT_STATUS.md` ve ilgili iş parçacığını güncelle.
+1. Backend pagination ekle.
+2. Dedicated technical profile update endpoint ekle.
+3. Recent technician notes endpoint ekle.
+4. Her implementation pass sonunda `docs/PROJECT_STATUS.md` ve ilgili iş parçacığını güncelle.
 
 ## Gerekli Test Genişletmeleri
 
-1. CI pipeline ekle.
-2. CI ortamında Docker daemon mevcutsa Docker Compose API smoke testini otomatik çalıştır.
+1. CI manuel Docker Compose smoke job’unun ilk GitHub Actions çalışmasını kontrol et.
+2. Reliability gereksinimleri artarsa outbox ve DLQ testlerini ekle.
 
 ## Git ve Teslimat
 
@@ -40,5 +38,4 @@
 1. Backend pagination ekle.
 2. Dedicated technical profile update endpoint ekle.
 3. Recent technician notes endpoint ekle.
-4. CI pipeline ekle.
-5. Reliability gereksinimleri artarsa outbox ve DLQ stratejisi ekle.
+4. Reliability gereksinimleri artarsa outbox ve DLQ stratejisi ekle.

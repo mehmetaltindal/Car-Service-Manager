@@ -22,6 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -136,6 +137,27 @@ class CarIntegrationIT {
         mockMvc.perform(get("/api/cars"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[?(@.id == %s)].licensePlate", id).value("35 NEW 001"));
+    }
+
+    @Test
+    void paginatesCarsWithoutChangingListContract() throws Exception {
+        int existingCount = objectMapper.readTree(mockMvc.perform(get("/api/cars"))
+                        .andExpect(status().isOk())
+                        .andReturn()
+                        .getResponse()
+                        .getContentAsString())
+                .size();
+        createCar("34 PAG 001", "A3", "Audi", "Pagination Owner 1");
+        createCar("34 PAG 002", "A4", "Audi", "Pagination Owner 2");
+        createCar("34 PAG 003", "A5", "Audi", "Pagination Owner 3");
+
+        mockMvc.perform(get("/api/cars").param("page", "0").param("size", "2"))
+                .andExpect(status().isOk())
+                .andExpect(header().string("X-Total-Count", String.valueOf(existingCount + 3)))
+                .andExpect(header().string("X-Page", "0"))
+                .andExpect(header().string("X-Size", "2"))
+                .andExpect(jsonPath("$").isArray())
+                .andExpect(jsonPath("$.length()").value(2));
     }
 
     private long createCar(String licensePlate, String model, String brand, String ownerName) throws Exception {

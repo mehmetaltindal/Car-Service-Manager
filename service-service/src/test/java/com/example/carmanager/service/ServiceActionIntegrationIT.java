@@ -37,6 +37,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.header;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -112,6 +113,25 @@ class ServiceActionIntegrationIT {
                 .getResponse()
                 .getContentAsString());
         assertThat(containsActionId(byStatus, inProgress.path("id").asLong())).isTrue();
+    }
+
+    @Test
+    void paginatesServiceActionsWithExistingFilters() throws Exception {
+        long serviceId = firstCatalogServiceId();
+        createAction(701L, "34 SVC 701", serviceId);
+        createAction(702L, "34 SVC 702", serviceId);
+        createAction(703L, "34 SVC 703", serviceId);
+
+        mockMvc.perform(get("/api/services")
+                        .param("status", "PENDING")
+                        .param("page", "0")
+                        .param("size", "2"))
+                .andExpect(status().isOk())
+                .andExpect(header().string("X-Total-Count", "3"))
+                .andExpect(header().string("X-Page", "0"))
+                .andExpect(header().string("X-Size", "2"))
+                .andExpect(jsonPath("$").isArray())
+                .andExpect(jsonPath("$.length()").value(2));
     }
 
     @Test

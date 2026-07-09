@@ -12,6 +12,8 @@ import com.example.carmanager.car.infrastructure.persistence.CarOperationLogRepo
 import com.example.carmanager.car.infrastructure.persistence.CarRepository;
 import com.example.carmanager.car.infrastructure.messaging.RabbitEventPublisher;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,6 +36,11 @@ public class CarApplicationService {
     @Transactional(readOnly = true)
     public List<CarResponse> list() {
         return cars.findAll().stream().map(CarMapper::toResponse).toList();
+    }
+
+    @Transactional(readOnly = true)
+    public Page<CarResponse> list(Pageable pageable) {
+        return cars.findAll(pageable).map(CarMapper::toResponse);
     }
 
     @Transactional

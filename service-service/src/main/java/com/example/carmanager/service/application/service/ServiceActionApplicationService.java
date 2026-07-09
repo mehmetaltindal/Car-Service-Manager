@@ -14,6 +14,8 @@ import com.example.carmanager.service.infrastructure.persistence.ServiceActionRe
 import com.example.carmanager.service.infrastructure.persistence.ServiceCatalogRepository;
 import com.example.carmanager.service.infrastructure.persistence.ServiceOperationLogRepository;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,6 +52,21 @@ public class ServiceActionApplicationService {
             result = actions.findAll();
         }
         return result.stream().map(ServiceActionMapper::toResponse).toList();
+    }
+
+    @Transactional(readOnly = true)
+    public Page<ServiceActionResponse> list(Long carId, ServiceStatus status, Pageable pageable) {
+        Page<ServiceAction> result;
+        if (carId != null && status != null) {
+            result = actions.findByCarIdAndStatus(carId, status, pageable);
+        } else if (carId != null) {
+            result = actions.findByCarId(carId, pageable);
+        } else if (status != null) {
+            result = actions.findByStatus(status, pageable);
+        } else {
+            result = actions.findAll(pageable);
+        }
+        return result.map(ServiceActionMapper::toResponse);
     }
 
     @Transactional(readOnly = true)

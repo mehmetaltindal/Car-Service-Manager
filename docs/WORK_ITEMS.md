@@ -214,6 +214,25 @@ Tamamlanma kanıtı:
 - `npm --prefix frontend test`
 - `npm --prefix frontend run build`
 
+## WI-022: Backend Pagination
+
+Durum: Tamamlandı
+
+Kapsam:
+
+- `GET /api/cars` için opsiyonel `page` ve `size` parametreleri.
+- `GET /api/services` için mevcut `carId/status` filtreleriyle uyumlu opsiyonel `page` ve `size` parametreleri.
+- Response body liste formatını koruyan geriye uyumlu contract.
+- Pagination metadata headerları: `X-Total-Count`, `X-Page`, `X-Size`, `X-Total-Pages`.
+- Integration testlerle pagination contract doğrulaması.
+
+Tamamlanma kanıtı:
+
+- `car-service/src/test/java/com/example/carmanager/car/CarIntegrationIT.java`
+- `service-service/src/test/java/com/example/carmanager/service/ServiceActionIntegrationIT.java`
+- `mvn -pl car-service clean verify`
+- `mvn -pl service-service clean verify`
+
 ## WI-008: Dokümantasyonu Türkçeleştirme
 
 Durum: Tamamlandı
